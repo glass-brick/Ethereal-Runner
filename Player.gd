@@ -16,6 +16,10 @@ export (float) var blinking_speed = 0.05
 export (NodePath) var hud_path
 export (int) var explosion_cost = 5
 
+export (int) var max_mana = 1000
+export (int) var mana_steps = 10
+export (float) var mana_gather_factor = 10
+
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
 onready var hud = get_node(hud_path)
@@ -26,6 +30,7 @@ var acceleration = acceleration_base
 var jump_speed = jump_speed_base
 var invincibility = false
 var invincibility_counter = 0.0
+var mana_level = 1
 
 var velocity = Vector2()
 
@@ -118,21 +123,25 @@ func check_falling_death():
 		self.die()
 
 
-func affect_mana():
-	max_speed = max_speed_base + (mana * mana_factor) * (mana * mana_factor)
-	acceleration = acceleration_base + (mana * mana_factor) * (mana * mana_factor)
-	jump_speed = jump_speed_base - (mana * mana_factor)
+func affect_mana(delta):
+	mana += delta * mana_gather_factor
+	Globals.instability = mana
+	mana_level = floor(mana / max_mana * mana_steps) + 1
+	Globals.instability_level = mana_level
+
+	max_speed = max_speed_base + pow(mana_level * mana_factor,2)
+	acceleration = acceleration_base + pow(mana_level * mana_factor,2)
+	jump_speed = jump_speed_base - pow(mana_level * mana_factor,2)
+	
+	hud.update_mana(mana / max_mana)
 
 
 func _process(delta):
 	if $Camera2D.get_limit(MARGIN_LEFT) < $Camera2D.get_camera_position().x - camera_limit:
 		$Camera2D.set_limit(MARGIN_LEFT, $Camera2D.get_camera_position().x - camera_limit)
-	mana += delta
-	affect_mana()
-	hud.update_mana(mana)
+	affect_mana(delta)
 	hud.update_health(self.health)
 	hud.update_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100)
-	Globals.instability = mana
 
 
 func _on_hit(damage, damager):

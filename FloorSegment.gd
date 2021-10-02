@@ -2,6 +2,7 @@ extends RigidBody2D
 
 export (int) var expiration_time_base = 4
 export (int) var expiration_speed = 1
+export (bool) var test = false
 var expiration_started = false
 var expiration_time = expiration_time_base
 
@@ -31,4 +32,5 @@ func start_expiration_timer():
 
 
 func _on_Player_grab_body_entered(body):
-	self.start_expiration_timer()
+	if not test:
+		self.start_expiration_timer()
