@@ -37,7 +37,6 @@ var instability_levels = [
 	},
 	{
 		"low_treshold": 40,
-		"high_treshold": 60,
 		"min_distance": 1100,
 		"max_distance": 1400,
 		"max_height_diff": 120,
