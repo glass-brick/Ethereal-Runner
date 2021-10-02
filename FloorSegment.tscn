@@ -1,12 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Sprites/base_floor.png" type="Texture" id=1]
 [ext_resource path="res://FloorSegment.gd" type="Script" id=2]
+[ext_resource path="res://Normals/noise.jpg" type="Texture" id=3]
+[ext_resource path="res://Shader/wobblyEffect.shader" type="Shader" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 353.593, 44.6345 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
+shader_param/strength = 0.4
+shader_param/speed = 3.0
+shader_param/frames = 5
+shader_param/flowMap = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 355.496, 10 )
 
 [node name="FloorSegment" type="RigidBody2D"]
@@ -19,6 +28,7 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
 scale = Vector2( 2.85307, 0.376371 )
 texture = ExtResource( 1 )
 
@@ -27,6 +37,6 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_grab"]
 position = Vector2( 0.629944, -45.9871 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [connection signal="body_entered" from="Player_grab" to="." method="_on_Player_grab_body_entered"]
