@@ -19,7 +19,7 @@ region = Rect2( 0, 0, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=15]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ SubResource( 16 ) ],
 "loop": true,
@@ -32,75 +32,75 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Resource" id=2]
+[sub_resource type="Resource" id=4]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 1068, 120 )
 }
 name = "Attack"
 
-[sub_resource type="Resource" id=3]
+[sub_resource type="Resource" id=5]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 448, 180 )
 }
 name = "Entry"
 
-[sub_resource type="Resource" id=4]
+[sub_resource type="Resource" id=6]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 688, 120 )
 }
 name = "Idle"
 
-[sub_resource type="Resource" id=5]
+[sub_resource type="Resource" id=7]
 script = ExtResource( 6 )
 name = "attack_finished"
 
-[sub_resource type="Resource" id=6]
+[sub_resource type="Resource" id=8]
 script = ExtResource( 5 )
 from = "Attack"
 to = "Idle"
 conditions = {
-"attack_finished": SubResource( 5 )
+"attack_finished": SubResource( 7 )
 }
 
-[sub_resource type="Resource" id=7]
+[sub_resource type="Resource" id=9]
 script = ExtResource( 5 )
 from = "Entry"
 to = "Idle"
 conditions = {
 }
 
-[sub_resource type="Resource" id=12]
+[sub_resource type="Resource" id=10]
 script = ExtResource( 6 )
 name = "attack"
 
-[sub_resource type="Resource" id=9]
+[sub_resource type="Resource" id=11]
 script = ExtResource( 5 )
 from = "Idle"
 to = "Attack"
 conditions = {
-"attack": SubResource( 12 )
+"attack": SubResource( 10 )
 }
 
-[sub_resource type="Resource" id=10]
+[sub_resource type="Resource" id=12]
 script = ExtResource( 4 )
 name = ""
 states = {
-"Attack": SubResource( 2 ),
-"Entry": SubResource( 3 ),
-"Idle": SubResource( 4 )
+"Attack": SubResource( 4 ),
+"Entry": SubResource( 5 ),
+"Idle": SubResource( 6 )
 }
 transitions = {
 "Attack": {
-"Idle": SubResource( 6 )
+"Idle": SubResource( 8 )
 },
 "Entry": {
-"Idle": SubResource( 7 )
+"Idle": SubResource( 9 )
 },
 "Idle": {
-"Attack": SubResource( 9 )
+"Attack": SubResource( 11 )
 }
 }
 
@@ -108,6 +108,7 @@ transitions = {
 extents = Vector2( 106.591, 109.118 )
 
 [node name="TwitchBone" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 10 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -118,11 +119,11 @@ animation = "Idle"
 
 [node name="StateMachinePlayer" type="Node" parent="."]
 script = ExtResource( 8 )
-state_machine = SubResource( 10 )
+state_machine = SubResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.667419, 17.3529 )
-shape = SubResource( 11 )
+shape = SubResource( 13 )
 
 [node name="Arm" type="Node2D" parent="."]
 position = Vector2( -3.93972, 40.3517 )

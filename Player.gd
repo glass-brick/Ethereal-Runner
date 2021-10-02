@@ -30,7 +30,7 @@ var camera_limit = 2000
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass  # Replace with function body.
+	hud.update_health(self.health)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -83,3 +83,8 @@ func _process(delta):
 	affect_mana()
 	hud.update_mana(mana)
 	Globals.instability = mana
+
+func _on_hit(damage, damager):
+	print("me pega")
+	self.health -= damage
+	hud.update_health(self.health)
