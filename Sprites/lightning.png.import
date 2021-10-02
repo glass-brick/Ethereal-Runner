@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TwitchBone_ATTACK.png-943ff46bab9f54094b7a0dfd60186c74.stex"
+path="res://.import/lightning.png-adb2d0eb63f2a7b31d50a7753184798e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/TwitchBone_ATTACK.png"
-dest_files=[ "res://.import/TwitchBone_ATTACK.png-943ff46bab9f54094b7a0dfd60186c74.stex" ]
+source_file="res://Sprites/lightning.png"
+dest_files=[ "res://.import/lightning.png-adb2d0eb63f2a7b31d50a7753184798e.stex" ]
 
 [params]
 
