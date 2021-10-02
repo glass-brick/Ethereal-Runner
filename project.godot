@@ -8,11 +8,30 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Object",
+"class": "SceneManagerConstants",
+"language": "GDScript",
+"path": "res://addons/scene_manager/SceneManagerConstants.gd"
+} ]
+_global_script_class_icons={
+"SceneManagerConstants": ""
+}
+
 [application]
 
 config/name="Ld Jam 49"
 run/main_scene="res://BaseLevel.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 

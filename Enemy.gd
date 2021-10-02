@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -34,3 +34,12 @@ func _on_StateMachinePlayer_updated(state, delta):
 			time_to_attack -= 1
 		"Attack":
 			attack_time -= 1
+
+
+var velocity = Vector2(0, 0)
+var gravity = 1200
+
+
+func _physics_process(delta):
+	velocity.y += gravity * delta
+	velocity = move_and_slide(velocity, Vector2(0, -1))
