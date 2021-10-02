@@ -13,9 +13,13 @@ func _ready():
 func _process(delta):
 	if expiration_started:
 		expiration_time -= delta * expiration_speed
-		$Sprite.modulate.r = (expiration_time_base - expiration_time) / expiration_time_base
-		$Sprite.modulate.g = (expiration_time_base - expiration_time) / expiration_time_base
-		$Sprite.modulate.b = (expiration_time_base - expiration_time) / expiration_time_base
+		$Sprite.modulate.r = expiration_time / expiration_time_base
+		$Sprite.modulate.g = expiration_time / expiration_time_base
+		$Sprite.modulate.b = expiration_time / expiration_time_base
+		$Sprite.modulate.a = (
+			min(expiration_time * expiration_speed, expiration_time_base)
+			/ expiration_time_base
+		)
 	if expiration_time < 0:
 		visible = false
 		collision_layer = 0
