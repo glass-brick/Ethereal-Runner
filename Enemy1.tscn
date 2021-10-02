@@ -11,24 +11,22 @@
 [ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=9]
 [ext_resource path="res://Enemy.gd" type="Script" id=10]
 
-[sub_resource type="AtlasTexture" id=13]
-flags = 4
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 452, 574 )
-
 [sub_resource type="AtlasTexture" id=16]
-flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 452, 574 )
+region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ SubResource( 13 ) ],
+"frames": [ SubResource( 16 ) ],
 "loop": true,
 "name": "Attack",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 16 ) ],
+"frames": [ SubResource( 17 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
@@ -107,14 +105,14 @@ transitions = {
 }
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 106.591, 125.357 )
+extents = Vector2( 106.591, 109.118 )
 
 [node name="TwitchBone" type="KinematicBody2D"]
 script = ExtResource( 10 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 1 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 4, 4 )
 frames = SubResource( 15 )
 animation = "Idle"
 
@@ -127,16 +125,13 @@ position = Vector2( 0.667419, 17.3529 )
 shape = SubResource( 11 )
 
 [node name="Arm" type="Node2D" parent="."]
-position = Vector2( 18.6877, 52.7261 )
-__meta__ = {
-"_edit_group_": true
-}
+position = Vector2( -3.93972, 40.3517 )
 
 [node name="Sprite" type="Sprite" parent="Arm"]
 material = ExtResource( 1 )
-position = Vector2( 69.61, 21.6676 )
-rotation = 1.5708
-scale = Vector2( 0.617999, 0.617999 )
+position = Vector2( 42.8446, -4.67715 )
+rotation = -1.5708
+scale = Vector2( 4, 4 )
 texture = ExtResource( 3 )
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
