@@ -2,6 +2,7 @@ extends Node2D
 
 var Platform = preload('res://FloorSegment.tscn')
 var Monster = preload('res://Enemy1.tscn')
+var Lightning = preload('res://Lightning.tscn')
 onready var camera = $Player/Camera2D
 onready var last_camera_position = camera.get_camera_screen_center().x
 var render_limit = [-2000, 5000]
@@ -17,6 +18,8 @@ var instability_levels = [
 		"max_height_diff": 50,
 		"min_height_diff": 150,
 		"monster_chance": 0,
+		"lightning_chance": 20,
+		"lightning_frequency": 100,
 	},
 	{
 		"high_treshold": 20,
@@ -25,6 +28,8 @@ var instability_levels = [
 		"max_height_diff": 50,
 		"min_height_diff": 150,
 		"monster_chance": 100,
+		"lightning_chance": 20,
+		"lightning_frequency": 100,
 	},
 	{
 		"low_treshold": 20,
@@ -42,6 +47,8 @@ var instability_levels = [
 		"max_height_diff": 120,
 		"min_height_diff": 200,
 		"monster_chance": 80,
+		"lightning_chance": 20,
+		"lightning_frequency": 100,
 	}
 ]
 
@@ -82,6 +89,12 @@ func render_platform():
 
 
 func _process(delta):
+	process_platforms()
+	change_instability_if_necessary()
+	process_instability_effects()
+
+
+func process_platforms():
 	var new_camera_position = camera.get_camera_screen_center().x
 	var instability_props = instability_levels[current_instability_level]
 	if new_camera_position > last_camera_position:
@@ -97,6 +110,10 @@ func _process(delta):
 		if not monsters.empty() and monsters[0].position.x < render_limit[0]:
 			monsters[0].queue_free()
 			monsters.pop_front()
+
+
+func change_instability_if_necessary():
+	var instability_props = instability_levels[current_instability_level]
 	if (
 		instability_props.has("high_treshold")
 		and instability_props["high_treshold"] < Globals.instability
@@ -107,3 +124,21 @@ func _process(delta):
 		and instability_props["low_treshold"] > Globals.instability
 	):
 		current_instability_level -= 1
+
+
+var lightning_timer = 0
+
+
+func process_instability_effects():
+	var instability_props = instability_levels[current_instability_level]
+	if instability_props.has("lightning_chance"):
+		if lightning_timer < instability_props["lightning_frequency"]:
+			lightning_timer += 1
+		else:
+			var lightning_appears = instability_props["lightning_chance"] < rand_range(0, 100)
+			if lightning_appears:
+				lightning_timer = 0
+				var lightning = Lightning.instance()
+				lightning.position = SceneManager.get_entity('Player').global_position
+				lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
+				add_child(lightning)
