@@ -19,6 +19,7 @@ export (int) var explosion_cost = 5
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
 onready var hud = get_node(hud_path)
+onready var smp = $StateMachinePlayer
 
 var mana = 0
 var initial_jump_time = 10
@@ -78,12 +79,12 @@ func get_input():
 			velocity.x = max(velocity.x - acceleration, 0)
 		elif velocity.x < 0:
 			velocity.x = min(velocity.x + acceleration, 0)
-	$AnimatedSprite.play('Run')
 	$AnimatedSprite.flip_h = left
 
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
 	if jump and is_on_floor():
+		smp.set_trigger('jump')
 		jumping = true
 		jump_time = initial_jump_time
 		velocity.y = jump_speed * initial_jump_time
@@ -105,9 +106,30 @@ func get_input():
 		mana = 0
 
 
+func _on_StateMachinePlayer_transited(from, to):
+	match to:
+		"Run":
+			$AnimatedSprite.play('Run')
+		"Idle":
+			$AnimatedSprite.play('Idle')
+		"Jump":
+			$AnimatedSprite.play('Jump')
+		"Fall":
+			$AnimatedSprite.play('Fall')
+
+
+func _on_StateMachinePlayer_updated(state, delta):
+	match state:
+		"Fall":
+			if is_on_floor():
+				smp.set_trigger('land')
+
+
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	smp.set_param('h_speed', velocity.x)
+	smp.set_param('v_speed', velocity.y)
 	if not current_state == PlayerStates.DEAD:
 		get_input()
 	# check death by falling
@@ -155,4 +177,3 @@ func _on_hit(damage, damager):
 		print("me pega")
 		self.set_health(self.health - damage)
 		self.invincibility = true
-
