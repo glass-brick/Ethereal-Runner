@@ -143,6 +143,7 @@ extents = Vector2( 106.591, 109.118 )
 
 [node name="TwitchBone" type="KinematicBody2D"]
 collision_layer = 2
+collision_mask = 0
 script = ExtResource( 10 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
