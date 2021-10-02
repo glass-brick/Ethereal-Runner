@@ -14,6 +14,9 @@ export (float) var mana_factor = 1
 export (int) var invincibility_time = 2
 export (float) var blinking_speed = 0.05
 export (NodePath) var hud_path
+export (int) var explosion_cost = 5
+
+var ExplosionAttack = preload('ExplosionAttack.tscn')
 
 onready var hud = get_node(hud_path)
 
@@ -45,6 +48,7 @@ func set_health(health):
 	if self.health <= 0:
 		self.die()
 
+
 func die():
 	self.current_state = PlayerStates.DEAD
 	hud.player_is_dead()
@@ -56,6 +60,7 @@ func get_input():
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
 	var jump = Input.is_action_just_pressed('ui_select')
+	var fire = Input.is_action_just_pressed('fire')
 
 	if (left or right) and not (left and right):
 		if right and velocity.x < max_speed:
@@ -72,6 +77,12 @@ func get_input():
 	if jump and is_on_floor():
 		velocity.y = jump_speed
 
+	if fire and mana > explosion_cost:
+		var explosion = ExplosionAttack.instance()
+		explosion.global_position = global_position
+		SceneManager._current_scene.add_child(explosion)
+		mana = 0
+
 
 func _physics_process(delta):
 	velocity.y += gravity * delta
@@ -81,9 +92,11 @@ func _physics_process(delta):
 	# check death by falling
 	self.check_falling_death()
 
+
 func check_falling_death():
 	if self.global_position.y > Globals.last_y_platform + fall_death_distance:
 		self.die()
+
 
 func affect_mana():
 	max_speed = max_speed_base + (mana * mana_factor) * (mana * mana_factor)
@@ -98,6 +111,7 @@ func _process(delta):
 	affect_mana()
 	hud.update_mana(mana)
 	Globals.instability = mana
+
 
 func _on_hit(damage, damager):
 	print("me pega")

@@ -18,8 +18,6 @@ var instability_levels = [
 		"max_height_diff": 50,
 		"min_height_diff": 150,
 		"monster_chance": 0,
-		"lightning_chance": 20,
-		"lightning_frequency": 100,
 	},
 	{
 		"high_treshold": 20,
@@ -28,8 +26,6 @@ var instability_levels = [
 		"max_height_diff": 50,
 		"min_height_diff": 150,
 		"monster_chance": 100,
-		"lightning_chance": 20,
-		"lightning_frequency": 100,
 	},
 	{
 		"low_treshold": 20,
