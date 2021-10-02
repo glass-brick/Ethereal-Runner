@@ -74,8 +74,13 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 56, 93 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"scene_manager_entity_nodes",
+]]
 script = ExtResource( 2 )
+__meta__ = {
+"entity_name": "Player"
+}
 max_speed_base = null
 acceleration_base = null
 jump_speed_base = null
@@ -90,6 +95,7 @@ hud_path = null
 position = Vector2( 3.05176e-05, 0 )
 scale = Vector2( 0.536732, 1 )
 frames = SubResource( 13 )
+frame = 9
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

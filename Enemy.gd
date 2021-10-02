@@ -1,39 +1,52 @@
 extends KinematicBody2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var Bullet = preload('res://Bullet.tscn')
 
+onready var smp = $StateMachinePlayer
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass  # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-var initial_time_to_attack = 200
+var initial_time_to_attack = 400
 var time_to_attack = 0
 
-var initial_attack_time = 5
+var initial_attack_time = 100
 var attack_time = 0
+
+var projectile_speed = 1000
+var projectile_damage = 100
+var projectile_range = 5000
 
 
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
 		"Idle":
 			time_to_attack = initial_attack_time
+			$AnimatedSprite.play("Idle")
 		"Attack":
 			attack_time = initial_attack_time
+			$AnimatedSprite.play("Attack")
+			shoot_projectile()
+
+
+func shoot_projectile():
+	var projectile = Bullet.instance()
+	projectile.speed = projectile_speed
+	projectile.damage = projectile_damage
+	projectile.projectile_range = projectile_range
+	projectile.direction = (SceneManager.get_entity("Player").global_position - global_position).normalized()
+	get_tree().get_root().add_child(projectile)
+	projectile.position = position
 
 
 func _on_StateMachinePlayer_updated(state, delta):
 	match state:
 		"Idle":
+			$Arm.look_at(SceneManager.get_entity("Player").global_position)
 			time_to_attack -= 1
+			if time_to_attack <= 0:
+				smp.set_trigger('attack')
 		"Attack":
 			attack_time -= 1
+			if attack_time <= 0:
+				smp.set_trigger('attack_finished')
 
 
 var velocity = Vector2(0, 0)

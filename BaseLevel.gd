@@ -11,12 +11,20 @@ var current_instability_level = 0
 
 var instability_levels = [
 	{
-		"high_treshold": 20,
+		"high_treshold": 1,
 		"min_distance": 800,
 		"max_distance": 1100,
 		"max_height_diff": 50,
 		"min_height_diff": 150,
 		"monster_chance": 0,
+	},
+	{
+		"high_treshold": 20,
+		"min_distance": 800,
+		"max_distance": 1100,
+		"max_height_diff": 50,
+		"min_height_diff": 150,
+		"monster_chance": 100,
 	},
 	{
 		"low_treshold": 20,
@@ -78,7 +86,6 @@ func _process(delta):
 	var new_camera_position = camera.get_camera_screen_center().x
 	var instability_props = instability_levels[current_instability_level]
 	if new_camera_position > last_camera_position:
-		print(render_limit)
 		var diff = new_camera_position - last_camera_position
 		last_camera_position = new_camera_position
 		render_limit[0] += diff

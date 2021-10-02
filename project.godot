@@ -26,8 +26,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 Globals="*res://Globals.gd"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 
 [display]
 
@@ -36,7 +36,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/imjp94.yafsm/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/imjp94.yafsm/plugin.cfg", "res://addons/scene_manager/plugin.cfg" )
 
 [layer_names]
 
