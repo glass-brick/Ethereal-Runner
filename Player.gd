@@ -2,8 +2,8 @@ extends KinematicBody2D
 
 export (int) var max_speed_base = 400
 export (int) var acceleration_base = 50
-export (int) var jump_speed_base = -600
-export (int) var gravity = 1200
+export (int) var jump_speed_base = -1000
+export (int) var gravity = 3200
 export (int) var health = 100
 # mana_factor is how much max_speed, acceleratiorn and jump_speed are affected
 # by mana
@@ -39,7 +39,7 @@ func _ready():
 
 
 func set_health(health):
-	self.health = max(health, 0)
+	health = max(health, 0)
 
 
 func get_input():
@@ -64,21 +64,22 @@ func get_input():
 
 
 func _physics_process(delta):
-	self.velocity.y += gravity * delta
-	self.velocity = move_and_slide(velocity, Vector2(0, -1))
+	velocity.y += gravity * delta
+	velocity = move_and_slide(velocity, Vector2(0, -1))
 	if not current_state == PlayerStates.DEAD:
-		self.get_input()
+		get_input()
 
 
 func affect_mana():
-	self.max_speed = max_speed_base + (self.mana * mana_factor) * (self.mana * mana_factor)
-	self.acceleration = acceleration_base + (self.mana * mana_factor) * (self.mana * mana_factor)
-	self.jump_speed = jump_speed_base - (self.mana * mana_factor) * (self.mana * mana_factor)
+	max_speed = max_speed_base + (mana * mana_factor) * (mana * mana_factor)
+	acceleration = acceleration_base + (mana * mana_factor) * (mana * mana_factor)
+	jump_speed = jump_speed_base - (mana * mana_factor)
 
 
 func _process(delta):
 	if $Camera2D.get_limit(MARGIN_LEFT) < $Camera2D.get_camera_position().x - camera_limit:
 		$Camera2D.set_limit(MARGIN_LEFT, $Camera2D.get_camera_position().x - camera_limit)
-	self.mana += delta
-	self.affect_mana()
-	hud.update_mana(self.mana)
+	mana += delta
+	affect_mana()
+	hud.update_mana(mana)
+	Globals.instability = mana
