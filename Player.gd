@@ -162,14 +162,14 @@ func check_falling_death():
 
 func affect_mana(delta):
 	mana += delta * mana_gather_factor
-	Globals.instability = mana
+	Globals.instability = mana / max_mana
 	mana_level = floor(mana / max_mana * mana_steps) + 1
 	Globals.instability_level = mana_level
 
-	max_speed = max_speed_base + pow(mana_level * mana_factor,2)
-	acceleration = acceleration_base + pow(mana_level * mana_factor,2)
-	jump_speed = jump_speed_base - pow(mana_level * mana_factor,2)  / initial_jump_time
-	
+	max_speed = max_speed_base + pow(mana_level * mana_factor, 2)
+	acceleration = acceleration_base + pow(mana_level * mana_factor, 2)
+	jump_speed = (jump_speed_base - (mana_level * mana_factor)) / initial_jump_time
+
 	hud.update_mana(mana / max_mana)
 
 
