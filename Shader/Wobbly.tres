@@ -5,7 +5,7 @@
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/strength = 0.015
+shader_param/strength = 0.03
 shader_param/speed = 6.0
 shader_param/frames = 7
 shader_param/flowMap = ExtResource( 2 )

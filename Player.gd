@@ -78,6 +78,9 @@ func get_input():
 			velocity.x = max(velocity.x - acceleration, 0)
 		elif velocity.x < 0:
 			velocity.x = min(velocity.x + acceleration, 0)
+	$AnimatedSprite.play('Run')
+	$AnimatedSprite.flip_h = left
+
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
 	if jump and is_on_floor():
@@ -153,6 +156,3 @@ func _on_hit(damage, damager):
 		self.set_health(self.health - damage)
 		self.invincibility = true
 
-
-func _on_RestartAfterDeath_timeout():
-	SceneManager.reload_scene()
