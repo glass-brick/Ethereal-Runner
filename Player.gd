@@ -39,7 +39,12 @@ func _ready():
 
 
 func set_health(health):
-	health = max(health, 0)
+	self.health = max(health, 0)
+	if self.health <= 0:
+		self.current_state = PlayerStates.DEAD
+		hud.player_is_dead()
+		$RestartAfterDeath.start()
+ 
 
 
 func get_input():
@@ -86,5 +91,9 @@ func _process(delta):
 
 func _on_hit(damage, damager):
 	print("me pega")
-	self.health -= damage
+	self.set_health(self.health - damage)
 	hud.update_health(self.health)
+
+
+func _on_RestartAfterDeath_timeout():
+	SceneManager.reload_scene()

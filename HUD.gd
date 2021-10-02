@@ -28,3 +28,6 @@ func update_distance(distance):
 
 func update_health(health):
 	get_node("MainThings/Health").text = "Health: " + str(health)
+
+func player_is_dead():
+	$DeathMsg.visible = true

@@ -81,21 +81,12 @@ script = ExtResource( 2 )
 __meta__ = {
 "entity_name": "Player"
 }
-max_speed_base = null
-acceleration_base = null
-jump_speed_base = null
 gravity = 1500
-health = null
-mana_factor = null
-invincibility_time = null
-blinking_speed = null
-hud_path = null
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 3.05176e-05, 0 )
 scale = Vector2( 0.536732, 1 )
 frames = SubResource( 13 )
-frame = 8
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -106,3 +97,8 @@ offset = Vector2( 300, 0 )
 current = true
 zoom = Vector2( 4, 4 )
 limit_left = -1800
+
+[node name="RestartAfterDeath" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="RestartAfterDeath" to="." method="_on_RestartAfterDeath_timeout"]
