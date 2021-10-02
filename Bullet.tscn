@@ -3,13 +3,13 @@
 [ext_resource path="res://Sprites/TwitchBone_PROJECTILE.png" type="Texture" id=1]
 [ext_resource path="res://Bullet.gd" type="Script" id=2]
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 18, 11 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0

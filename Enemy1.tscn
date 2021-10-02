@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Shader/Wobbly.tres" type="Material" id=1]
 [ext_resource path="res://Sprites/TwitchBone.png" type="Texture" id=2]
@@ -35,7 +35,7 @@ animations = [ {
 [sub_resource type="Resource" id=4]
 script = ExtResource( 9 )
 __meta__ = {
-"graph_offset": Vector2( 1068, 120 )
+"graph_offset": Vector2( 808, 200 )
 }
 name = "Attack"
 
@@ -49,9 +49,16 @@ name = "Entry"
 [sub_resource type="Resource" id=6]
 script = ExtResource( 9 )
 __meta__ = {
-"graph_offset": Vector2( 688, 120 )
+"graph_offset": Vector2( 808, -40 )
 }
 name = "Idle"
+
+[sub_resource type="Resource" id=14]
+script = ExtResource( 9 )
+__meta__ = {
+"graph_offset": Vector2( 1068, 80 )
+}
+name = "Dead"
 
 [sub_resource type="Resource" id=7]
 script = ExtResource( 6 )
@@ -63,6 +70,18 @@ from = "Attack"
 to = "Idle"
 conditions = {
 "attack_finished": SubResource( 7 )
+}
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 6 )
+name = "death"
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 5 )
+from = "Attack"
+to = "Dead"
+conditions = {
+"death": SubResource( 15 )
 }
 
 [sub_resource type="Resource" id=9]
@@ -84,23 +103,38 @@ conditions = {
 "attack": SubResource( 10 )
 }
 
+[sub_resource type="Resource" id=17]
+script = ExtResource( 6 )
+name = "death"
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 5 )
+from = "Idle"
+to = "Dead"
+conditions = {
+"death": SubResource( 17 )
+}
+
 [sub_resource type="Resource" id=12]
 script = ExtResource( 4 )
 name = ""
 states = {
 "Attack": SubResource( 4 ),
+"Dead": SubResource( 14 ),
 "Entry": SubResource( 5 ),
 "Idle": SubResource( 6 )
 }
 transitions = {
 "Attack": {
+"Dead": SubResource( 16 ),
 "Idle": SubResource( 8 )
 },
 "Entry": {
 "Idle": SubResource( 9 )
 },
 "Idle": {
-"Attack": SubResource( 11 )
+"Attack": SubResource( 11 ),
+"Dead": SubResource( 18 )
 }
 }
 

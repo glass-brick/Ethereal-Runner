@@ -11,8 +11,9 @@ var initial_attack_time = 100
 var attack_time = 0
 
 var projectile_speed = 1000
-var projectile_damage = 100
+var projectile_damage = 10
 var projectile_range = 5000
+var health = 100
 
 
 func _on_StateMachinePlayer_transited(from, to):
@@ -47,6 +48,18 @@ func _on_StateMachinePlayer_updated(state, delta):
 			attack_time -= 1
 			if attack_time <= 0:
 				smp.set_trigger('attack_finished')
+
+
+func _on_hit(damage, damager):
+	set_health(health - damage)
+
+
+func set_health(health):
+	health = max(health, 0)
+	if self.health <= 0:
+		smp.set_trigger('death')
+		yield(get_tree().create_timer(2.0), "timeout")
+		queue_free()
 
 
 var velocity = Vector2(0, 0)

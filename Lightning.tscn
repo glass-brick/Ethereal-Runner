@@ -52,6 +52,8 @@ animations = [ {
 } ]
 
 [node name="Lightning" type="Area2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -59,6 +61,7 @@ scale = Vector2( 4, 4 )
 frames = SubResource( 11 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 5.99786, -194.754, -56.341, -77.4565, -13.341, -19.4565, -27.341, 80.0435, 0.158997, 193.044, 5.659, 193.044, -8.841, 80.0435, 8.159, -27.9565, -31.341, -83.9565, 19.0793, -185.208 )
+polygon = PoolVector2Array( -34.1638, -205.594, -56.341, -77.4565, -63.3477, -13.6529, -54.368, 81.7563, -36.4086, 192.88, 26.4492, 194.003, 20.8369, 82.8788, 25.3268, -32.7347, 25.3268, -83.2455, 37.6738, -204.471 )
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]

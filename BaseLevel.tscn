@@ -8,13 +8,6 @@
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-max_speed_base = 400
-acceleration_base = 50
-jump_speed_base = -1000
-health = 100
-mana_factor = 1.0
-invincibility_time = 2
-blinking_speed = 0.05
 hud_path = NodePath("../HUD")
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
