@@ -76,16 +76,13 @@ extents = Vector2( 56, 93 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-max_speed = 800
-acceleration = 70
-jump_speed = -1800
 gravity = 1500
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 3.05176e-05, 0 )
 scale = Vector2( 0.536732, 1 )
 frames = SubResource( 13 )
-frame = 6
+frame = 7
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -95,3 +92,4 @@ shape = SubResource( 14 )
 offset = Vector2( 300, 0 )
 current = true
 zoom = Vector2( 4, 4 )
+limit_left = -1800

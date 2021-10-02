@@ -25,18 +25,22 @@ var velocity = Vector2()
 enum PlayerStates { ALIVE, DEAD }
 var current_state = PlayerStates.ALIVE
 
+var camera_limit = 2000
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass  # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
+
 func set_health(health):
 	self.health = max(health, 0)
+
 
 func get_input():
 	var right = Input.is_action_pressed('ui_right')
@@ -55,8 +59,9 @@ func get_input():
 			velocity.x = min(velocity.x + acceleration, 0)
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
-	if jump	and is_on_floor():
+	if jump and is_on_floor():
 		velocity.y = jump_speed
+
 
 func _physics_process(delta):
 	self.velocity.y += gravity * delta
@@ -64,15 +69,16 @@ func _physics_process(delta):
 	if not current_state == PlayerStates.DEAD:
 		self.get_input()
 
+
 func affect_mana():
 	self.max_speed = max_speed_base + (self.mana * mana_factor) * (self.mana * mana_factor)
 	self.acceleration = acceleration_base + (self.mana * mana_factor) * (self.mana * mana_factor)
 	self.jump_speed = jump_speed_base - (self.mana * mana_factor) * (self.mana * mana_factor)
-	print(self.max_speed)
-	print(self.acceleration)
-	print(self.jump_speed)
+
 
 func _process(delta):
+	if $Camera2D.get_limit(MARGIN_LEFT) < $Camera2D.get_camera_position().x - camera_limit:
+		$Camera2D.set_limit(MARGIN_LEFT, $Camera2D.get_camera_position().x - camera_limit)
 	self.mana += delta
 	self.affect_mana()
 	hud.update_mana(self.mana)
