@@ -52,6 +52,7 @@ func set_health(health):
 
 
 func die():
+	self.health = 0
 	self.current_state = PlayerStates.DEAD
 	hud.player_is_dead()
 	yield(get_tree().create_timer(death_timer), "timeout")
@@ -95,6 +96,7 @@ func _physics_process(delta):
 	self.check_falling_death()
 	self.process_invincibility(delta)
 
+
 func process_invincibility(delta):
 	if self.invincibility:
 		invincibility_counter += delta
@@ -125,6 +127,8 @@ func _process(delta):
 	mana += delta
 	affect_mana()
 	hud.update_mana(mana)
+	hud.update_health(self.health)
+	hud.update_score($Camera2D.get_limit(MARGIN_LEFT) + 1800)
 	Globals.instability = mana
 
 
@@ -132,7 +136,6 @@ func _on_hit(damage, damager):
 	if not self.invincibility and self.current_state != PlayerStates.DEAD:
 		print("me pega")
 		self.set_health(self.health - damage)
-		hud.update_health(self.health)
 		self.invincibility = true
 
 
