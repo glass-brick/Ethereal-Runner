@@ -11,7 +11,7 @@ export (float) var fall_death_distance = 3000
 # by mana
 export (float) var mana_factor = 1
 
-export (int) var invincibility_time = 2
+export (float) var invincibility_time = 0.5
 export (float) var blinking_speed = 0.05
 export (NodePath) var hud_path
 
@@ -21,6 +21,8 @@ var mana = 0
 var max_speed = max_speed_base
 var acceleration = acceleration_base
 var jump_speed = jump_speed_base
+var invincibility = false
+var invincibility_counter = 0.0
 
 var velocity = Vector2()
 
@@ -80,6 +82,19 @@ func _physics_process(delta):
 		get_input()
 	# check death by falling
 	self.check_falling_death()
+	self.process_invincibility(delta)
+
+func process_invincibility(delta):
+	if self.invincibility:
+		invincibility_counter += delta
+		var mat = $AnimatedSprite.get_material()
+		mat.set_shader_param("active", true)
+		if invincibility_counter > self.invincibility_time:
+			self.invincibility = false
+	else:
+		invincibility_counter = 0
+		var mat = $AnimatedSprite.get_material()
+		mat.set_shader_param("active", false)
 
 func check_falling_death():
 	if self.global_position.y > Globals.last_y_platform + fall_death_distance:
@@ -100,9 +115,11 @@ func _process(delta):
 	Globals.instability = mana
 
 func _on_hit(damage, damager):
-	print("me pega")
-	self.set_health(self.health - damage)
-	hud.update_health(self.health)
+	if not self.invincibility and self.current_state != PlayerStates.DEAD:
+		print("me pega")
+		self.set_health(self.health - damage)
+		hud.update_health(self.health)
+		self.invincibility = true
 
 
 func _on_RestartAfterDeath_timeout():
