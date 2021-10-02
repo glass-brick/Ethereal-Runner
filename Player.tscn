@@ -95,11 +95,7 @@ hud_path = null
 position = Vector2( 3.05176e-05, 0 )
 scale = Vector2( 0.536732, 1 )
 frames = SubResource( 13 )
-<<<<<<< HEAD
 frame = 10
-=======
-frame = 8
->>>>>>> dad745606472e0c1aa09c11666bb7ad8ba873419
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
