@@ -25,3 +25,6 @@ func update_time(time):
 
 func update_distance(distance):
 	get_node("MainThings/Distance").text = "Distance: " + distance
+
+func update_health(health):
+	get_node("MainThings/Health").text = "Health: " + str(health)

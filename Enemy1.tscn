@@ -11,120 +11,121 @@
 [ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=9]
 [ext_resource path="res://Enemy.gd" type="Script" id=10]
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 452, 574 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 452, 574 )
 
-[sub_resource type="SpriteFrames" id=15]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 13 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "Attack",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 16 ) ],
+"frames": [ SubResource( 2 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 } ]
 
-[sub_resource type="Resource" id=2]
+[sub_resource type="Resource" id=4]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 1068, 120 )
 }
 name = "Attack"
 
-[sub_resource type="Resource" id=3]
+[sub_resource type="Resource" id=5]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 448, 180 )
 }
 name = "Entry"
 
-[sub_resource type="Resource" id=4]
+[sub_resource type="Resource" id=6]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 688, 120 )
 }
 name = "Idle"
 
-[sub_resource type="Resource" id=5]
+[sub_resource type="Resource" id=7]
 script = ExtResource( 6 )
 name = "attack_finished"
 
-[sub_resource type="Resource" id=6]
+[sub_resource type="Resource" id=8]
 script = ExtResource( 5 )
 from = "Attack"
 to = "Idle"
 conditions = {
-"attack_finished": SubResource( 5 )
+"attack_finished": SubResource( 7 )
 }
 
-[sub_resource type="Resource" id=7]
+[sub_resource type="Resource" id=9]
 script = ExtResource( 5 )
 from = "Entry"
 to = "Idle"
 conditions = {
 }
 
-[sub_resource type="Resource" id=12]
+[sub_resource type="Resource" id=10]
 script = ExtResource( 6 )
 name = "attack"
 
-[sub_resource type="Resource" id=9]
+[sub_resource type="Resource" id=11]
 script = ExtResource( 5 )
 from = "Idle"
 to = "Attack"
 conditions = {
-"attack": SubResource( 12 )
+"attack": SubResource( 10 )
 }
 
-[sub_resource type="Resource" id=10]
+[sub_resource type="Resource" id=12]
 script = ExtResource( 4 )
 name = ""
 states = {
-"Attack": SubResource( 2 ),
-"Entry": SubResource( 3 ),
-"Idle": SubResource( 4 )
+"Attack": SubResource( 4 ),
+"Entry": SubResource( 5 ),
+"Idle": SubResource( 6 )
 }
 transitions = {
 "Attack": {
-"Idle": SubResource( 6 )
+"Idle": SubResource( 8 )
 },
 "Entry": {
-"Idle": SubResource( 7 )
+"Idle": SubResource( 9 )
 },
 "Idle": {
-"Attack": SubResource( 9 )
+"Attack": SubResource( 11 )
 }
 }
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 106.591, 125.357 )
 
 [node name="TwitchBone" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 10 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 1 )
 scale = Vector2( 0.5, 0.5 )
-frames = SubResource( 15 )
+frames = SubResource( 3 )
 animation = "Idle"
 
 [node name="StateMachinePlayer" type="Node" parent="."]
 script = ExtResource( 8 )
-state_machine = SubResource( 10 )
+state_machine = SubResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.667419, 17.3529 )
-shape = SubResource( 11 )
+shape = SubResource( 13 )
 
 [node name="Arm" type="Node2D" parent="."]
 position = Vector2( 18.6877, 52.7261 )

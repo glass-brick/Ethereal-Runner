@@ -10,9 +10,9 @@ extents = Vector2( 353.593, 44.6345 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 4 )
-shader_param/strength = 0.4
-shader_param/speed = 3.0
-shader_param/frames = 5
+shader_param/strength = 0.8
+shader_param/speed = 4.0
+shader_param/frames = 7
 shader_param/flowMap = ExtResource( 3 )
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -20,7 +20,7 @@ extents = Vector2( 355.496, 10 )
 
 [node name="FloorSegment" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 7
 mode = 1
 script = ExtResource( 2 )
 
