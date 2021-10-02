@@ -86,6 +86,7 @@ func render_platform():
 		(randi() % (instability_props["max_height_diff"] + instability_props["min_height_diff"]))
 		- instability_props["max_height_diff"]
 	)
+	Globals.last_y_platform = render_position.y
 
 
 func _process(delta):

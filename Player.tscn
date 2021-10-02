@@ -82,12 +82,13 @@ __meta__ = {
 "entity_name": "Player"
 }
 gravity = 1500
+death_timer = 4.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 3.05176e-05, 0 )
 scale = Vector2( 0.536732, 1 )
 frames = SubResource( 13 )
-frame = 10
+frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -98,8 +99,3 @@ offset = Vector2( 300, 0 )
 current = true
 zoom = Vector2( 4, 4 )
 limit_left = -1800
-
-[node name="RestartAfterDeath" type="Timer" parent="."]
-wait_time = 3.0
-
-[connection signal="timeout" from="RestartAfterDeath" to="." method="_on_RestartAfterDeath_timeout"]

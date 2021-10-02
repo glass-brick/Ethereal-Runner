@@ -12,21 +12,23 @@
 [ext_resource path="res://Enemy.gd" type="Script" id=10]
 
 [sub_resource type="AtlasTexture" id=1]
+flags = 4
 atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 64, 64 )
+region = Rect2( 0, 0, 452, 574 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=15]
 animations = [ {
 "frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "Attack",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 14 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
@@ -105,7 +107,7 @@ transitions = {
 }
 
 [sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 106.591, 109.118 )
+extents = Vector2( 106.591, 125.357 )
 
 [node name="TwitchBone" type="KinematicBody2D"]
 collision_layer = 2
@@ -114,7 +116,7 @@ script = ExtResource( 10 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 1 )
 scale = Vector2( 4, 4 )
-frames = SubResource( 3 )
+frames = SubResource( 15 )
 animation = "Idle"
 
 [node name="StateMachinePlayer" type="Node" parent="."]
