@@ -14,6 +14,10 @@ config/name="Ld Jam 49"
 run/main_scene="res://BaseLevel.tscn"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/imjp94.yafsm/plugin.cfg" )
+
 [layer_names]
 
 2d_render/layer_1="Player"
