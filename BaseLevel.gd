@@ -108,6 +108,11 @@ func process_platforms():
 		if platforms[0].position.x < render_limit[0]:
 			platforms[0].queue_free()
 			platforms.pop_front()
+		var new_monsters = []
+		for i in range(0, monsters.size()):
+			if is_instance_valid(monsters[i]):
+				new_monsters.push_front(monsters[i])
+		monsters = new_monsters
 		if not monsters.empty() and monsters[0].position.x < render_limit[0]:
 			monsters[0].queue_free()
 			monsters.pop_front()
@@ -128,6 +133,7 @@ func change_instability_if_necessary():
 
 
 var lightning_timer = 0
+var lightning_accuracy = 50
 
 
 func process_instability_effects():
@@ -140,6 +146,18 @@ func process_instability_effects():
 			if lightning_appears:
 				lightning_timer = 0
 				var lightning = Lightning.instance()
-				lightning.position = SceneManager.get_entity('Player').global_position
-				lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
+				var is_accurate = rand_range(0, 100) <= lightning_accuracy
+				if is_accurate:
+					var target_index = randi() % (monsters.size() + 1)
+					print(target_index)
+					if target_index == monsters.size():
+						print("target player")
+						lightning.position = SceneManager.get_entity('Player').global_position
+					else:
+						print("target monster")
+						lightning.position = monsters[target_index].global_position
+				else:
+					print("target random")
+					lightning.position = SceneManager.get_entity('Player').global_position
+					lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
 				add_child(lightning)

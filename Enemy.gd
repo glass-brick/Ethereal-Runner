@@ -51,12 +51,13 @@ func _on_StateMachinePlayer_updated(state, delta):
 
 
 func _on_hit(damage, damager):
+	print('me pego el rasho')
 	set_health(health - damage)
 
 
-func set_health(health):
-	health = max(health, 0)
-	if self.health <= 0:
+func set_health(new_health):
+	health = max(new_health, 0)
+	if health <= 0:
 		smp.set_trigger('death')
 		yield(get_tree().create_timer(2.0), "timeout")
 		queue_free()
