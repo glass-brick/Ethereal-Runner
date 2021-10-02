@@ -128,7 +128,7 @@ func _process(delta):
 	affect_mana()
 	hud.update_mana(mana)
 	hud.update_health(self.health)
-	hud.update_score($Camera2D.get_limit(MARGIN_LEFT) + 1800)
+	hud.update_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100)
 	Globals.instability = mana
 
 
