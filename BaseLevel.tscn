@@ -16,8 +16,6 @@ shader_param/flowMap = ExtResource( 5 )
 
 [node name="Node2D" type="Node2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
 [node name="Player" parent="." instance=ExtResource( 1 )]
 hud_path = NodePath("../HUD")
 
