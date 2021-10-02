@@ -34,6 +34,7 @@ bg_color = Color( 0.180392, 0.12549, 0.196078, 1 )
 script = ExtResource( 2 )
 
 [node name="ManaBar" type="ProgressBar" parent="."]
+self_modulate = Color( 0.258824, 0.258824, 0.258824, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 50.0
@@ -69,14 +70,14 @@ __meta__ = {
 
 [node name="Health" type="Label" parent="MainThings"]
 margin_right = 153.0
-margin_bottom = 41.0
+margin_bottom = 31.0
 custom_fonts/font = ExtResource( 1 )
 text = "Health:"
 
 [node name="Mana" type="Label" parent="MainThings"]
-margin_top = 45.0
+margin_top = 35.0
 margin_right = 153.0
-margin_bottom = 86.0
+margin_bottom = 66.0
 custom_fonts/font = ExtResource( 1 )
 text = "Mana"
 __meta__ = {
@@ -84,9 +85,9 @@ __meta__ = {
 }
 
 [node name="Time" type="Label" parent="MainThings"]
-margin_top = 90.0
+margin_top = 70.0
 margin_right = 153.0
-margin_bottom = 131.0
+margin_bottom = 101.0
 custom_fonts/font = ExtResource( 1 )
 text = "Time:"
 __meta__ = {
@@ -94,9 +95,9 @@ __meta__ = {
 }
 
 [node name="Distance" type="Label" parent="MainThings"]
-margin_top = 135.0
+margin_top = 105.0
 margin_right = 153.0
-margin_bottom = 176.0
+margin_bottom = 136.0
 custom_fonts/font = ExtResource( 1 )
 text = "Distance:"
 __meta__ = {
@@ -122,8 +123,9 @@ __meta__ = {
 [node name="HealthBar" type="ProgressBar" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -1.88776
 margin_right = -824.0
-margin_bottom = -550.0
+margin_bottom = -551.888
 custom_styles/fg = SubResource( 4 )
 custom_styles/bg = SubResource( 5 )
 value = 50.0

@@ -28,7 +28,6 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.play("Attack")
 			shoot_projectile()
 		"Dead":
-			print("se setea a 0")
 			death_dissolution = 0.1 # for good measure
 			$AnimatedSprite.play("Attack")
 			$AnimatedSprite.set_material(load("res://Shader/EnemyDeathMaterial.tres"))

@@ -22,7 +22,9 @@ func _physics_process(delta):
 
 
 func update_mana(mana):
-	get_node("ManaBar").value = mana
+	var manaBar = get_node("ManaBar")
+	manaBar.value = mana * 100
+	manaBar.self_modulate = Color(1,1,1,mana/2+0.5)
 
 
 func update_time(time):
