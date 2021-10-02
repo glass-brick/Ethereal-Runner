@@ -21,11 +21,14 @@ var ExplosionAttack = preload('ExplosionAttack.tscn')
 onready var hud = get_node(hud_path)
 
 var mana = 0
+var initial_jump_time = 10
 var max_speed = max_speed_base
 var acceleration = acceleration_base
-var jump_speed = jump_speed_base
+var jump_speed = jump_speed_base / initial_jump_time
 var invincibility = false
 var invincibility_counter = 0.0
+var jumping = false
+var jump_time = 0
 
 var velocity = Vector2()
 
@@ -62,7 +65,7 @@ func die():
 func get_input():
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
-	var jump = Input.is_action_just_pressed('ui_select')
+	var jump = Input.is_action_pressed('ui_select')
 	var fire = Input.is_action_just_pressed('fire')
 
 	if (left or right) and not (left and right):
@@ -78,7 +81,19 @@ func get_input():
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
 	if jump and is_on_floor():
-		velocity.y = jump_speed
+		jumping = true
+		jump_time = initial_jump_time
+		velocity.y = jump_speed * initial_jump_time
+
+	if jump_time > 0:
+		if not jump:
+			velocity.y -= jump_time * jump_speed
+			jump_time = 0
+			jumping = false
+		else:
+			jump_time -= 1
+			if jump_time == 0:
+				jumping = false
 
 	if fire and mana > explosion_cost:
 		var explosion = ExplosionAttack.instance()
@@ -118,7 +133,7 @@ func check_falling_death():
 func affect_mana():
 	max_speed = max_speed_base + (mana * mana_factor) * (mana * mana_factor)
 	acceleration = acceleration_base + (mana * mana_factor) * (mana * mana_factor)
-	jump_speed = jump_speed_base - (mana * mana_factor)
+	jump_speed = (jump_speed_base - (mana * mana_factor)) / initial_jump_time
 
 
 func _process(delta):
