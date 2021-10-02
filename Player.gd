@@ -162,7 +162,7 @@ func check_falling_death():
 
 func affect_mana(delta):
 	mana += delta * mana_gather_factor
-	Globals.instability = mana / max_mana
+	Globals.instability = mana * 100 / max_mana
 	mana_level = floor(mana / max_mana * mana_steps) + 1
 	Globals.instability_level = mana_level
 
