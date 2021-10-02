@@ -8,15 +8,16 @@ export (int) var health = 100
 
 export (int) var invincibility_time = 2
 export (float) var blinking_speed = 0.05
+export (NodePath) var hud_path
+
+onready var hud = get_node(hud_path)
+
+var mana = 0
 
 var velocity = Vector2()
 
 enum PlayerStates { ALIVE, DEAD }
 var current_state = PlayerStates.ALIVE
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -58,3 +59,6 @@ func _physics_process(delta):
 		self.get_input()
 
 
+func _process(delta):
+	self.mana += delta
+	hud.update_mana(self.mana)

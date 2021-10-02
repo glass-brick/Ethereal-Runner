@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=1]
+[ext_resource path="res://HUD.gd" type="Script" id=2]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="MainThings" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mana" type="Label" parent="MainThings"]
+margin_right = 153.0
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 1 )
+text = "Mana: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="MainThings"]
+margin_top = 45.0
+margin_right = 153.0
+margin_bottom = 86.0
+custom_fonts/font = ExtResource( 1 )
+text = "Time:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Distance" type="Label" parent="MainThings"]
+margin_top = 90.0
+margin_right = 153.0
+margin_bottom = 131.0
+custom_fonts/font = ExtResource( 1 )
+text = "Distance:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
