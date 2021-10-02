@@ -11,24 +11,24 @@
 [ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=9]
 [ext_resource path="res://Enemy.gd" type="Script" id=10]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
-"loop": true,
-"name": "Attack",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 19 ) ],
 "loop": true,
 "name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 20 ) ],
+"loop": true,
+"name": "Attack",
 "speed": 5.0
 } ]
 
@@ -148,7 +148,7 @@ script = ExtResource( 10 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 1 )
 scale = Vector2( 4, 4 )
-frames = SubResource( 3 )
+frames = SubResource( 21 )
 animation = "Idle"
 
 [node name="StateMachinePlayer" type="Node" parent="."]

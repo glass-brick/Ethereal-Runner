@@ -5,6 +5,8 @@ export (int) var acceleration_base = 50
 export (int) var jump_speed_base = -1000
 export (int) var gravity = 3200
 export (int) var health = 100
+export (float) var death_timer = 2.0
+export (float) var fall_death_distance = 3000
 # mana_factor is how much max_speed, acceleratiorn and jump_speed are affected
 # by mana
 export (float) var mana_factor = 1
@@ -41,10 +43,13 @@ func _ready():
 func set_health(health):
 	self.health = max(health, 0)
 	if self.health <= 0:
-		self.current_state = PlayerStates.DEAD
-		hud.player_is_dead()
-		$RestartAfterDeath.start()
- 
+		self.die()
+
+func die():
+	self.current_state = PlayerStates.DEAD
+	hud.player_is_dead()
+	yield(get_tree().create_timer(death_timer), "timeout")
+	SceneManager.reload_scene()
 
 
 func get_input():
@@ -73,7 +78,12 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 	if not current_state == PlayerStates.DEAD:
 		get_input()
+	# check death by falling
+	self.check_falling_death()
 
+func check_falling_death():
+	if self.global_position.y > Globals.last_y_platform + fall_death_distance:
+		self.die()
 
 func affect_mana():
 	max_speed = max_speed_base + (mana * mana_factor) * (mana * mana_factor)
