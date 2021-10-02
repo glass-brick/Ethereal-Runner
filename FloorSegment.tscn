@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/base_floor.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 353.593, 44.6345 )
+
+[node name="FloorSegment" type="StaticBody2D"]
+
+[node name="Area2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 15 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 2.85307, 0.376371 )
+texture = ExtResource( 1 )
