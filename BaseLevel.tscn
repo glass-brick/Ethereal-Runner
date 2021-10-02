@@ -1,60 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Sprites/test_enemy.png" type="Texture" id=2]
-[ext_resource path="res://FloorSegment.tscn" type="PackedScene" id=3]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Normals/glass.jpg" type="Texture" id=5]
-[ext_resource path="res://Shader/wobblyEffect.shader" type="Shader" id=6]
-[ext_resource path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" type="Script" id=7]
-[ext_resource path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" type="Script" id=8]
-[ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=9]
-
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 6 )
-shader_param/strength = 0.015
-shader_param/speed = 6.0
-shader_param/frames = 7
-shader_param/flowMap = ExtResource( 5 )
-
-[sub_resource type="Resource" id=2]
-script = ExtResource( 9 )
-__meta__ = {
-"graph_offset": Vector2( 439.961, 171.569 )
-}
-name = "Entry"
-
-[sub_resource type="Resource" id=3]
-script = ExtResource( 7 )
-name = ""
-states = {
-"Entry": SubResource( 2 )
-}
-transitions = {
-}
+[ext_resource path="res://BaseLevel.gd" type="Script" id=5]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 hud_path = NodePath("../HUD")
 
-[node name="FloorSegment" parent="." instance=ExtResource( 3 )]
-position = Vector2( -5.3454, 223.616 )
-
-[node name="FloorSegment2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 871.564, 130.697 )
-
 [node name="HUD" parent="." instance=ExtResource( 4 )]
-
-[node name="Enemy" type="Node2D" parent="."]
-position = Vector2( 784.877, -114.164 )
-
-[node name="Sprite" type="Sprite" parent="Enemy"]
-material = SubResource( 1 )
-position = Vector2( 334.276, 78.7035 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 2 )
-
-[node name="StateMachinePlayer" type="Node" parent="Enemy"]
-script = ExtResource( 8 )
-state_machine = SubResource( 3 )
