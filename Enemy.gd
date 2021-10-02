@@ -14,6 +14,8 @@ var projectile_speed = 1000
 var projectile_damage = 10
 var projectile_range = 5000
 var health = 100
+var death_dissolution = 0
+var death_time = 3
 
 
 func _on_StateMachinePlayer_transited(from, to):
@@ -25,6 +27,11 @@ func _on_StateMachinePlayer_transited(from, to):
 			attack_time = initial_attack_time
 			$AnimatedSprite.play("Attack")
 			shoot_projectile()
+		"Dead":
+			print("se setea a 0")
+			death_dissolution = 0.1 # for good measure
+			$AnimatedSprite.play("Attack")
+			$AnimatedSprite.set_material(load("res://Shader/EnemyDeathMaterial.tres"))
 
 
 func shoot_projectile():
@@ -48,6 +55,10 @@ func _on_StateMachinePlayer_updated(state, delta):
 			attack_time -= 1
 			if attack_time <= 0:
 				smp.set_trigger('attack_finished')
+		"Dead":
+			death_dissolution += delta/death_time
+			$AnimatedSprite.material.set_shader_param("effect_percentage", (1-death_dissolution))
+			
 
 
 func _on_hit(damage, damager):
@@ -59,7 +70,7 @@ func set_health(new_health):
 	health = max(new_health, 0)
 	if health <= 0:
 		smp.set_trigger('death')
-		yield(get_tree().create_timer(2.0), "timeout")
+		yield(get_tree().create_timer(death_time), "timeout")
 		queue_free()
 
 

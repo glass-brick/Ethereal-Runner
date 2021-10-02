@@ -156,6 +156,7 @@ script = ExtResource( 8 )
 state_machine = SubResource( 17 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0.667419, 17.3529 )
 shape = SubResource( 18 )
 
@@ -163,8 +164,9 @@ shape = SubResource( 18 )
 position = Vector2( -3.93972, 40.3517 )
 
 [node name="Sprite" type="Sprite" parent="Arm"]
+visible = false
 material = ExtResource( 1 )
-position = Vector2( 42.8446, -4.67715 )
+position = Vector2( 42.8446, -5.20687 )
 rotation = -1.5708
 scale = Vector2( 4, 4 )
 texture = ExtResource( 3 )

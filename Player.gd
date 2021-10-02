@@ -138,6 +138,3 @@ func _on_hit(damage, damager):
 		self.set_health(self.health - damage)
 		self.invincibility = true
 
-
-func _on_RestartAfterDeath_timeout():
-	SceneManager.reload_scene()
