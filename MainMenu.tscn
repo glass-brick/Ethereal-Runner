@@ -171,6 +171,7 @@ loop = false
 position = Vector2( -17.4839, 13.0494 )
 frames = SubResource( 20 )
 animation = "Idle"
+frame = 1
 playing = true
 
 [connection signal="button_down" from="Button" to="." method="_on_Button_button_down"]
