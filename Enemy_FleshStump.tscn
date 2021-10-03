@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://Enemy_FleshStump.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/FleshStump-Sheet.png" type="Texture" id=2]
@@ -6,229 +6,239 @@
 [ext_resource path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" type="Script" id=4]
 [ext_resource path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" type="Script" id=5]
 [ext_resource path="res://addons/imjp94.yafsm/src/conditions/Condition.gd" type="Script" id=6]
+[ext_resource path="res://Shader/wobblyEffect.shader" type="Shader" id=7]
 [ext_resource path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" type="Script" id=8]
 [ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=9]
+[ext_resource path="res://Normals/glass.jpg" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 120.054, 124.826 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 130, 64 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 7 )
+shader_param/strength = 0.004
+shader_param/speed = 6.0
+shader_param/frames = 7
+shader_param/random_value = null
+shader_param/flowMap = ExtResource( 10 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 130, 0, 130, 64 )
+region = Rect2( 0, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
-region = Rect2( 650, 0, 130, 64 )
+region = Rect2( 130, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
-region = Rect2( 780, 0, 130, 64 )
+region = Rect2( 260, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
-region = Rect2( 910, 0, 130, 64 )
+region = Rect2( 390, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
-region = Rect2( 1040, 0, 130, 64 )
+region = Rect2( 520, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
-region = Rect2( 260, 0, 130, 64 )
+region = Rect2( 650, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
-region = Rect2( 390, 0, 130, 64 )
+region = Rect2( 780, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 2 )
-region = Rect2( 520, 0, 130, 64 )
+region = Rect2( 910, 0, 130, 64 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 1040, 0, 130, 64 )
+
+[sub_resource type="SpriteFrames" id=12]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
-"name": "Run",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "Attack",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "Run",
+"speed": 10.0
 } ]
 
-[sub_resource type="Resource" id=12]
+[sub_resource type="Resource" id=13]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 508, -260 )
 }
 name = "Attack"
 
-[sub_resource type="Resource" id=13]
+[sub_resource type="Resource" id=14]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 428, 20 )
 }
 name = "Dead"
 
-[sub_resource type="Resource" id=14]
+[sub_resource type="Resource" id=15]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( -6, -160 )
 }
 name = "Entry"
 
-[sub_resource type="Resource" id=15]
+[sub_resource type="Resource" id=16]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 154, -160 )
 }
 name = "Idle"
 
-[sub_resource type="Resource" id=16]
+[sub_resource type="Resource" id=17]
 script = ExtResource( 9 )
 __meta__ = {
 "graph_offset": Vector2( 348, -260 )
 }
 name = "Run"
 
-[sub_resource type="Resource" id=17]
+[sub_resource type="Resource" id=18]
 script = ExtResource( 6 )
 name = "death"
 
-[sub_resource type="Resource" id=18]
+[sub_resource type="Resource" id=19]
 script = ExtResource( 5 )
 from = "Attack"
 to = "Dead"
 conditions = {
-"death": SubResource( 17 )
+"death": SubResource( 18 )
 }
 
-[sub_resource type="Resource" id=19]
+[sub_resource type="Resource" id=20]
 script = ExtResource( 6 )
 name = "attack_finished"
 
-[sub_resource type="Resource" id=20]
+[sub_resource type="Resource" id=21]
 script = ExtResource( 5 )
 from = "Attack"
 to = "Run"
 conditions = {
-"attack_finished": SubResource( 19 )
+"attack_finished": SubResource( 20 )
 }
 
-[sub_resource type="Resource" id=21]
+[sub_resource type="Resource" id=22]
 script = ExtResource( 5 )
 from = "Entry"
 to = "Idle"
 conditions = {
 }
 
-[sub_resource type="Resource" id=22]
+[sub_resource type="Resource" id=23]
 script = ExtResource( 6 )
 name = "death"
 
-[sub_resource type="Resource" id=23]
+[sub_resource type="Resource" id=24]
 script = ExtResource( 5 )
 from = "Idle"
 to = "Dead"
 conditions = {
-"death": SubResource( 22 )
+"death": SubResource( 23 )
 }
 
-[sub_resource type="Resource" id=24]
+[sub_resource type="Resource" id=25]
 script = ExtResource( 3 )
 name = "player_detected"
 comparation = 0
 value = true
 
-[sub_resource type="Resource" id=25]
+[sub_resource type="Resource" id=26]
 script = ExtResource( 5 )
 from = "Idle"
 to = "Run"
 conditions = {
-"player_detected": SubResource( 24 )
+"player_detected": SubResource( 25 )
 }
 
-[sub_resource type="Resource" id=26]
+[sub_resource type="Resource" id=27]
 script = ExtResource( 6 )
 name = "attack"
 
-[sub_resource type="Resource" id=27]
+[sub_resource type="Resource" id=28]
 script = ExtResource( 5 )
 from = "Run"
 to = "Attack"
 conditions = {
-"attack": SubResource( 26 )
+"attack": SubResource( 27 )
 }
 
-[sub_resource type="Resource" id=28]
+[sub_resource type="Resource" id=29]
 script = ExtResource( 6 )
 name = "death"
 
-[sub_resource type="Resource" id=29]
+[sub_resource type="Resource" id=30]
 script = ExtResource( 5 )
 from = "Run"
 to = "Dead"
 conditions = {
-"death": SubResource( 28 )
+"death": SubResource( 29 )
 }
 
-[sub_resource type="Resource" id=30]
+[sub_resource type="Resource" id=31]
 script = ExtResource( 3 )
 name = "player_detected"
 comparation = 0
 value = false
 
-[sub_resource type="Resource" id=31]
+[sub_resource type="Resource" id=32]
 script = ExtResource( 5 )
 from = "Run"
 to = "Idle"
 conditions = {
-"player_detected": SubResource( 30 )
+"player_detected": SubResource( 31 )
 }
 
-[sub_resource type="Resource" id=32]
+[sub_resource type="Resource" id=33]
 script = ExtResource( 4 )
 name = ""
 states = {
-"Attack": SubResource( 12 ),
-"Dead": SubResource( 13 ),
-"Entry": SubResource( 14 ),
-"Idle": SubResource( 15 ),
-"Run": SubResource( 16 )
+"Attack": SubResource( 13 ),
+"Dead": SubResource( 14 ),
+"Entry": SubResource( 15 ),
+"Idle": SubResource( 16 ),
+"Run": SubResource( 17 )
 }
 transitions = {
 "Attack": {
-"Dead": SubResource( 18 ),
-"Run": SubResource( 20 )
+"Dead": SubResource( 19 ),
+"Run": SubResource( 21 )
 },
 "Entry": {
-"Idle": SubResource( 21 )
+"Idle": SubResource( 22 )
 },
 "Idle": {
-"Dead": SubResource( 23 ),
-"Run": SubResource( 25 )
+"Dead": SubResource( 24 ),
+"Run": SubResource( 26 )
 },
 "Run": {
-"Attack": SubResource( 27 ),
-"Dead": SubResource( 29 ),
-"Idle": SubResource( 31 )
+"Attack": SubResource( 28 ),
+"Dead": SubResource( 30 ),
+"Idle": SubResource( 32 )
 }
 }
 
-[sub_resource type="CircleShape2D" id=33]
+[sub_resource type="CircleShape2D" id=34]
 radius = 860.078
 
-[sub_resource type="RectangleShape2D" id=34]
+[sub_resource type="RectangleShape2D" id=35]
 extents = Vector2( 155.447, 69.6265 )
 
 [node name="FleshStump" type="KinematicBody2D"]
@@ -242,27 +252,28 @@ position = Vector2( 128.719, 2.79012 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 2 )
 scale = Vector2( 4, 4 )
-frames = SubResource( 11 )
+frames = SubResource( 12 )
 animation = "Attack"
 frame = 1
 
 [node name="StateMachinePlayer" type="Node" parent="."]
 script = ExtResource( 8 )
-state_machine = SubResource( 32 )
+state_machine = SubResource( 33 )
 
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 position = Vector2( 127.136, 2.11896 )
-shape = SubResource( 33 )
+shape = SubResource( 34 )
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 position = Vector2( -105.892, -59.5527 )
-shape = SubResource( 34 )
+shape = SubResource( 35 )
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]
