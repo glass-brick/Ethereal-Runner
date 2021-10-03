@@ -7,6 +7,8 @@ onready var camera = $Player/Camera2D
 onready var last_camera_position = camera.get_camera_screen_center().x
 var render_limit = [-2000, 5000]
 var render_position = Vector2(0, 200)
+var time_passed = 0
+var hue_value = 0
 
 var current_instability_level = 0
 
@@ -93,6 +95,7 @@ func _process(delta):
 	process_platforms()
 	change_instability_if_necessary()
 	process_instability_effects()
+	change_background_colors(delta)
 
 
 func process_platforms():
@@ -117,6 +120,18 @@ func process_platforms():
 			monsters[0].queue_free()
 			monsters.pop_front()
 
+
+func change_background_colors(delta):
+	hue_value += delta/10
+	time_passed += delta/2
+	var sat = abs(cos(time_passed)/2)
+	var parallaxLayers = get_node('ParallaxBackground')
+	var parallaxLayer1 = parallaxLayers.get_node('ParallaxLayer')
+	var parallaxLayer2 = parallaxLayers.get_node('ParallaxLayer2')
+	parallaxLayer1.modulate.h = hue_value
+	parallaxLayer1.modulate.s = sat
+	parallaxLayer2.modulate.h = hue_value
+	parallaxLayer2.modulate.s = sat
 
 func change_instability_if_necessary():
 	var instability_props = instability_levels[current_instability_level]
