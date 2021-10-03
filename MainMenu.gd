@@ -3,6 +3,10 @@ extends CanvasLayer
 var started = false
 
 
+func _ready():
+	$Path2D/PathFollow2D/AnimatedSprite.play('Idle')
+
+
 func _process(delta):
 	var seconds = int(Globals.high_time) % 60
 	var minutes = int((Globals.high_time - seconds) / 60)

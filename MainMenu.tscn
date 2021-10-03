@@ -176,8 +176,6 @@ loop = false
 position = Vector2( -17.4839, 13.0494 )
 frames = SubResource( 20 )
 animation = "Idle"
-frame = 3
-playing = true
 
 [node name="Controls" type="Label" parent="."]
 anchor_top = 1.0
