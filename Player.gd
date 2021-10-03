@@ -196,7 +196,7 @@ func delete_with_shield():
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
 		"Run":
-			$AnimatedSprite.play('Run')
+			$AnimatedSprite.play('Walk' if mana_level == 1 else 'Run')
 		"Idle":
 			$AnimatedSprite.play('Idle')
 		"Jump":
