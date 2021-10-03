@@ -58,6 +58,8 @@ var current_state = PlayerStates.ALIVE
 
 var camera_limit = 2000
 
+onready var jump_sounds = [$SoundJump1, $SoundJump2, $SoundJump3]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -199,6 +201,10 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.play('Idle')
 		"Jump":
 			$AnimatedSprite.play('Jump')
+			var num = randi() % 3
+			var sound = jump_sounds[num]
+			sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
+			jump_sounds[num].play()
 		"DoubleJump":
 			$AnimatedSprite.play('Jump')
 			$AnimatedSprite.frame = 0
