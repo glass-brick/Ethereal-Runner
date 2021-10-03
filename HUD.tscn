@@ -206,8 +206,8 @@ margin_right = 260.0
 custom_fonts/font = ExtResource( 1 )
 text = "Movement: Arrow keys
 Jump: Space bar
-Attack: Ctrl
-Shield: Alt
+Attack: Z
+Shield: X
 "
 __meta__ = {
 "_edit_use_anchors_": false
