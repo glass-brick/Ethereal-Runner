@@ -14,7 +14,6 @@ export (float) var mana_factor = 1
 export (float) var invincibility_time = 0.5
 export (float) var blinking_speed = 0.05
 export (NodePath) var hud_path
-export (int) var explosion_cost = 5
 
 export (int) var max_mana = 1000
 export (int) var mana_steps = 4
@@ -121,11 +120,11 @@ func get_input():
 			if jump_time == 0:
 				jumping = false
 
-	if fire and mana > explosion_cost:
+	if fire and mana > max_mana/mana_steps:
 		var explosion = ExplosionAttack.instance()
 		explosion.global_position = global_position
 		SceneManager._current_scene.add_child(explosion)
-		mana = 0
+		mana -= max_mana/mana_steps
 
 	if defend and (digestion == 0 or was_shielding) :
 		if not was_shielding:
