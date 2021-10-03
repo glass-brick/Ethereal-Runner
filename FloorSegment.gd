@@ -30,12 +30,16 @@ func _process(delta):
 		)
 	if expiration_time < 0:
 		visible = false
-		collision_layer = 0
-		collision_mask = 0
+		make_phaseable()
 
 
 func start_expiration_timer():
 	expiration_started = true
+
+
+func make_phaseable():
+	collision_layer = 0
+	collision_mask = 0
 
 
 func _on_Player_grab_body_entered(body):
