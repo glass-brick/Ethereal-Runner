@@ -173,7 +173,7 @@ func get_input():
 		SceneManager._current_scene.add_child(explosion)
 		mana -= max_mana / mana_steps
 
-	if defend and (digestion == 0 or was_shielding):
+	if defend:
 		if not was_shielding:
 			$Shield.get_node("CPUParticles2D").restart()
 			$Shield.get_node("CPUParticles2D").show()
