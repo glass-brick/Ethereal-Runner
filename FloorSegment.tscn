@@ -10,8 +10,8 @@ extents = Vector2( 353.593, 44.6345 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 4 )
-shader_param/strength = 0.8
-shader_param/speed = 4.0
+shader_param/strength = 0.01
+shader_param/speed = 10.0
 shader_param/frames = 7
 shader_param/random_value = null
 shader_param/flowMap = ExtResource( 3 )

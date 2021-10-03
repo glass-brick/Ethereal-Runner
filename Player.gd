@@ -104,6 +104,7 @@ func explode_body():
 		var vector = Vector2(
 			velocity.x + rand_range(-1, 1) * 200, velocity.y + rand_range(-1, -0.5) * 200
 		)
+		print(vector)
 		part.apply_impulse(Vector2(), vector)
 		SceneManager._current_scene.add_child(part)
 

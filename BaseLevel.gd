@@ -14,21 +14,21 @@ var new_path_height_diff = 400
 
 var current_instability_level = 0
 
+var biomes = {
+	"normal": {"spawn_area": [Vector2(900, -50), Vector2(1200, 50)]},
+	"falling": {"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)]},
+	"rising": {"spawn_area": [Vector2(800, -100), Vector2(1100, -200)]}
+}
+
 var instability_levels = [
 	{
 		"high_treshold": 1,
-		"min_distance": 800,
-		"max_distance": 1100,
-		"max_height_diff": 50,
-		"min_height_diff": 150,
+		"distance_modifier": 1,
 		"monster_chance": 0,
 	},
 	{
 		"high_treshold": 2,
-		"min_distance": 800,
-		"max_distance": 1100,
-		"max_height_diff": 50,
-		"min_height_diff": 150,
+		"distance_modifier": 1.2,
 		"monster_chance": 20,
 		"lightning_chance": 10,
 		"lightning_frequency": 300,
@@ -36,20 +36,14 @@ var instability_levels = [
 	{
 		"low_treshold": 3,
 		"high_treshold": 4,
-		"min_distance": 900,
-		"max_distance": 1200,
-		"max_height_diff": 100,
-		"min_height_diff": 150,
+		"distance_modifier": 1.4,
 		"monster_chance": 40,
 		"lightning_chance": 20,
 		"lightning_frequency": 200,
 	},
 	{
 		"low_treshold": 4,
-		"min_distance": 1100,
-		"max_distance": 1400,
-		"max_height_diff": 120,
-		"min_height_diff": 200,
+		"distance_modifier": 1.6,
 		"monster_chance": 60,
 		"lightning_chance": 20,
 		"lightning_frequency": 100,
@@ -72,6 +66,8 @@ func _ready():
 func render_platform():
 	platforms_rendered += 1
 	for i in range(0, render_paths.size()):
+		var biome_props = biomes[render_paths[i]["biome"]]
+		var biome_spawn_area = biome_props["spawn_area"]
 		var instability_props = instability_levels[current_instability_level]
 		var platform = Platform.instance()
 		platform.position = render_paths[i]["position"]
@@ -90,15 +86,12 @@ func render_platform():
 			monsters.push_back(monster)
 
 		render_paths[i]["position"].x += (
-			instability_props["min_distance"]
-			+ randi() % (instability_props["max_distance"] - instability_props["min_distance"])
+			rand_range(biome_spawn_area[0].x, biome_spawn_area[1].x)
+			* instability_props["distance_modifier"]
 		)
 		render_paths[i]["position"].y += (
-			(
-				randi()
-				% (instability_props["max_height_diff"] + instability_props["min_height_diff"])
-			)
-			- instability_props["max_height_diff"]
+			rand_range(biome_spawn_area[0].y, biome_spawn_area[1].y)
+			* instability_props["distance_modifier"]
 		)
 		if Globals.last_y_platform < render_paths[i]["position"].y or i == render_paths.size() - 1:
 			Globals.last_y_platform = render_paths[i]["position"].y
@@ -135,7 +128,6 @@ func _process(delta):
 
 func process_platforms():
 	var new_camera_position = camera.get_camera_screen_center()
-	var instability_props = instability_levels[current_instability_level]
 	if new_camera_position.x > last_camera_position.x:
 		var diff = new_camera_position - last_camera_position
 		last_camera_position = new_camera_position
@@ -143,13 +135,13 @@ func process_platforms():
 		render_limit[1] += diff
 		var should_render = false
 		for render_path in render_paths:
+			var spawn_area = biomes[render_path["biome"]]["spawn_area"]
 			should_render = (
 				should_render
-				or render_limit[1].x > render_path["position"].x + instability_props["max_distance"]
+				or render_limit[1].x > render_path["position"].x + spawn_area[0].x
 			)
 		if should_render:
 			if platforms_rendered % new_path_frequency == 0:
-				print('new path %d' % platforms_rendered)
 				render_paths[0]["position"].y += new_path_height_diff
 				render_paths[0]["branch_on"] = platforms_rendered + 1
 				render_paths.push_back(
@@ -159,17 +151,12 @@ func process_platforms():
 							render_paths[0]["position"].x,
 							render_paths[0]["position"].y - (new_path_height_diff * 2)
 						),
-						"biome": "other",
+						"biome": biomes.keys()[randi() % biomes.keys().size()],
 						"id": randi(),
 						"branch_on": platforms_rendered + 1
 					}
 				)
-			print(render_paths)
 			render_platform()
-		# for i in range(0, render_paths.size()):
-		# 	if render_paths[i]["position"].y > render_limit[1].y:
-		# 		render_paths.remove(i)
-		# 		break
 		if platforms[0].position.x < render_limit[0].x:
 			platforms[0].queue_free()
 			platforms.pop_front()
