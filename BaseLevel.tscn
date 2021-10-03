@@ -14,7 +14,7 @@ script = ExtResource( 5 )
 __meta__ = {
 "entity_name": "Level"
 }
-starting_music_volume = -3
+starting_music_volume = -5
 timer_expiration_non_taken_path = 0.6
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
