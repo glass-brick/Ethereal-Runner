@@ -24,6 +24,13 @@ export (float) var digestion_for_bullet = 10
 
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
+var Head = preload('BodyParts/Head.tscn')
+var Torso = preload('BodyParts/Torso.tscn')
+var Brazo = preload('BodyParts/Brazo.tscn')
+var Brazo2 = preload('BodyParts/Brazo2.tscn')
+var Pierna = preload('BodyParts/Pierna.tscn')
+var Pierna2 = preload('BodyParts/Pierna2.tscn')
+
 onready var hud = get_node(hud_path)
 onready var smp = $StateMachinePlayer
 
@@ -72,10 +79,29 @@ func set_health(health):
 func die():
 	self.health = 0
 	self.current_state = PlayerStates.DEAD
+	$AnimatedSprite.hide()
+	explode_body()
+	velocity = Vector2()
+
 	hud.player_is_dead()
 	Globals.save_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100, hud.time_passed)
 	yield(get_tree().create_timer(death_timer), "timeout")
 	SceneManager.change_scene('res://MainMenu.tscn')
+func explode_body():
+	var head = Head.instance()
+	var torso = Torso.instance()
+	var pierna = Pierna.instance()
+	var pierna2 = Pierna2.instance()
+	var brazo = Brazo.instance()
+	var brazo2 = Brazo2.instance()
+	var body_parts = [head, torso, pierna, pierna2, brazo, brazo2]
+	var vel_mod = velocity.length()
+	var rad_mod = velocity.angle()
+	for part in body_parts:
+		part.global_position = self.global_position
+		var vector = Vector2(velocity.x + randf()*10, velocity.y + randf()*10)
+		part.apply_impulse(Vector2(),vector)
+		SceneManager._current_scene.add_child(part)
 
 
 func get_input():
@@ -135,6 +161,7 @@ func get_input():
 		mana -= max_mana/mana_steps
 
 	if defend and (digestion == 0 or was_shielding) :
+		print("escudeando")
 		if not was_shielding:
 			$Shield.get_node("CPUParticles2D").restart()
 			$Shield.get_node("CPUParticles2D").show()
@@ -173,6 +200,8 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.play('Crouch')
 			$CollisionShapeCrouched.disabled = false
 			$CollisionShape2D.disabled = true
+		"Death":
+			$AnimatedSprite.hide()
 
 	match from:
 		"Crouch":

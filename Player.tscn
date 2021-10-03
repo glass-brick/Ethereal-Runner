@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -144,7 +144,7 @@ name = "Jump"
 [sub_resource type="Resource" id=23]
 script = ExtResource( 7 )
 __meta__ = {
-"graph_offset": Vector2( 528, -220 )
+"graph_offset": Vector2( 528, -180 )
 }
 name = "Run"
 
@@ -154,6 +154,13 @@ __meta__ = {
 "graph_offset": Vector2( 306, 80 )
 }
 name = "Crouch"
+
+[sub_resource type="Resource" id=59]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 428, 200 )
+}
+name = "Death"
 
 [sub_resource type="Resource" id=24]
 script = ExtResource( 10 )
@@ -184,6 +191,18 @@ from = "Fall"
 to = "Run"
 conditions = {
 "land": SubResource( 27 )
+}
+
+[sub_resource type="Resource" id=60]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=61]
+script = ExtResource( 10 )
+from = "Fall"
+to = "Death"
+conditions = {
+"die": SubResource( 60 )
 }
 
 [sub_resource type="Resource" id=29]
@@ -238,6 +257,18 @@ conditions = {
 "crouch": SubResource( 56 )
 }
 
+[sub_resource type="Resource" id=62]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=63]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Death"
+conditions = {
+"die": SubResource( 62 )
+}
+
 [sub_resource type="Resource" id=35]
 script = ExtResource( 9 )
 name = "v_speed"
@@ -250,6 +281,18 @@ from = "Jump"
 to = "Fall"
 conditions = {
 "v_speed": SubResource( 35 )
+}
+
+[sub_resource type="Resource" id=64]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=65]
+script = ExtResource( 10 )
+from = "Jump"
+to = "Death"
+conditions = {
+"die": SubResource( 64 )
 }
 
 [sub_resource type="Resource" id=37]
@@ -304,6 +347,18 @@ conditions = {
 "crouch": SubResource( 57 )
 }
 
+[sub_resource type="Resource" id=66]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=67]
+script = ExtResource( 10 )
+from = "Run"
+to = "Death"
+conditions = {
+"die": SubResource( 66 )
+}
+
 [sub_resource type="Resource" id=49]
 script = ExtResource( 8 )
 name = "stand_up"
@@ -316,11 +371,24 @@ conditions = {
 "stand_up": SubResource( 49 )
 }
 
+[sub_resource type="Resource" id=68]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=69]
+script = ExtResource( 10 )
+from = "Crouch"
+to = "Death"
+conditions = {
+"die": SubResource( 68 )
+}
+
 [sub_resource type="Resource" id=43]
 script = ExtResource( 6 )
 name = ""
 states = {
 "Crouch": SubResource( 46 ),
+"Death": SubResource( 59 ),
 "Entry": SubResource( 19 ),
 "Fall": SubResource( 20 ),
 "Idle": SubResource( 21 ),
@@ -329,26 +397,31 @@ states = {
 }
 transitions = {
 "Crouch": {
+"Death": SubResource( 69 ),
 "Idle": SubResource( 50 )
 },
 "Entry": {
 "Idle": SubResource( 24 )
 },
 "Fall": {
+"Death": SubResource( 61 ),
 "Idle": SubResource( 26 ),
 "Run": SubResource( 28 )
 },
 "Idle": {
 "Crouch": SubResource( 48 ),
+"Death": SubResource( 63 ),
 "Fall": SubResource( 30 ),
 "Jump": SubResource( 32 ),
 "Run": SubResource( 34 )
 },
 "Jump": {
+"Death": SubResource( 65 ),
 "Fall": SubResource( 36 )
 },
 "Run": {
 "Crouch": SubResource( 52 ),
+"Death": SubResource( 67 ),
 "Fall": SubResource( 38 ),
 "Idle": SubResource( 40 ),
 "Jump": SubResource( 42 )
@@ -373,6 +446,7 @@ __meta__ = {
 "entity_name": "Player"
 }
 gravity = 1500
+health = 10
 death_timer = 4.0
 mana_factor = 10.0
 invincibility_time = 1.1
@@ -399,7 +473,6 @@ script = ExtResource( 5 )
 state_machine = SubResource( 43 )
 
 [node name="Shield" type="Area2D" parent="."]
-visible = false
 collision_layer = 3
 collision_mask = 3
 
