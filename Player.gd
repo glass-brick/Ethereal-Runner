@@ -42,6 +42,7 @@ var jump_time = 0
 var last_shield_activation = 0.0
 var shield_duration = 0.2
 var digestion = 0
+var was_shielding = false
 
 var velocity = Vector2()
 
@@ -83,7 +84,7 @@ func get_input():
 	var jump = Input.is_action_pressed('ui_select')
 	var jump_just_pressed = Input.is_action_just_pressed('ui_select')
 	var fire = Input.is_action_just_pressed('fire')
-	var defend = Input.is_action_just_pressed('shield')
+	var defend = Input.is_action_pressed('shield')
 
 	if (left or right) and not (left and right):
 		if right and velocity.x < max_speed:
@@ -126,12 +127,20 @@ func get_input():
 		SceneManager._current_scene.add_child(explosion)
 		mana = 0
 
-	if digestion == 0 and defend and last_shield_activation > shield_time_threshold:
-		$Shield.get_node("CPUParticles2D").restart()
+	if defend and (digestion == 0 or was_shielding) :
+		if not was_shielding:
+			$Shield.get_node("CPUParticles2D").restart()
+			$Shield.get_node("CPUParticles2D").show()
+			$Shield.get_node("CPUParticles2D").modulate.a = 1
+		was_shielding = true
 		self.delete_with_shield()
 		last_shield_activation = 0
-	if shield_duration > last_shield_activation:
+	elif shield_duration > last_shield_activation:
+		$Shield.get_node("CPUParticles2D").modulate.a = 1-abs(shield_duration - last_shield_activation)/shield_duration
 		self.delete_with_shield()
+	elif was_shielding:
+		$Shield.get_node("CPUParticles2D").hide()
+		was_shielding = false
 
 func delete_with_shield():
 	var targets = $Shield.get_overlapping_areas()
@@ -195,6 +204,8 @@ func check_falling_death():
 
 func mana_digestion(delta):
 	if digestion:
+		if digestion > 100:
+			self.die()
 		digestion = max(digestion - delta * digestion_factor, 0)
 		self.mana += delta * digestion_factor
 		hud.update_digestion(digestion)
@@ -223,9 +234,10 @@ func affect_mana(delta):
 func _process(delta):
 	if $Camera2D.get_limit(MARGIN_LEFT) < $Camera2D.get_camera_position().x - camera_limit:
 		$Camera2D.set_limit(MARGIN_LEFT, $Camera2D.get_camera_position().x - camera_limit)
-	affect_mana(delta)
-	hud.update_health(self.health)
-	hud.update_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100)
+	if current_state != PlayerStates.DEAD:
+		affect_mana(delta)
+		hud.update_health(self.health)
+		hud.update_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100)
 
 
 func _on_hit(damage, damager):

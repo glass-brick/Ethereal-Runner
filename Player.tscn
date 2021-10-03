@@ -327,7 +327,7 @@ position = Vector2( 1.00003, -5 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 17 )
 animation = "Idle"
-frame = 2
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -354,15 +354,14 @@ shape = SubResource( 44 )
 z_index = -1
 emitting = false
 amount = 1000
-lifetime = 10.0
-one_shot = true
+lifetime = 300.0
 speed_scale = 10.0
 explosiveness = 1.0
 texture = ExtResource( 12 )
 spread = 180.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 350.0
-initial_velocity_random = 0.1
+initial_velocity_random = 0.02
 orbit_velocity_random = 0.48
 linear_accel = -100.0
 linear_accel_random = 0.2

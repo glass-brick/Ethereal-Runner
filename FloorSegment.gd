@@ -8,6 +8,10 @@ var expiration_time = expiration_time_base
 
 
 func _ready():
+	var mat = $Sprite.get_material()
+	mat.set_shader_param("random_value", randf()*2)
+	mat.set_shader_param("frames", ceil(randf()*5+2))
+	mat.set_shader_param("speed", ceil(randf()*5+2))
 	pass  # Replace with function body.
 
 
