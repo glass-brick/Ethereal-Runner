@@ -114,6 +114,7 @@ func _on_platform_stepped(path_id, platform_number):
 		for platform in platforms:
 			if platform.path_id != path_id:
 				platform.start_expiration_timer()
+				platform.make_phaseable()
 		var new_paths = []
 		for render_path in render_paths:
 			if render_path["id"] == path_id:
