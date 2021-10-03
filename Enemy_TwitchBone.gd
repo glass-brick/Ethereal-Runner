@@ -5,6 +5,7 @@ var Bullet = preload('res://Bullet.tscn')
 onready var smp = $StateMachinePlayer
 
 export (float) var death_time = 3
+export (float) var max_length_shoot = 1600
 
 var initial_time_to_attack = 400
 var time_to_attack = 0
@@ -50,7 +51,8 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Idle":
 			$Arm.look_at(SceneManager.get_entity("Player").global_position)
 			time_to_attack -= 1
-			if time_to_attack <= 0:
+			print((SceneManager.get_entity("Player").global_position - self.global_position).length())
+			if time_to_attack <= 0 and (SceneManager.get_entity("Player").global_position - self.global_position).length() < max_length_shoot:
 				smp.set_trigger('attack')
 		"Attack":
 			attack_time -= 1
