@@ -309,6 +309,7 @@ __meta__ = {
 }
 gravity = 1500
 death_timer = 4.0
+mana_factor = 10.0
 invincibility_time = 1.1
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
