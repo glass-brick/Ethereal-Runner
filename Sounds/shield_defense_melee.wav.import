@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shield_defense_melee.wav-081491ec059e7049e4d00ff70dfc260f.sample"
+
+[deps]
+
+source_file="res://Sounds/shield_defense_melee.wav"
+dest_files=[ "res://.import/shield_defense_melee.wav-081491ec059e7049e4d00ff70dfc260f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

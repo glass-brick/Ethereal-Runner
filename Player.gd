@@ -192,6 +192,7 @@ func delete_with_shield():
 		if target.has_method('explode'):
 			if not target.explode():  # if it explodes returns nothing
 				self.add_digestion(digestion_for_bullet)
+				$SoundShieldDeleteProjectile.play()
 
 func add_digestion(dig):
 	digestion += dig
@@ -332,5 +333,9 @@ func _process(delta):
 
 func _on_hit(damage, damager):
 	if not self.invincibility and self.current_state != PlayerStates.DEAD:
-		self.set_health(self.health - damage)
-		self.invincibility = true
+		if self.was_shielding:
+			self.add_digestion(digestion_for_bullet)
+			$SoundShieldDefense.play()
+		else:
+			self.set_health(self.health - damage)
+			self.invincibility = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=2]
+[gd_scene load_steps=99 format=2]
 
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -21,6 +21,8 @@
 [ext_resource path="res://Sounds/danger.wav" type="AudioStream" id=19]
 [ext_resource path="res://Sprites/idle.png" type="Texture" id=20]
 [ext_resource path="res://Sounds/shield.wav" type="AudioStream" id=21]
+[ext_resource path="res://Sounds/shield_defense.wav" type="AudioStream" id=22]
+[ext_resource path="res://Sounds/shield_defense_melee.wav" type="AudioStream" id=23]
 
 [sub_resource type="ShaderMaterial" id=1]
 render_priority = 1
@@ -80,32 +82,32 @@ atlas = ExtResource( 1 )
 region = Rect2( 800, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 1 )
-region = Rect2( 200, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 1 )
-region = Rect2( 400, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 4 )
 region = Rect2( 400, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 4 )
 region = Rect2( 600, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 4 )
 region = Rect2( 800, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=20]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 4 )
 region = Rect2( 1000, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 400, 0, 200, 200 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
@@ -124,20 +126,20 @@ animations = [ {
 "name": "Fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": false,
 "name": "Jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 14 ) ],
+"frames": [ SubResource( 18 ) ],
 "loop": true,
 "name": "Crouch",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
-"loop": true,
-"name": "Walk",
-"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=22]
@@ -618,6 +620,14 @@ volume_db = -1.0
 [node name="SoundShield" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 21 )
 volume_db = -7.0
+
+[node name="SoundShieldDefense" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+volume_db = -3.0
+
+[node name="SoundShieldDeleteProjectile" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+volume_db = -3.0
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]
