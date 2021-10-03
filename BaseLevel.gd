@@ -3,7 +3,8 @@ extends Node2D
 export (int) var starting_music_volume = 0
 
 var Platform = preload('res://FloorSegment.tscn')
-var Monster = preload('res://Enemy1.tscn')
+var TwitchBone = preload('res://Enemy_TwitchBone.tscn')
+var FleshStump = preload('res://Enemy_FleshStump.tscn')
 var Lightning = preload('res://Lightning.tscn')
 onready var camera = $Player/Camera2D
 onready var last_camera_position = camera.get_camera_screen_center()
@@ -17,9 +18,24 @@ var new_path_height_diff = 400
 var current_instability_level = 0
 
 var biomes = {
-	"normal": {"color": Color.white, "spawn_area": [Vector2(900, -50), Vector2(1200, 50)]},
-	"falling": {"color": Color.lightpink, "spawn_area": [Vector2(1100, 100), Vector2(1400, 200)]},
-	"rising": {"color": Color.lightblue, "spawn_area": [Vector2(800, -100), Vector2(1100, -200)]}
+	"normal":
+	{
+		"color": Color.white,
+		"monsters": [TwitchBone],
+		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)]
+	},
+	"falling":
+	{
+		"color": Color.lightpink,
+		"monsters": [FleshStump],
+		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)]
+	},
+	"rising":
+	{
+		"color": Color.lightblue,
+		"monsters": [TwitchBone, FleshStump],
+		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)]
+	}
 }
 
 var instability_levels = [
@@ -82,7 +98,8 @@ func render_platform(spawn_monsters):
 		platforms.push_back(platform)
 		var spawn_monster = spawn_monsters and randi() % 100 <= instability_props["monster_chance"]
 		if spawn_monster:
-			var monster = Monster.instance()
+			var monster_kind = biome_props["monsters"][randi() % biome_props["monsters"].size()]
+			var monster = monster_kind.instance()
 			monster.position = render_paths[i]["position"]
 			monster.position.y -= 300
 			monster.path_id = render_paths[i]["id"]
@@ -228,9 +245,10 @@ func process_instability_effects():
 					lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
 				add_child(lightning)
 
+
 func change_music_volume(change):
 	$Music.volume_db += change
 
+
 func reset_music_volume():
 	$Music.volume_db = starting_music_volume
-
