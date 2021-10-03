@@ -23,6 +23,7 @@ export (float) var digestion_factor = 1
 export (float) var digestion_for_bullet = 10
 export (float) var digestion_danger_threshold = 80
 export (float) var shield_digestion_add = 5
+export (float) var mana = 0
 
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
@@ -36,7 +37,6 @@ var Pierna2 = preload('BodyParts/Pierna2.tscn')
 onready var hud = get_node(hud_path)
 onready var smp = $StateMachinePlayer
 
-var mana = 0
 var initial_jump_time = 10
 var max_speed = max_speed_base
 var acceleration = acceleration_base
