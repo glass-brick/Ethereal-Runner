@@ -254,6 +254,11 @@ func _physics_process(delta):
 	self.check_falling_death()
 	self.process_invincibility(delta)
 	last_shield_activation += delta
+	if was_shielding:
+		$SoundShield.play()
+	else:
+		$SoundShield.stop()
+
 
 
 func process_invincibility(delta):
