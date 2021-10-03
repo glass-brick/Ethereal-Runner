@@ -8,10 +8,12 @@ var expiration_started = false
 var expiration_time = expiration_time_base
 var path_id
 var platform_number
+var color
 
 
 func _ready():
 	print(path_id)
+	$Sprite.modulate = color
 	var mat = $Sprite.get_material()
 	mat.set_shader_param("random_value", randf() * 2)
 	mat.set_shader_param("frames", ceil(randf() * 5 + 2))
@@ -21,9 +23,6 @@ func _ready():
 func _process(delta):
 	if expiration_started:
 		expiration_time -= delta * expiration_speed
-		$Sprite.modulate.r = expiration_time / expiration_time_base
-		$Sprite.modulate.g = expiration_time / expiration_time_base
-		$Sprite.modulate.b = expiration_time / expiration_time_base
 		$Sprite.modulate.a = (
 			min(expiration_time * expiration_speed, expiration_time_base)
 			/ expiration_time_base
