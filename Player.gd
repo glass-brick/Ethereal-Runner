@@ -19,6 +19,7 @@ export (int) var explosion_cost = 5
 export (int) var max_mana = 1000
 export (int) var mana_steps = 10
 export (float) var mana_gather_factor = 10
+export (float) var shield_time_threshold = 0.6
 
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
@@ -35,6 +36,7 @@ var invincibility_counter = 0.0
 var mana_level = 1
 var jumping = false
 var jump_time = 0
+var last_shield_activation = 0.0
 
 var velocity = Vector2()
 
@@ -74,6 +76,7 @@ func get_input():
 	var left = Input.is_action_pressed('ui_left')
 	var jump = Input.is_action_pressed('ui_select')
 	var fire = Input.is_action_just_pressed('fire')
+	var defend = Input.is_action_just_pressed('shield')
 
 	if (left or right) and not (left and right):
 		if right and velocity.x < max_speed:
@@ -111,6 +114,14 @@ func get_input():
 		SceneManager._current_scene.add_child(explosion)
 		mana = 0
 
+	if defend and last_shield_activation > shield_time_threshold:
+		$Shield.get_node("CPUParticles2D").restart()
+		var targets = $Shield.get_overlapping_areas()
+		for target in targets:
+			if (target.has_method('explode')):
+				target.explode()
+		last_shield_activation = 0
+
 
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
@@ -141,6 +152,7 @@ func _physics_process(delta):
 	# check death by falling
 	self.check_falling_death()
 	self.process_invincibility(delta)
+	last_shield_activation += delta
 
 
 func process_invincibility(delta):
