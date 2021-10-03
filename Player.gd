@@ -17,7 +17,7 @@ export (NodePath) var hud_path
 export (int) var explosion_cost = 5
 
 export (int) var max_mana = 1000
-export (int) var mana_steps = 10
+export (int) var mana_steps = 4
 export (float) var mana_gather_factor = 10
 export (float) var shield_time_threshold = 0.6
 
@@ -92,7 +92,10 @@ func get_input():
 			velocity.x = max(velocity.x - acceleration, 0)
 		elif velocity.x < 0:
 			velocity.x = min(velocity.x + acceleration, 0)
-	$AnimatedSprite.flip_h = left
+	if left:
+		$AnimatedSprite.flip_h = left
+	elif right:
+		$AnimatedSprite.flip_h = false
 
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
