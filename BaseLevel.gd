@@ -20,7 +20,7 @@ var instability_levels = [
 		"monster_chance": 0,
 	},
 	{
-		"high_treshold": 20,
+		"high_treshold": 2,
 		"min_distance": 800,
 		"max_distance": 1100,
 		"max_height_diff": 50,
@@ -28,8 +28,8 @@ var instability_levels = [
 		"monster_chance": 100,
 	},
 	{
-		"low_treshold": 20,
-		"high_treshold": 40,
+		"low_treshold": 3,
+		"high_treshold": 4,
 		"min_distance": 900,
 		"max_distance": 1200,
 		"max_height_diff": 100,
@@ -37,7 +37,7 @@ var instability_levels = [
 		"monster_chance": 20,
 	},
 	{
-		"low_treshold": 40,
+		"low_treshold": 4,
 		"min_distance": 1100,
 		"max_distance": 1400,
 		"max_height_diff": 120,
@@ -118,12 +118,12 @@ func change_instability_if_necessary():
 	var instability_props = instability_levels[current_instability_level]
 	if (
 		instability_props.has("high_treshold")
-		and instability_props["high_treshold"] < Globals.instability
+		and instability_props["high_treshold"] < Globals.instability_level
 	):
 		current_instability_level += 1
 	elif (
 		instability_props.has("low_treshold")
-		and instability_props["low_treshold"] > Globals.instability
+		and instability_props["low_treshold"] > Globals.instability_level
 	):
 		current_instability_level -= 1
 
