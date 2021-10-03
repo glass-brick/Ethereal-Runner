@@ -47,6 +47,7 @@ var camera_limit = 2000
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hud.update_health(self.health)
+	Globals.max_instability_level = mana_steps
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -165,6 +166,7 @@ func affect_mana(delta):
 	Globals.instability = mana * 100 / max_mana
 	mana_level = floor(mana / max_mana * mana_steps) + 1
 	Globals.instability_level = mana_level
+	
 
 	max_speed = max_speed_base + pow(mana_level * mana_factor, 2)
 	acceleration = acceleration_base + pow(mana_level * mana_factor, 2)
