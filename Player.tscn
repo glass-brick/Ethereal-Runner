@@ -589,23 +589,23 @@ disabled = true
 
 [node name="SoundJump1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="SoundJump2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="SoundJump3" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="SoundDoubleJump1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="SoundDoubleJump2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 17 )
-volume_db = -8.0
+volume_db = -10.0
 
 [node name="SoundInstabilityUp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
@@ -613,6 +613,7 @@ volume_db = -1.0
 
 [node name="SoundDigestionDanger" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 19 )
+volume_db = -1.0
 
 [node name="SoundShield" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 21 )

@@ -32,7 +32,10 @@ func _process(delta):
 		make_phaseable()
 
 
-func start_expiration_timer():
+func start_expiration_timer(full_time = null):
+	if full_time:
+		self.expiration_time_base = full_time
+		self.expiration_time = full_time
 	expiration_started = true
 
 
