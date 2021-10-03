@@ -172,6 +172,9 @@ func affect_mana(delta):
 
 	hud.update_mana(mana / max_mana)
 
+	var mat = $AnimatedSprite.get_material()
+	mat.set_shader_param("radius", (mana_level - 1))
+
 
 func _process(delta):
 	if $Camera2D.get_limit(MARGIN_LEFT) < $Camera2D.get_camera_position().x - camera_limit:
@@ -183,6 +186,5 @@ func _process(delta):
 
 func _on_hit(damage, damager):
 	if not self.invincibility and self.current_state != PlayerStates.DEAD:
-		print("me pega")
 		self.set_health(self.health - damage)
 		self.invincibility = true
