@@ -85,6 +85,7 @@ func die():
 	if current_state == PlayerStates.DEAD:
 		return
 	self.health = 0
+	hud.update_health(self.health)
 	self.current_state = PlayerStates.DEAD
 	$AnimatedSprite.hide()
 	explode_body()
