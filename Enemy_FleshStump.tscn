@@ -231,7 +231,7 @@ radius = 860.078
 [sub_resource type="RectangleShape2D" id=34]
 extents = Vector2( 155.447, 69.6265 )
 
-[node name="TwitchBone" type="KinematicBody2D"]
+[node name="FleshStump" type="KinematicBody2D"]
 position = Vector2( -128.657, -1.68179 )
 collision_layer = 2
 collision_mask = 0
