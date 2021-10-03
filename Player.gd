@@ -205,7 +205,7 @@ func mana_digestion(delta):
 	if digestion:
 		if digestion > 100:
 			self.die()
-		if self.mana == max_mana:
+		if self.mana != max_mana:
 			digestion = max(digestion - delta * digestion_factor, 0)
 			self.mana += delta * digestion_factor
 		hud.update_digestion(digestion)
