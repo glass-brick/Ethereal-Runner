@@ -1,6 +1,7 @@
 extends Node2D
 
 export (int) var starting_music_volume = 0
+export (float) var timer_expiration_non_taken_path = 1
 
 var Platform = preload('res://FloorSegment.tscn')
 var TwitchBone = preload('res://Enemy_TwitchBone.tscn')
@@ -127,7 +128,7 @@ func _on_platform_stepped(path_id, platform_number):
 		print('new path taken %d, number %d' % [path_id, platform_number])
 		for platform in platforms:
 			if platform.path_id != path_id:
-				platform.start_expiration_timer()
+				platform.start_expiration_timer(timer_expiration_non_taken_path)
 				platform.make_phaseable()
 		var new_paths = []
 		for render_path in render_paths:
