@@ -324,4 +324,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Digestion" type="Label" parent="."]
+margin_left = 4.33823
+margin_top = 99.7793
+margin_right = 44.3382
+margin_bottom = 113.779
+text = "Digestion"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Continue" to="." method="_on_Continue_pressed"]

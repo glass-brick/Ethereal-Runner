@@ -38,6 +38,8 @@ func update_mana(mana):
 		bars[i].value = 0
 		bars[i].modulate.v = 0.5 
 
+func update_digestion(digestion):
+	$Digestion.text = "digestion: "+ str(digestion)
 
 func update_time(time):
 	var seconds = int(time) % 60

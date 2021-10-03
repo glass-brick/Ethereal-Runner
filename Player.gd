@@ -20,6 +20,8 @@ export (int) var max_mana = 1000
 export (int) var mana_steps = 4
 export (float) var mana_gather_factor = 10
 export (float) var shield_time_threshold = 0.6
+export (float) var digestion_factor = 1
+export (float) var digestion_for_bullet = 10
 
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
@@ -39,6 +41,7 @@ var jumping = false
 var jump_time = 0
 var last_shield_activation = 0.0
 var shield_duration = 0.2
+var digestion = 0
 
 var velocity = Vector2()
 
@@ -123,7 +126,7 @@ func get_input():
 		SceneManager._current_scene.add_child(explosion)
 		mana = 0
 
-	if defend and last_shield_activation > shield_time_threshold :
+	if digestion == 0 and defend and last_shield_activation > shield_time_threshold:
 		$Shield.get_node("CPUParticles2D").restart()
 		self.delete_with_shield()
 		last_shield_activation = 0
@@ -134,7 +137,8 @@ func delete_with_shield():
 	var targets = $Shield.get_overlapping_areas()
 	for target in targets:
 		if (target.has_method('explode')):
-			target.explode()
+			if not target.explode(): # if it explodes returns nothing
+				digestion += digestion_for_bullet
 
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
@@ -189,9 +193,19 @@ func check_falling_death():
 	if self.global_position.y > Globals.last_y_platform + fall_death_distance:
 		self.die()
 
+func mana_digestion(delta):
+	if digestion:
+		digestion = max(digestion - delta * digestion_factor, 0)
+		self.mana += delta * digestion_factor
+		hud.update_digestion(digestion)
+
+		
 
 func affect_mana(delta):
 	mana += delta * mana_gather_factor
+
+	self.mana_digestion(delta)
+
 	Globals.instability = mana * 100 / max_mana
 	mana_level = floor(mana / max_mana * mana_steps) + 1
 	Globals.instability_level = mana_level
@@ -203,7 +217,7 @@ func affect_mana(delta):
 	hud.update_mana(mana / max_mana)
 
 	var mat = $AnimatedSprite.get_material()
-	mat.set_shader_param("radius", mana_level - 1)
+	mat.set_shader_param("radius", (mana_level - 1) * 2)
 
 
 func _process(delta):

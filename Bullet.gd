@@ -28,4 +28,7 @@ func _on_Bullet_body_entered(body):
 	self.explode()
 	
 func explode():
+	if exploding:
+		return true
+	exploding = true
 	queue_free()
