@@ -73,15 +73,15 @@ region = Rect2( 1000, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 200, 200 )
+region = Rect2( 600, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 600, 0, 200, 200 )
+region = Rect2( 800, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 800, 0, 200, 200 )
+region = Rect2( 0, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
@@ -119,20 +119,20 @@ animations = [ {
 "name": "Run",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 12 ) ],
-"loop": true,
-"name": "Crouch",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ) ],
 "loop": false,
 "name": "Fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 12 ), SubResource( 15 ), SubResource( 16 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": false,
 "name": "Jump",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 14 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": true,
@@ -510,7 +510,7 @@ transitions = {
 }
 
 [sub_resource type="CircleShape2D" id=73]
-radius = 451.755
+radius = 186.429
 
 [sub_resource type="Gradient" id=74]
 offsets = PoolRealArray( 0, 0.848101, 1 )
@@ -561,14 +561,14 @@ shape = SubResource( 73 )
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Shield"]
 z_index = -1
 emitting = false
-amount = 1000
-lifetime = 3000.0
+amount = 250
+lifetime = 300.0
 speed_scale = 10.0
 explosiveness = 1.0
 texture = ExtResource( 12 )
 spread = 180.0
 gravity = Vector2( 0, 0 )
-initial_velocity = 350.0
+initial_velocity = 225.0
 initial_velocity_random = 0.02
 orbit_velocity_random = 0.48
 linear_accel = -100.0
