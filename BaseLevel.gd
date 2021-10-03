@@ -1,5 +1,7 @@
 extends Node2D
 
+export (int) var starting_music_volume = 0
+
 var Platform = preload('res://FloorSegment.tscn')
 var Monster = preload('res://Enemy1.tscn')
 var Lightning = preload('res://Lightning.tscn')
@@ -224,3 +226,10 @@ func process_instability_effects():
 					lightning.position = SceneManager.get_entity('Player').global_position
 					lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
 				add_child(lightning)
+
+func change_music_volume(change):
+	$Music.volume_db += change
+
+func reset_music_volume():
+	$Music.volume_db = starting_music_volume
+

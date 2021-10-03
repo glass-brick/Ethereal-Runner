@@ -21,6 +21,7 @@ export (float) var mana_gather_factor = 10
 export (float) var shield_time_threshold = 0.6
 export (float) var digestion_factor = 1
 export (float) var digestion_for_bullet = 10
+export (float) var digestion_danger_threshold = 80
 
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
@@ -50,6 +51,7 @@ var shield_duration = 0.2
 var digestion = 0
 var was_shielding = false
 var crouched = false
+var digestion_danger = false
 
 var velocity = Vector2()
 
@@ -274,6 +276,15 @@ func check_falling_death():
 
 func mana_digestion(delta):
 	if digestion:
+		if digestion > digestion_danger_threshold:
+			if not digestion_danger:
+				digestion_danger = true
+				$SoundDigestionDanger.play()
+				SceneManager.get_entity('Level').change_music_volume(-6)
+		else:
+			digestion_danger = false
+			$SoundDigestionDanger.stop()
+			SceneManager.get_entity('Level').reset_music_volume()
 		if digestion > 100:
 			self.die()
 		if self.mana != max_mana:
