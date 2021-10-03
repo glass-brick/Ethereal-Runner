@@ -66,8 +66,9 @@ func die():
 	self.health = 0
 	self.current_state = PlayerStates.DEAD
 	hud.player_is_dead()
+	Globals.save_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100, hud.time_passed)
 	yield(get_tree().create_timer(death_timer), "timeout")
-	SceneManager.reload_scene()
+	SceneManager.change_scene('res://MainMenu.tscn')
 
 
 func get_input():
