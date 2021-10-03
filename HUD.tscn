@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=1]
 [ext_resource path="res://HUD.gd" type="Script" id=2]
@@ -39,6 +39,20 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.192157, 0.505882, 0.00784314, 1 )
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+shadow_color = Color( 0.145098, 0, 0.384314, 0.6 )
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.00392157, 0.105882, 0, 1 )
+shadow_color = Color( 0.819608, 0, 0, 0.6 )
+
+[sub_resource type="DynamicFont" id=15]
+font_data = ExtResource( 3 )
 
 [node name="HUD" type="CanvasLayer"]
 pause_mode = 2
@@ -324,11 +338,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Digestion" type="Label" parent="."]
-margin_left = 4.33823
-margin_top = 99.7793
-margin_right = 44.3382
-margin_bottom = 113.779
+[node name="Digestion" type="ProgressBar" parent="."]
+margin_left = 74.0
+margin_top = 96.3326
+margin_right = 199.0
+margin_bottom = 116.333
+custom_styles/fg = SubResource( 13 )
+custom_styles/bg = SubResource( 14 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Digestion" type="Label" parent="Digestion"]
+margin_left = 29.0328
+margin_top = -0.667419
+margin_right = 154.033
+margin_bottom = 20.3326
+custom_fonts/font = SubResource( 15 )
 text = "Digestion"
 __meta__ = {
 "_edit_use_anchors_": false

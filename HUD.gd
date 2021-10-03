@@ -7,7 +7,7 @@ var time_passed = 0
 func _ready():
 	$Controls.hide()
 	$Continue.hide()
-	pass  # Replace with function body.
+	$Digestion.value = 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,7 +39,7 @@ func update_mana(mana):
 		bars[i].modulate.v = 0.5 
 
 func update_digestion(digestion):
-	$Digestion.text = "digestion: "+ str(digestion)
+	$Digestion.value = digestion
 
 func update_time(time):
 	var seconds = int(time) % 60
