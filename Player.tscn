@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=89 format=2]
 
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://Sounds/jump_1.wav" type="AudioStream" id=13]
 [ext_resource path="res://Sounds/jump_2.wav" type="AudioStream" id=14]
 [ext_resource path="res://Sounds/jump_3.wav" type="AudioStream" id=15]
+[ext_resource path="res://Sounds/double_jump_1.wav" type="AudioStream" id=16]
+[ext_resource path="res://Sounds/double_jump_2.wav" type="AudioStream" id=17]
 
 [sub_resource type="ShaderMaterial" id=1]
 render_priority = 1
@@ -159,7 +161,7 @@ name = "Idle"
 [sub_resource type="Resource" id=24]
 script = ExtResource( 7 )
 __meta__ = {
-"graph_offset": Vector2( 768, -60 )
+"graph_offset": Vector2( 788, -80 )
 }
 name = "Jump"
 
@@ -169,6 +171,13 @@ __meta__ = {
 "graph_offset": Vector2( 528, -180 )
 }
 name = "Run"
+
+[sub_resource type="Resource" id=65]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 948, -80 )
+}
+name = "DoubleJump"
 
 [sub_resource type="Resource" id=26]
 script = ExtResource( 8 )
@@ -235,6 +244,18 @@ from = "Fall"
 to = "Run"
 conditions = {
 "land": SubResource( 35 )
+}
+
+[sub_resource type="Resource" id=66]
+script = ExtResource( 8 )
+name = "jump"
+
+[sub_resource type="Resource" id=67]
+script = ExtResource( 10 )
+from = "Fall"
+to = "DoubleJump"
+conditions = {
+"jump": SubResource( 66 )
 }
 
 [sub_resource type="Resource" id=37]
@@ -327,6 +348,18 @@ conditions = {
 "v_speed": SubResource( 49 )
 }
 
+[sub_resource type="Resource" id=68]
+script = ExtResource( 8 )
+name = "jump"
+
+[sub_resource type="Resource" id=69]
+script = ExtResource( 10 )
+from = "Jump"
+to = "DoubleJump"
+conditions = {
+"jump": SubResource( 68 )
+}
+
 [sub_resource type="Resource" id=51]
 script = ExtResource( 8 )
 name = "crouch"
@@ -391,12 +424,27 @@ conditions = {
 "jump": SubResource( 59 )
 }
 
+[sub_resource type="Resource" id=70]
+script = ExtResource( 9 )
+name = "v_speed"
+comparation = 3
+value = 0.0
+
+[sub_resource type="Resource" id=71]
+script = ExtResource( 10 )
+from = "DoubleJump"
+to = "Fall"
+conditions = {
+"v_speed": SubResource( 70 )
+}
+
 [sub_resource type="Resource" id=61]
 script = ExtResource( 6 )
 name = ""
 states = {
 "Crouch": SubResource( 19 ),
 "Death": SubResource( 20 ),
+"DoubleJump": SubResource( 65 ),
 "Entry": SubResource( 21 ),
 "Fall": SubResource( 22 ),
 "Idle": SubResource( 23 ),
@@ -408,11 +456,15 @@ transitions = {
 "Death": SubResource( 27 ),
 "Idle": SubResource( 29 )
 },
+"DoubleJump": {
+"Fall": SubResource( 71 )
+},
 "Entry": {
 "Idle": SubResource( 30 )
 },
 "Fall": {
 "Death": SubResource( 32 ),
+"DoubleJump": SubResource( 67 ),
 "Idle": SubResource( 34 ),
 "Run": SubResource( 36 )
 },
@@ -425,6 +477,7 @@ transitions = {
 },
 "Jump": {
 "Death": SubResource( 48 ),
+"DoubleJump": SubResource( 69 ),
 "Fall": SubResource( 50 )
 },
 "Run": {
@@ -526,6 +579,14 @@ volume_db = -5.0
 
 [node name="SoundJump3" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
+volume_db = -5.0
+
+[node name="SoundDoubleJump1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+volume_db = -5.0
+
+[node name="SoundDoubleJump2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
 volume_db = -5.0
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
