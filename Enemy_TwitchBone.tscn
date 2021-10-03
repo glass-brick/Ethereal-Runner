@@ -145,6 +145,7 @@ extents = Vector2( 106.591, 109.118 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 10 )
+death_time = 1.4
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 1 )

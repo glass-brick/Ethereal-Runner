@@ -4,6 +4,8 @@ var Bullet = preload('res://Bullet.tscn')
 
 onready var smp = $StateMachinePlayer
 
+export (float) var death_time = 3
+
 var initial_time_to_attack = 400
 var time_to_attack = 0
 
@@ -15,7 +17,6 @@ var projectile_damage = 10
 var projectile_range = 5000
 var health = 100
 var death_dissolution = 0
-var death_time = 3
 var path_id
 
 

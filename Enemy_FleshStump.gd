@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+export (float) var death_time = 3
+
 onready var smp = $StateMachinePlayer
 
 var initial_time_to_attack = 400
@@ -19,7 +21,6 @@ var damage = 20
 var speed = 300
 var health = 100
 var death_dissolution = 0
-var death_time = 3
 var path_id
 
 var velocity = Vector2(0, 0)
