@@ -31,6 +31,7 @@ var initial_jump_time = 10
 var max_speed = max_speed_base
 var acceleration = acceleration_base
 var jump_speed = jump_speed_base / initial_jump_time
+var double_jump = false
 var invincibility = false
 var invincibility_counter = 0.0
 var mana_level = 1
@@ -67,14 +68,16 @@ func die():
 	self.health = 0
 	self.current_state = PlayerStates.DEAD
 	hud.player_is_dead()
+	Globals.save_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100, hud.time_passed)
 	yield(get_tree().create_timer(death_timer), "timeout")
-	SceneManager.reload_scene()
+	SceneManager.change_scene('res://MainMenu.tscn')
 
 
 func get_input():
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
 	var jump = Input.is_action_pressed('ui_select')
+	var jump_just_pressed = Input.is_action_just_pressed('ui_select')
 	var fire = Input.is_action_just_pressed('fire')
 	var defend = Input.is_action_just_pressed('shield')
 
@@ -92,11 +95,13 @@ func get_input():
 
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
-	if jump and is_on_floor():
+	if jump_just_pressed and (is_on_floor() or double_jump):
 		smp.set_trigger('jump')
 		jumping = true
 		jump_time = initial_jump_time
 		velocity.y = jump_speed * initial_jump_time
+		if not is_on_floor():
+			double_jump = false
 
 	if jump_time > 0:
 		if not jump:
@@ -131,6 +136,9 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.play('Idle')
 		"Jump":
 			$AnimatedSprite.play('Jump')
+		"DoubleJump":
+			$AnimatedSprite.play('Jump')
+			$AnimatedSprite.frame = 0
 		"Fall":
 			$AnimatedSprite.play('Fall')
 
@@ -140,6 +148,7 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Fall":
 			if is_on_floor():
 				smp.set_trigger('land')
+				double_jump = true
 
 
 func _physics_process(delta):
@@ -178,7 +187,6 @@ func affect_mana(delta):
 	Globals.instability = mana * 100 / max_mana
 	mana_level = floor(mana / max_mana * mana_steps) + 1
 	Globals.instability_level = mana_level
-	
 
 	max_speed = max_speed_base + pow(mana_level * mana_factor, 2)
 	acceleration = acceleration_base + pow(mana_level * mana_factor, 2)
@@ -187,7 +195,7 @@ func affect_mana(delta):
 	hud.update_mana(mana / max_mana)
 
 	var mat = $AnimatedSprite.get_material()
-	mat.set_shader_param("radius", (mana_level - 1))
+	mat.set_shader_param("radius", mana_level - 1)
 
 
 func _process(delta):
