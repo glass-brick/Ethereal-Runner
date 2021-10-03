@@ -77,6 +77,8 @@ func set_health(health):
 
 
 func die():
+	if current_state == PlayerStates.DEAD:
+		return
 	self.health = 0
 	self.current_state = PlayerStates.DEAD
 	$AnimatedSprite.hide()
@@ -97,11 +99,9 @@ func explode_body():
 	var brazo = Brazo.instance()
 	var brazo2 = Brazo2.instance()
 	var body_parts = [head, torso, pierna, pierna2, brazo, brazo2]
-	var vel_mod = velocity.length()
-	var rad_mod = velocity.angle()
 	for part in body_parts:
 		part.global_position = self.global_position
-		var vector = Vector2(velocity.x + randf() * 10, velocity.y + randf() * 10)
+		var vector = Vector2(velocity.x + randf() * 10, -abs(velocity.y + randf() * 10))
 		part.apply_impulse(Vector2(), vector)
 		SceneManager._current_scene.add_child(part)
 
@@ -225,12 +225,13 @@ func _on_StateMachinePlayer_updated(state, delta):
 
 
 func _physics_process(delta):
+	if current_state == PlayerStates.DEAD:
+		return
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 	smp.set_param('h_speed', velocity.x)
 	smp.set_param('v_speed', velocity.y)
-	if not current_state == PlayerStates.DEAD:
-		get_input()
+	get_input()
 	# check death by falling
 	self.check_falling_death()
 	self.process_invincibility(delta)
