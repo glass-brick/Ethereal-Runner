@@ -70,12 +70,6 @@ func _ready():
 	hud.update_health(self.health)
 	Globals.max_instability_level = mana_steps
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
 func set_health(health):
 	self.health = max(health, 0)
 	if self.health <= 0:
@@ -300,12 +294,12 @@ func mana_digestion(delta):
 			self.die()
 		if self.mana != max_mana:
 			digestion = max(digestion - delta * digestion_factor, 0)
-			self.mana += delta * digestion_factor
+			# self.mana += delta * digestion_factor  * (mana_steps - mana_level)
 		hud.update_digestion(digestion)
 
 
 func affect_mana(delta):
-	self.mana += delta * mana_gather_factor
+	self.mana += delta * mana_gather_factor * (mana_steps - mana_level)
 
 	self.mana_digestion(delta)
 	self.mana = min(max_mana, self.mana)
