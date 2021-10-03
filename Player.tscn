@@ -73,15 +73,15 @@ region = Rect2( 1000, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 600, 0, 200, 200 )
+region = Rect2( 0, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 800, 0, 200, 200 )
+region = Rect2( 600, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 200, 200 )
+region = Rect2( 800, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
@@ -119,12 +119,17 @@ animations = [ {
 "name": "Run",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
 "loop": false,
 "name": "Fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"frames": [ SubResource( 12 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": false,
 "name": "Jump",
 "speed": 10.0
@@ -133,11 +138,6 @@ animations = [ {
 "loop": true,
 "name": "Walk",
 "speed": 10.0
-}, {
-"frames": [ SubResource( 14 ) ],
-"loop": true,
-"name": "Crouch",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=22]
@@ -562,7 +562,7 @@ shape = SubResource( 73 )
 z_index = -1
 emitting = false
 amount = 1000
-lifetime = 300.0
+lifetime = 3000.0
 speed_scale = 10.0
 explosiveness = 1.0
 texture = ExtResource( 12 )

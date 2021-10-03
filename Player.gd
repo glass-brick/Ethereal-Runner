@@ -22,6 +22,7 @@ export (float) var shield_time_threshold = 0.6
 export (float) var digestion_factor = 1
 export (float) var digestion_for_bullet = 10
 export (float) var digestion_danger_threshold = 80
+export (float) var shield_digestion_add = 5
 
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
@@ -87,6 +88,7 @@ func die():
 	self.health = 0
 	hud.update_health(self.health)
 	self.current_state = PlayerStates.DEAD
+	$Shield.get_node("CPUParticles2D").hide()
 	$AnimatedSprite.hide()
 	explode_body()
 	velocity = Vector2()
@@ -195,8 +197,10 @@ func delete_with_shield():
 	for target in targets:
 		if target.has_method('explode'):
 			if not target.explode():  # if it explodes returns nothing
-				digestion += digestion_for_bullet
+				self.add_digestion(digestion_for_bullet)
 
+func add_digestion(dig):
+	digestion += dig
 
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
@@ -256,6 +260,7 @@ func _physics_process(delta):
 	self.process_invincibility(delta)
 	last_shield_activation += delta
 	if was_shielding:
+		self.add_digestion(delta * shield_digestion_add)
 		$SoundShield.play()
 	else:
 		$SoundShield.stop()
