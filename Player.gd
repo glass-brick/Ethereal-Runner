@@ -288,8 +288,11 @@ func affect_mana(delta):
 	self.mana = min(max_mana, self.mana)
 
 	Globals.instability = mana * 100 / max_mana
+	var mana_level_before = mana_level
 	mana_level = floor(mana / max_mana * mana_steps) + 1
 	Globals.instability_level = mana_level
+	if mana_level_before < mana_level:
+		$SoundInstabilityUp.play()
 
 	max_speed = max_speed_base + pow(mana_level * mana_factor, 2)
 	acceleration = acceleration_base + pow(mana_level * mana_factor, 2)
