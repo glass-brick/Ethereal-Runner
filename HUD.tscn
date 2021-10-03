@@ -31,6 +31,7 @@ border_color = Color( 0.329412, 0.121569, 0.266667, 1 )
 bg_color = Color( 0.180392, 0.12549, 0.196078, 1 )
 
 [node name="HUD" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="ManaBar" type="ProgressBar" parent="."]
