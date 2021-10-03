@@ -1,18 +1,21 @@
 extends RigidBody2D
+signal platform_stepped
 
 export (int) var expiration_time_base = 4
 export (int) var expiration_speed = 1
 export (bool) var test = false
 var expiration_started = false
 var expiration_time = expiration_time_base
+var path_id
+var platform_number
 
 
 func _ready():
+	print(path_id)
 	var mat = $Sprite.get_material()
-	mat.set_shader_param("random_value", randf()*2)
-	mat.set_shader_param("frames", ceil(randf()*5+2))
-	mat.set_shader_param("speed", ceil(randf()*5+2))
-	pass  # Replace with function body.
+	mat.set_shader_param("random_value", randf() * 2)
+	mat.set_shader_param("frames", ceil(randf() * 5 + 2))
+	mat.set_shader_param("speed", ceil(randf() * 5 + 2))
 
 
 func _process(delta):
@@ -37,4 +40,5 @@ func start_expiration_timer():
 
 func _on_Player_grab_body_entered(body):
 	if not test:
+		emit_signal("platform_stepped", path_id, platform_number)
 		self.start_expiration_timer()

@@ -6,9 +6,11 @@ var Lightning = preload('res://Lightning.tscn')
 onready var camera = $Player/Camera2D
 onready var last_camera_position = camera.get_camera_screen_center()
 var render_limit = [Vector2(-2000, -2000), Vector2(5000, 5000)]
-var render_paths = [{"position": Vector2(0, 200), "biome": "normal"}]
+var render_paths = [{"position": Vector2(0, 200), "biome": "normal", "id": randi(), "branch_on": 0}]
 var time_passed = 0
 var hue_value = 0
+var new_path_frequency = 10
+var new_path_height_diff = 400
 
 var current_instability_level = 0
 
@@ -73,6 +75,9 @@ func render_platform():
 		var instability_props = instability_levels[current_instability_level]
 		var platform = Platform.instance()
 		platform.position = render_paths[i]["position"]
+		platform.path_id = render_paths[i]["id"]
+		platform.platform_number = platforms_rendered
+		platform.connect("platform_stepped", self, "_on_platform_stepped")
 		add_child(platform)
 		platforms.push_back(platform)
 		var spawn_monster = randi() % 100 <= instability_props["monster_chance"]
@@ -80,6 +85,7 @@ func render_platform():
 			var monster = Monster.instance()
 			monster.position = render_paths[i]["position"]
 			monster.position.y -= 300
+			monster.path_id = render_paths[i]["id"]
 			add_child(monster)
 			monsters.push_back(monster)
 
@@ -96,6 +102,27 @@ func render_platform():
 		)
 		if Globals.last_y_platform < render_paths[i]["position"].y or i == render_paths.size() - 1:
 			Globals.last_y_platform = render_paths[i]["position"].y
+
+
+func _on_platform_stepped(path_id, platform_number):
+	if (
+		render_paths.size() > 1
+		and render_paths[0]["branch_on"] != 0
+		and render_paths[0]["branch_on"] <= platform_number
+	):
+		print('new path taken %d, number %d' % [path_id, platform_number])
+		for platform in platforms:
+			if platform.path_id != path_id:
+				platform.start_expiration_timer()
+		var new_paths = []
+		for render_path in render_paths:
+			if render_path["id"] == path_id:
+				render_path["branch_on"] = 0
+				new_paths.push_front(render_path)
+		render_paths = new_paths
+		for monster in monsters:
+			if monster.path_id != path_id:
+				monster.kill()
 
 
 func _process(delta):
@@ -120,20 +147,28 @@ func process_platforms():
 				or render_limit[1].x > render_path["position"].x + instability_props["max_distance"]
 			)
 		if should_render:
-			if platforms_rendered % 10 == 0:
+			if platforms_rendered % new_path_frequency == 0:
+				print('new path %d' % platforms_rendered)
+				render_paths[0]["position"].y += new_path_height_diff
+				render_paths[0]["branch_on"] = platforms_rendered + 1
 				render_paths.push_back(
 					{
 						"position":
-						Vector2(render_paths[0]["position"].x, render_paths[0]["position"].y - 500),
-						"biome": "other"
+						Vector2(
+							render_paths[0]["position"].x,
+							render_paths[0]["position"].y - (new_path_height_diff * 2)
+						),
+						"biome": "other",
+						"id": randi(),
+						"branch_on": platforms_rendered + 1
 					}
 				)
 			print(render_paths)
 			render_platform()
-		for i in range(0, render_paths.size()):
-			if render_paths[i]["position"].y > render_limit[1].y:
-				render_paths.remove(i)
-				break
+		# for i in range(0, render_paths.size()):
+		# 	if render_paths[i]["position"].y > render_limit[1].y:
+		# 		render_paths.remove(i)
+		# 		break
 		if platforms[0].position.x < render_limit[0].x:
 			platforms[0].queue_free()
 			platforms.pop_front()

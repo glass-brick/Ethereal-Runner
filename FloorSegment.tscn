@@ -6,14 +6,14 @@
 [ext_resource path="res://Shader/wobblyEffect.shader" type="Shader" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 374.234, 29.6895 )
+extents = Vector2( 353.593, 44.6345 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 4 )
-shader_param/strength = 0.08
-shader_param/speed = 1.0
-shader_param/frames = 4
-shader_param/random_value = 1.0
+shader_param/strength = 0.8
+shader_param/speed = 4.0
+shader_param/frames = 7
+shader_param/random_value = null
 shader_param/flowMap = ExtResource( 3 )
 
 [sub_resource type="RectangleShape2D" id=3]

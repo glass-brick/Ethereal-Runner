@@ -16,6 +16,7 @@ var projectile_range = 5000
 var health = 100
 var death_dissolution = 0
 var death_time = 3
+var path_id
 
 
 func _on_StateMachinePlayer_transited(from, to):
@@ -61,6 +62,10 @@ func _on_StateMachinePlayer_updated(state, delta):
 
 func _on_hit(damage, damager):
 	set_health(health - damage)
+
+
+func kill():
+	set_health(0)
 
 
 func set_health(new_health):
