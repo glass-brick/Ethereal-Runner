@@ -205,7 +205,7 @@ margin_top = -167.0
 margin_right = 260.0
 custom_fonts/font = ExtResource( 1 )
 text = "Movement: Arrow keys
-Jump: Space bar
+Jump / Double jump: Space bar
 Attack: Z
 Shield: X
 "
