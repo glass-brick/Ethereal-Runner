@@ -205,16 +205,18 @@ func mana_digestion(delta):
 	if digestion:
 		if digestion > 100:
 			self.die()
-		digestion = max(digestion - delta * digestion_factor, 0)
-		self.mana += delta * digestion_factor
+		if self.mana == max_mana:
+			digestion = max(digestion - delta * digestion_factor, 0)
+			self.mana += delta * digestion_factor
 		hud.update_digestion(digestion)
 
 		
 
 func affect_mana(delta):
-	mana += delta * mana_gather_factor
+	self.mana += delta * mana_gather_factor
 
 	self.mana_digestion(delta)
+	self.mana = min(max_mana, self.mana)
 
 	Globals.instability = mana * 100 / max_mana
 	mana_level = floor(mana / max_mana * mana_steps) + 1

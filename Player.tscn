@@ -316,7 +316,6 @@ __meta__ = {
 "entity_name": "Player"
 }
 gravity = 1500
-health = 1000
 death_timer = 4.0
 mana_factor = 10.0
 invincibility_time = 1.1
