@@ -25,9 +25,18 @@ func _process(delta):
 
 
 func update_mana(mana):
-	var manaBar = get_node("ManaBar")
-	manaBar.value = mana * 100
-	manaBar.self_modulate = Color(1, 1, 1, mana / 2 + 0.5)
+	var manaBar = get_node("ManaBars")
+	var bars = manaBar.get_children()
+	var n_bars_complete = floor(mana * 4)
+	for i in range(n_bars_complete):
+		bars[i].value = 100
+		bars[i].modulate.v = 0.7 + abs(cos(time_passed))*10/7
+	if n_bars_complete < 4:
+		bars[n_bars_complete].value = (mana - n_bars_complete / 4) * 400
+		bars[n_bars_complete].modulate.v = 0.5 
+	for i in range(n_bars_complete+1,4):
+		bars[i].value = 0
+		bars[i].modulate.v = 0.5 
 
 
 func update_time(time):

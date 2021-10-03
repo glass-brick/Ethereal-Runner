@@ -153,8 +153,7 @@ func process_instability_effects():
 					if target_index == monsters.size():
 						print("target player")
 						lightning.position = SceneManager.get_entity('Player').global_position
-					else:
-						print("target monster")
+					elif is_instance_valid(monsters[target_index]):
 						lightning.position = monsters[target_index].global_position
 				else:
 					print("target random")
