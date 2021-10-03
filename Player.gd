@@ -184,9 +184,11 @@ func get_input():
 			- abs(shield_duration - last_shield_activation) / shield_duration
 		)
 		self.delete_with_shield()
+		$SoundShield.stop()
 	elif was_shielding:
 		$Shield.get_node("CPUParticles2D").hide()
 		was_shielding = false
+		$SoundShield.stop()
 
 
 func delete_with_shield():
@@ -254,6 +256,11 @@ func _physics_process(delta):
 	self.check_falling_death()
 	self.process_invincibility(delta)
 	last_shield_activation += delta
+	if was_shielding:
+		$SoundShield.play()
+	else:
+		$SoundShield.stop()
+
 
 
 func process_invincibility(delta):
