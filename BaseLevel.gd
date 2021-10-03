@@ -25,7 +25,9 @@ var instability_levels = [
 		"max_distance": 1100,
 		"max_height_diff": 50,
 		"min_height_diff": 150,
-		"monster_chance": 100,
+		"monster_chance": 20,
+		"lightning_chance": 10,
+		"lightning_frequency": 300,
 	},
 	{
 		"low_treshold": 3,
@@ -34,7 +36,9 @@ var instability_levels = [
 		"max_distance": 1200,
 		"max_height_diff": 100,
 		"min_height_diff": 150,
-		"monster_chance": 20,
+		"monster_chance": 40,
+		"lightning_chance": 20,
+		"lightning_frequency": 200,
 	},
 	{
 		"low_treshold": 4,
@@ -42,7 +46,7 @@ var instability_levels = [
 		"max_distance": 1400,
 		"max_height_diff": 120,
 		"min_height_diff": 200,
-		"monster_chance": 80,
+		"monster_chance": 60,
 		"lightning_chance": 20,
 		"lightning_frequency": 100,
 	}
