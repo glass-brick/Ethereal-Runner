@@ -124,7 +124,7 @@ func get_input():
 		$Shield.get_node("CPUParticles2D").restart()
 		self.delete_with_shield()
 		last_shield_activation = 0
-	if shield_duration < last_shield_activation:
+	if shield_duration > last_shield_activation:
 		self.delete_with_shield()
 
 func delete_with_shield():
