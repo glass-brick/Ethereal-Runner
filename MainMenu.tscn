@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Runner_run.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/idle.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=5]
+[ext_resource path="res://fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -112,6 +113,8 @@ script = ExtResource( 2 )
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.49829
+margin_right = 1.49829
 color = Color( 0.105882, 0.054902, 0.101961, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -134,8 +137,10 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -106.0
-margin_bottom = -65.0
+margin_left = 1.49829
+margin_top = -107.498
+margin_right = 1.49829
+margin_bottom = -66.4983
 custom_fonts/font = SubResource( 2 )
 text = "High score: 0 in 00:00"
 align = 1
@@ -171,7 +176,22 @@ loop = false
 position = Vector2( -17.4839, 13.0494 )
 frames = SubResource( 20 )
 animation = "Idle"
-frame = 2
+frame = 3
 playing = true
+
+[node name="Controls" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -167.0
+margin_right = 260.0
+custom_fonts/font = ExtResource( 6 )
+text = "Movement: Arrow keys
+Jump: Space bar
+Attack: Z
+Shield: X
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="button_down" from="Button" to="." method="_on_Button_button_down"]
