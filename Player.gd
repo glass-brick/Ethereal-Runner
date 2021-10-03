@@ -38,6 +38,7 @@ var mana_level = 1
 var jumping = false
 var jump_time = 0
 var last_shield_activation = 0.0
+var shield_duration = 0.2
 
 var velocity = Vector2()
 
@@ -119,14 +120,18 @@ func get_input():
 		SceneManager._current_scene.add_child(explosion)
 		mana = 0
 
-	if defend and last_shield_activation > shield_time_threshold:
+	if defend and last_shield_activation > shield_time_threshold :
 		$Shield.get_node("CPUParticles2D").restart()
-		var targets = $Shield.get_overlapping_areas()
-		for target in targets:
-			if (target.has_method('explode')):
-				target.explode()
+		self.delete_with_shield()
 		last_shield_activation = 0
+	if shield_duration < last_shield_activation:
+		self.delete_with_shield()
 
+func delete_with_shield():
+	var targets = $Shield.get_overlapping_areas()
+	for target in targets:
+		if (target.has_method('explode')):
+			target.explode()
 
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
