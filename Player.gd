@@ -87,6 +87,8 @@ func die():
 	Globals.save_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100, hud.time_passed)
 	yield(get_tree().create_timer(death_timer), "timeout")
 	SceneManager.change_scene('res://MainMenu.tscn')
+
+
 func explode_body():
 	var head = Head.instance()
 	var torso = Torso.instance()
@@ -99,8 +101,8 @@ func explode_body():
 	var rad_mod = velocity.angle()
 	for part in body_parts:
 		part.global_position = self.global_position
-		var vector = Vector2(velocity.x + randf()*10, velocity.y + randf()*10)
-		part.apply_impulse(Vector2(),vector)
+		var vector = Vector2(velocity.x + randf() * 10, velocity.y + randf() * 10)
+		part.apply_impulse(Vector2(), vector)
 		SceneManager._current_scene.add_child(part)
 
 
@@ -117,7 +119,6 @@ func get_input():
 		smp.set_trigger('crouch')
 	else:
 		smp.set_trigger('stand_up')
-
 
 	if (left or right) and not (left and right):
 		if right and velocity.x < max_speed:
@@ -154,14 +155,13 @@ func get_input():
 			if jump_time == 0:
 				jumping = false
 
-	if fire and mana > max_mana/mana_steps:
+	if fire and mana > max_mana / mana_steps:
 		var explosion = ExplosionAttack.instance()
 		explosion.global_position = global_position
 		SceneManager._current_scene.add_child(explosion)
-		mana -= max_mana/mana_steps
+		mana -= max_mana / mana_steps
 
-	if defend and (digestion == 0 or was_shielding) :
-		print("escudeando")
+	if defend and (digestion == 0 or was_shielding):
 		if not was_shielding:
 			$Shield.get_node("CPUParticles2D").restart()
 			$Shield.get_node("CPUParticles2D").show()
@@ -170,18 +170,23 @@ func get_input():
 		self.delete_with_shield()
 		last_shield_activation = 0
 	elif shield_duration > last_shield_activation:
-		$Shield.get_node("CPUParticles2D").modulate.a = 1-abs(shield_duration - last_shield_activation)/shield_duration
+		$Shield.get_node("CPUParticles2D").modulate.a = (
+			1
+			- abs(shield_duration - last_shield_activation) / shield_duration
+		)
 		self.delete_with_shield()
 	elif was_shielding:
 		$Shield.get_node("CPUParticles2D").hide()
 		was_shielding = false
 
+
 func delete_with_shield():
 	var targets = $Shield.get_overlapping_areas()
 	for target in targets:
-		if (target.has_method('explode')):
-			if not target.explode(): # if it explodes returns nothing
+		if target.has_method('explode'):
+			if not target.explode():  # if it explodes returns nothing
 				digestion += digestion_for_bullet
+
 
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
@@ -249,6 +254,7 @@ func check_falling_death():
 	if self.global_position.y > Globals.last_y_platform + fall_death_distance:
 		self.die()
 
+
 func mana_digestion(delta):
 	if digestion:
 		if digestion > 100:
@@ -258,7 +264,6 @@ func mana_digestion(delta):
 			self.mana += delta * digestion_factor
 		hud.update_digestion(digestion)
 
-		
 
 func affect_mana(delta):
 	self.mana += delta * mana_gather_factor

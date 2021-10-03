@@ -28,7 +28,7 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.play("Attack")
 			shoot_projectile()
 		"Dead":
-			death_dissolution = 0.1 # for good measure
+			death_dissolution = 0.1  # for good measure
 			$AnimatedSprite.play("Attack")
 			$AnimatedSprite.set_material(load("res://Shader/EnemyDeathMaterial.tres"))
 
@@ -55,13 +55,11 @@ func _on_StateMachinePlayer_updated(state, delta):
 			if attack_time <= 0:
 				smp.set_trigger('attack_finished')
 		"Dead":
-			death_dissolution += delta/death_time
-			$AnimatedSprite.material.set_shader_param("effect_percentage", (1-death_dissolution))
-			
+			death_dissolution += delta / death_time
+			$AnimatedSprite.material.set_shader_param("effect_percentage", 1 - death_dissolution)
 
 
 func _on_hit(damage, damager):
-	print('me pego el rasho')
 	set_health(health - damage)
 
 

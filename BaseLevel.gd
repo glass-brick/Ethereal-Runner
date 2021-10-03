@@ -4,9 +4,9 @@ var Platform = preload('res://FloorSegment.tscn')
 var Monster = preload('res://Enemy1.tscn')
 var Lightning = preload('res://Lightning.tscn')
 onready var camera = $Player/Camera2D
-onready var last_camera_position = camera.get_camera_screen_center().x
-var render_limit = [-2000, 5000]
-var render_position = Vector2(0, 200)
+onready var last_camera_position = camera.get_camera_screen_center()
+var render_limit = [Vector2(-2000, -2000), Vector2(5000, 5000)]
+var render_paths = [{"position": Vector2(0, 200), "biome": "normal"}]
 var time_passed = 0
 var hue_value = 0
 
@@ -56,39 +56,46 @@ var instability_levels = [
 
 var platforms = []
 var monsters = []
+var platforms_rendered = 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
 
-	while render_position.x < render_limit[1]:
+	while render_paths[0]["position"].x < render_limit[1].x:
 		render_platform()
 
 
 func render_platform():
-	var instability_props = instability_levels[current_instability_level]
-	var platform = Platform.instance()
-	platform.position = render_position
-	add_child(platform)
-	platforms.push_back(platform)
-	var spawn_monster = randi() % 100 <= instability_props["monster_chance"]
-	if spawn_monster:
-		var monster = Monster.instance()
-		monster.position = render_position
-		monster.position.y -= 300
-		add_child(monster)
-		monsters.push_back(monster)
+	platforms_rendered += 1
+	for i in range(0, render_paths.size()):
+		var instability_props = instability_levels[current_instability_level]
+		var platform = Platform.instance()
+		platform.position = render_paths[i]["position"]
+		add_child(platform)
+		platforms.push_back(platform)
+		var spawn_monster = randi() % 100 <= instability_props["monster_chance"]
+		if spawn_monster:
+			var monster = Monster.instance()
+			monster.position = render_paths[i]["position"]
+			monster.position.y -= 300
+			add_child(monster)
+			monsters.push_back(monster)
 
-	render_position.x += (
-		instability_props["min_distance"]
-		+ randi() % (instability_props["max_distance"] - instability_props["min_distance"])
-	)
-	render_position.y += (
-		(randi() % (instability_props["max_height_diff"] + instability_props["min_height_diff"]))
-		- instability_props["max_height_diff"]
-	)
-	Globals.last_y_platform = render_position.y
+		render_paths[i]["position"].x += (
+			instability_props["min_distance"]
+			+ randi() % (instability_props["max_distance"] - instability_props["min_distance"])
+		)
+		render_paths[i]["position"].y += (
+			(
+				randi()
+				% (instability_props["max_height_diff"] + instability_props["min_height_diff"])
+			)
+			- instability_props["max_height_diff"]
+		)
+		if Globals.last_y_platform < render_paths[i]["position"].y or i == render_paths.size() - 1:
+			Globals.last_y_platform = render_paths[i]["position"].y
 
 
 func _process(delta):
@@ -99,16 +106,35 @@ func _process(delta):
 
 
 func process_platforms():
-	var new_camera_position = camera.get_camera_screen_center().x
+	var new_camera_position = camera.get_camera_screen_center()
 	var instability_props = instability_levels[current_instability_level]
-	if new_camera_position > last_camera_position:
+	if new_camera_position.x > last_camera_position.x:
 		var diff = new_camera_position - last_camera_position
 		last_camera_position = new_camera_position
 		render_limit[0] += diff
 		render_limit[1] += diff
-		if render_limit[1] > render_position.x + instability_props["max_distance"]:
+		var should_render = false
+		for render_path in render_paths:
+			should_render = (
+				should_render
+				or render_limit[1].x > render_path["position"].x + instability_props["max_distance"]
+			)
+		if should_render:
+			if platforms_rendered % 10 == 0:
+				render_paths.push_back(
+					{
+						"position":
+						Vector2(render_paths[0]["position"].x, render_paths[0]["position"].y - 500),
+						"biome": "other"
+					}
+				)
+			print(render_paths)
 			render_platform()
-		if platforms[0].position.x < render_limit[0]:
+		for i in range(0, render_paths.size()):
+			if render_paths[i]["position"].y > render_limit[1].y:
+				render_paths.remove(i)
+				break
+		if platforms[0].position.x < render_limit[0].x:
 			platforms[0].queue_free()
 			platforms.pop_front()
 		var new_monsters = []
@@ -116,15 +142,15 @@ func process_platforms():
 			if is_instance_valid(monsters[i]):
 				new_monsters.push_front(monsters[i])
 		monsters = new_monsters
-		if not monsters.empty() and monsters[0].position.x < render_limit[0]:
+		if not monsters.empty() and monsters[0].position.x < render_limit[0].x:
 			monsters[0].queue_free()
 			monsters.pop_front()
 
 
 func change_background_colors(delta):
-	hue_value += delta/10
-	time_passed += delta/2
-	var sat = abs(cos(time_passed)/2)
+	hue_value += delta / 10
+	time_passed += delta / 2
+	var sat = abs(cos(time_passed) / 2)
 	var parallaxLayers = get_node('ParallaxBackground')
 	var parallaxLayer1 = parallaxLayers.get_node('ParallaxLayer')
 	var parallaxLayer2 = parallaxLayers.get_node('ParallaxLayer2')
@@ -132,6 +158,7 @@ func change_background_colors(delta):
 	parallaxLayer1.modulate.s = sat
 	parallaxLayer2.modulate.h = hue_value
 	parallaxLayer2.modulate.s = sat
+
 
 func change_instability_if_necessary():
 	var instability_props = instability_levels[current_instability_level]
@@ -164,14 +191,11 @@ func process_instability_effects():
 				var is_accurate = rand_range(0, 100) <= lightning_accuracy
 				if is_accurate:
 					var target_index = randi() % (monsters.size() + 1)
-					print(target_index)
 					if target_index == monsters.size():
-						print("target player")
 						lightning.position = SceneManager.get_entity('Player').global_position
 					elif is_instance_valid(monsters[target_index]):
 						lightning.position = monsters[target_index].global_position
 				else:
-					print("target random")
 					lightning.position = SceneManager.get_entity('Player').global_position
 					lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
 				add_child(lightning)
