@@ -533,7 +533,7 @@ invincibility_time = 1.1
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
-position = Vector2( 1.00003, -5 )
+position = Vector2( 1.00003, 11 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 21 )
 animation = "Idle"
@@ -617,7 +617,7 @@ volume_db = -1.0
 
 [node name="SoundShield" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 21 )
-volume_db = -8.0
+volume_db = -7.0
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]
