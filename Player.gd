@@ -162,6 +162,7 @@ func get_input():
 				jumping = false
 
 	if fire and mana > max_mana / mana_steps:
+		$Camera2D.add_trauma(5)
 		var explosion = ExplosionAttack.instance()
 		explosion.global_position = global_position
 		SceneManager._current_scene.add_child(explosion)
