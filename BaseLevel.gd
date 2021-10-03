@@ -61,10 +61,10 @@ func _ready():
 	randomize()
 
 	while render_paths[0]["position"].x < render_limit[1].x:
-		render_platform()
+		render_platform(false)
 
 
-func render_platform():
+func render_platform(spawn_monsters):
 	platforms_rendered += 1
 	for i in range(0, render_paths.size()):
 		var biome_props = biomes[render_paths[i]["biome"]]
@@ -78,7 +78,7 @@ func render_platform():
 		platform.connect("platform_stepped", self, "_on_platform_stepped")
 		add_child(platform)
 		platforms.push_back(platform)
-		var spawn_monster = randi() % 100 <= instability_props["monster_chance"]
+		var spawn_monster = spawn_monsters and randi() % 100 <= instability_props["monster_chance"]
 		if spawn_monster:
 			var monster = Monster.instance()
 			monster.position = render_paths[i]["position"]
@@ -146,6 +146,7 @@ func process_platforms():
 			if platforms_rendered % new_path_frequency == 0:
 				render_paths[0]["position"].y += new_path_height_diff
 				render_paths[0]["branch_on"] = platforms_rendered + 1
+				render_paths[0]["biome"] = biomes.keys()[randi() % biomes.keys().size()]
 				render_paths.push_back(
 					{
 						"position":
@@ -158,7 +159,7 @@ func process_platforms():
 						"branch_on": platforms_rendered + 1
 					}
 				)
-			render_platform()
+			render_platform(true)
 		if platforms[0].position.x < render_limit[0].x:
 			platforms[0].queue_free()
 			platforms.pop_front()
