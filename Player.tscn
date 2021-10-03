@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -103,9 +103,14 @@ animations = [ {
 "loop": false,
 "name": "Fall",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=18]
+[sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 97.7714, 118.066 )
 
 [sub_resource type="Resource" id=19]
@@ -125,7 +130,7 @@ name = "Fall"
 [sub_resource type="Resource" id=21]
 script = ExtResource( 7 )
 __meta__ = {
-"graph_offset": Vector2( 548, 0 )
+"graph_offset": Vector2( 548, 20 )
 }
 name = "Idle"
 
@@ -139,9 +144,16 @@ name = "Jump"
 [sub_resource type="Resource" id=23]
 script = ExtResource( 7 )
 __meta__ = {
-"graph_offset": Vector2( 548, 180 )
+"graph_offset": Vector2( 528, -220 )
 }
 name = "Run"
+
+[sub_resource type="Resource" id=46]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 306, 80 )
+}
+name = "Crouch"
 
 [sub_resource type="Resource" id=24]
 script = ExtResource( 10 )
@@ -214,6 +226,18 @@ conditions = {
 "h_speed": SubResource( 33 )
 }
 
+[sub_resource type="Resource" id=56]
+script = ExtResource( 8 )
+name = "crouch"
+
+[sub_resource type="Resource" id=48]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Crouch"
+conditions = {
+"crouch": SubResource( 56 )
+}
+
 [sub_resource type="Resource" id=35]
 script = ExtResource( 9 )
 name = "v_speed"
@@ -268,10 +292,35 @@ conditions = {
 "jump": SubResource( 41 )
 }
 
+[sub_resource type="Resource" id=57]
+script = ExtResource( 8 )
+name = "crouch"
+
+[sub_resource type="Resource" id=52]
+script = ExtResource( 10 )
+from = "Run"
+to = "Crouch"
+conditions = {
+"crouch": SubResource( 57 )
+}
+
+[sub_resource type="Resource" id=49]
+script = ExtResource( 8 )
+name = "stand_up"
+
+[sub_resource type="Resource" id=50]
+script = ExtResource( 10 )
+from = "Crouch"
+to = "Idle"
+conditions = {
+"stand_up": SubResource( 49 )
+}
+
 [sub_resource type="Resource" id=43]
 script = ExtResource( 6 )
 name = ""
 states = {
+"Crouch": SubResource( 46 ),
 "Entry": SubResource( 19 ),
 "Fall": SubResource( 20 ),
 "Idle": SubResource( 21 ),
@@ -279,6 +328,9 @@ states = {
 "Run": SubResource( 23 )
 }
 transitions = {
+"Crouch": {
+"Idle": SubResource( 50 )
+},
 "Entry": {
 "Idle": SubResource( 24 )
 },
@@ -287,6 +339,7 @@ transitions = {
 "Run": SubResource( 28 )
 },
 "Idle": {
+"Crouch": SubResource( 48 ),
 "Fall": SubResource( 30 ),
 "Jump": SubResource( 32 ),
 "Run": SubResource( 34 )
@@ -295,18 +348,22 @@ transitions = {
 "Fall": SubResource( 36 )
 },
 "Run": {
+"Crouch": SubResource( 52 ),
 "Fall": SubResource( 38 ),
 "Idle": SubResource( 40 ),
 "Jump": SubResource( 42 )
 }
 }
 
-[sub_resource type="CircleShape2D" id=44]
+[sub_resource type="CircleShape2D" id=54]
 radius = 451.755
 
-[sub_resource type="Gradient" id=45]
+[sub_resource type="Gradient" id=55]
 offsets = PoolRealArray( 0, 0.848101, 1 )
 colors = PoolColorArray( 1, 0.943359, 0, 1, 0, 0.507813, 1, 1, 0, 0, 0, 0 )
+
+[sub_resource type="RectangleShape2D" id=58]
+extents = Vector2( 51.4751, 80.8868 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "scene_manager_entity_nodes",
@@ -325,12 +382,11 @@ material = SubResource( 1 )
 position = Vector2( 1.00003, -5 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 17 )
-animation = "Idle"
-frame = 3
+animation = "Crouch"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 18 )
+shape = SubResource( 53 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2( 300, 0 )
@@ -343,11 +399,12 @@ script = ExtResource( 5 )
 state_machine = SubResource( 43 )
 
 [node name="Shield" type="Area2D" parent="."]
+visible = false
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
-shape = SubResource( 44 )
+shape = SubResource( 54 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Shield"]
 z_index = -1
@@ -368,9 +425,15 @@ radial_accel = -19.36
 damping = 20.0
 angle = 720.0
 angle_random = 1.0
-color_ramp = SubResource( 45 )
+color_ramp = SubResource( 55 )
 hue_variation = -0.1
 hue_variation_random = 0.4
+
+[node name="CollisionShapeCrouched" type="CollisionShape2D" parent="."]
+modulate = Color( 0.694118, 0.0980392, 0.0980392, 1 )
+position = Vector2( 0.793701, 38.1621 )
+shape = SubResource( 58 )
+disabled = true
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]

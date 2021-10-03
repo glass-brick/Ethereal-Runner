@@ -42,6 +42,7 @@ var last_shield_activation = 0.0
 var shield_duration = 0.2
 var digestion = 0
 var was_shielding = false
+var crouched = false
 
 var velocity = Vector2()
 
@@ -80,10 +81,17 @@ func die():
 func get_input():
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
+	var crouch = Input.is_action_pressed('ui_down')
 	var jump = Input.is_action_pressed('ui_select')
 	var jump_just_pressed = Input.is_action_just_pressed('ui_select')
 	var fire = Input.is_action_just_pressed('fire')
 	var defend = Input.is_action_pressed('shield')
+
+	if crouch and is_on_floor():
+		smp.set_trigger('crouch')
+	else:
+		smp.set_trigger('stand_up')
+
 
 	if (left or right) and not (left and right):
 		if right and velocity.x < max_speed:
@@ -161,6 +169,15 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.frame = 0
 		"Fall":
 			$AnimatedSprite.play('Fall')
+		"Crouch":
+			$AnimatedSprite.play('Crouch')
+			$CollisionShapeCrouched.disabled = false
+			$CollisionShape2D.disabled = true
+
+	match from:
+		"Crouch":
+			$CollisionShapeCrouched.disabled = true
+			$CollisionShape2D.disabled = false
 
 
 func _on_StateMachinePlayer_updated(state, delta):
@@ -169,6 +186,8 @@ func _on_StateMachinePlayer_updated(state, delta):
 			if is_on_floor():
 				smp.set_trigger('land')
 				double_jump = true
+		"Crouch":
+			velocity.x = 0
 
 
 func _physics_process(delta):
