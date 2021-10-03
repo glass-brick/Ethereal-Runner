@@ -15,9 +15,9 @@ var new_path_height_diff = 400
 var current_instability_level = 0
 
 var biomes = {
-	"normal": {"spawn_area": [Vector2(900, -50), Vector2(1200, 50)]},
-	"falling": {"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)]},
-	"rising": {"spawn_area": [Vector2(800, -100), Vector2(1100, -200)]}
+	"normal": {"color": Color.white, "spawn_area": [Vector2(900, -50), Vector2(1200, 50)]},
+	"falling": {"color": Color.lightpink, "spawn_area": [Vector2(1100, 100), Vector2(1400, 200)]},
+	"rising": {"color": Color.lightblue, "spawn_area": [Vector2(800, -100), Vector2(1100, -200)]}
 }
 
 var instability_levels = [
@@ -73,6 +73,7 @@ func render_platform():
 		platform.position = render_paths[i]["position"]
 		platform.path_id = render_paths[i]["id"]
 		platform.platform_number = platforms_rendered
+		platform.color = biome_props["color"]
 		platform.connect("platform_stepped", self, "_on_platform_stepped")
 		add_child(platform)
 		platforms.push_back(platform)
