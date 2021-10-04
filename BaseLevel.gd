@@ -4,6 +4,7 @@ export (int) var starting_music_volume = 0
 export (float) var timer_expiration_non_taken_path = 1
 
 var Platform = preload('res://FloorSegment.tscn')
+var PlatformSmall = preload('res://FloorSegmentSmall.tscn')
 var TwitchBone = preload('res://Enemy_TwitchBone.tscn')
 var FleshStump = preload('res://Enemy_FleshStump.tscn')
 var Lightning = preload('res://Lightning.tscn')
@@ -23,19 +24,25 @@ var biomes = {
 	{
 		"color": Color.white,
 		"monsters": [TwitchBone],
-		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)]
+		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)],
+		"platforms": [PlatformSmall, Platform],
+		"platforms_prob": [0.1, 0.9]
 	},
 	"falling":
 	{
 		"color": Color.lightpink,
 		"monsters": [FleshStump],
-		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)]
+		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)],
+		"platforms": [PlatformSmall, Platform],
+		"platforms_prob": [0.3, 0.7]
 	},
 	"rising":
 	{
 		"color": Color.lightblue,
 		"monsters": [TwitchBone, FleshStump],
-		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)]
+		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
+		"platforms": [Platform],
+		"platforms_prob": [1]
 	}
 }
 
@@ -82,6 +89,22 @@ func _ready():
 	while render_paths[0]["position"].x < render_limit[1].x:
 		render_platform(false)
 
+func choose_platform(biome_props):
+	if not "platforms" in biome_props:
+		return Platform
+	if not "platforms_prob" in biome_props:
+		return biome_props['platforms'][randi() % biome_props['platforms'].size()]
+	
+	var rand_num = randf()
+	print(rand_num)
+	var passed_prob = 0.0
+	for i in range(biome_props['platforms_prob'].size()):
+		passed_prob += biome_props['platforms_prob'][i]
+		if rand_num < passed_prob:
+			print(i)
+			return biome_props['platforms'][i]
+	return Platform
+	
 
 func render_platform(spawn_monsters):
 	platforms_rendered += 1
@@ -89,7 +112,9 @@ func render_platform(spawn_monsters):
 		var biome_props = biomes[render_paths[i]["biome"]]
 		var biome_spawn_area = biome_props["spawn_area"]
 		var instability_props = instability_levels[current_instability_level]
-		var platform = Platform.instance()
+
+		var chosen_platform = choose_platform(biome_props)
+		var platform = chosen_platform.instance()
 		platform.position = render_paths[i]["position"]
 		platform.path_id = render_paths[i]["id"]
 		platform.platform_number = platforms_rendered
