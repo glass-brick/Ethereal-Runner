@@ -400,8 +400,11 @@ func _on_hit(damage, damager):
 				last_melee_shielded = 0
 				$SoundShieldDefense.play()
 		else:
-			self.damage_sounds[randi() % self.damage_sounds.size()].play()
 			self.set_health(self.health - damage)
+			if self.current_state == PlayerStates.DEAD:
+				$SoundDeath.play()
+			else:
+				self.damage_sounds[randi() % self.damage_sounds.size()].play()
 			self.invincibility = true
 
 
