@@ -19,7 +19,7 @@ var time_passed = 0
 var hue_value = 0
 var new_path_frequency = 10
 var new_path_height_diff = 400
-var songs = ['Vals', 'Inferno', 'NuevoMundo']
+var songs = ['Vals', 'Inferno', 'NuevoMundo', 'Wind']
 
 var current_instability_level = 0
 
@@ -63,7 +63,7 @@ var instability_levels = [
 func _ready():
 	reset_music_volume()
 	randomize()
-	change_music("Vals")
+	change_music("Wind")
 	yield(SceneManager, 'scene_loaded')
 	SceneManager.get_entity('Player').global_position = Globals.player_respawn_position
 
@@ -95,6 +95,10 @@ func _on_dialogue_end(_timeline_file_name):
 		Globals.tutorial_finished = true
 		Globals.save_game()
 		SceneManager.change_scene('res://MainMenu.tscn')
+	elif current_timeline == "Magic":
+		SceneManager.get_entity("Player").mana_gather_factor = 10
+	elif current_timeline == "Attack":
+		SceneManager.get_entity("Player").mana += 250
 	current_timeline = null
 
 
