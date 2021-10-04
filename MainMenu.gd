@@ -25,4 +25,6 @@ func start_game():
 	$Path2D/PathFollow2D/AnimatedSprite.play('Run')
 	started = true
 	yield(get_tree().create_timer(1.0), "timeout")
-	SceneManager.change_scene('res://BaseLevel.tscn')
+	SceneManager.change_scene(
+		'res://BaseLevel.tscn' if Globals.tutorial_finished else 'res://TutorialLevel.tscn'
+	)

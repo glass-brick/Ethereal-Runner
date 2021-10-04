@@ -5,6 +5,7 @@ export (float) var controls_opacity = 0.4
 
 var message_timer = 0
 var time_passed = 0
+var menu_open = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,6 +19,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var paused = get_tree().paused
+	if paused and not menu_open:
+		# pause due to dialogue, dont do anything
+		return
 	if not paused:
 		time_passed += delta
 		update_time(time_passed)
@@ -37,16 +41,18 @@ func update_mana(mana):
 	var n_bars_complete = floor(mana * 4)
 	for i in range(n_bars_complete):
 		bars[i].value = 100
-		bars[i].modulate.v = 0.7 + abs(cos(time_passed))*10/7
+		bars[i].modulate.v = 0.7 + abs(cos(time_passed)) * 10 / 7
 	if n_bars_complete < 4:
 		bars[n_bars_complete].value = (mana - n_bars_complete / 4) * 400
-		bars[n_bars_complete].modulate.v = 0.5 
-	for i in range(n_bars_complete+1,4):
+		bars[n_bars_complete].modulate.v = 0.5
+	for i in range(n_bars_complete + 1, 4):
 		bars[i].value = 0
-		bars[i].modulate.v = 0.5 
+		bars[i].modulate.v = 0.5
+
 
 func update_digestion(digestion):
 	$Digestion.value = digestion
+
 
 func update_time(time):
 	var seconds = int(time) % 60
@@ -71,6 +77,7 @@ func pause():
 	$Continue.show()
 	$Controls.show()
 	get_tree().paused = true
+	menu_open = true
 
 
 func unpause():
@@ -78,10 +85,12 @@ func unpause():
 	$Continue.hide()
 	$Controls.hide()
 	get_tree().paused = false
+	menu_open = false
 
 
 func _on_Continue_pressed():
 	unpause()
+
 
 func show_not_enough_mana():
 	message_timer = 0

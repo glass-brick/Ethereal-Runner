@@ -1,0 +1,33 @@
+{
+	"events": [
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Runner, these lands are simpler than your overloaded place of birth. You’ll find yourself comfortable moving to either the left or the right."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Mostly, your right..."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "We are a very forward-looking bunch, thus whenever something leaves your field of view you may not go back to it. Onwards!"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[i]Press either the left or right arrow keys to move left or right[/i]"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.2.5",
+		"file": "timeline-1633359077.json",
+		"name": "Left Right"
+	}
+}

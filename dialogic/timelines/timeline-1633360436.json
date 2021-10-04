@@ -1,0 +1,45 @@
+{
+	"events": [
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Runner, one last thing. The more magic your puny body retains, the more likely you are to see... unstable phenomena happening around you. "
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Don’t be afraid if you see lightning being born out of nowhere, but don’t be so foolish as to touch it. "
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "The lost souls out there are also of a weak build and as such, unstable phenomena will end their existence. "
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Speaking of lost souls, you may notice that the more magic you collect, the more of them will appear. "
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Leave now, let us enjoy the show!"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[i]As you fill more magic bars, more lighting and enemies will appear. Lightning damages both you and the enemies[/i]"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.2.5",
+		"file": "timeline-1633360436.json",
+		"name": "Instability Spawn Rate"
+	}
+}

@@ -1,0 +1,238 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Music/vals3.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sprites/background.png" type="Texture" id=3]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://FloorSegment.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sprites/background_low.png" type="Texture" id=6]
+[ext_resource path="res://Music/nuevo_mundo3.wav" type="AudioStream" id=7]
+[ext_resource path="res://Music/inferno6.wav" type="AudioStream" id=8]
+[ext_resource path="res://FloorSegmentIndestructible.tscn" type="PackedScene" id=9]
+[ext_resource path="res://FloorSegmentMedium.tscn" type="PackedScene" id=10]
+[ext_resource path="res://TutorialLevel.gd" type="Script" id=11]
+[ext_resource path="res://DialogueTrigger.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Enemy_TreapanoGargoyle.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Enemy_FleshStump.tscn" type="PackedScene" id=14]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 128, 32 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1464, 88 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 224, 680 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 344, 504 )
+
+[node name="Node2D" type="Node2D" groups=[
+"scene_manager_entity_nodes",
+]]
+pause_mode = 2
+script = ExtResource( 11 )
+__meta__ = {
+"entity_name": "Level"
+}
+
+[node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 3, 0 )
+motion_scale = Vector2( 0.3, 1 )
+motion_offset = Vector2( 1800, 0 )
+motion_mirroring = Vector2( 8190, 2970 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+scale = Vector2( 8, 8 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.3, 1 )
+motion_mirroring = Vector2( 8190, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 0, -1800 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Music" type="Node" parent="."]
+
+[node name="Vals" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 2 )
+
+[node name="Inferno" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 8 )
+
+[node name="NuevoMundo" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 7 )
+
+[node name="Trigger" parent="." instance=ExtResource( 12 )]
+position = Vector2( 0, 192 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+shape = SubResource( 2 )
+
+[node name="Trigger2" parent="." instance=ExtResource( 12 )]
+position = Vector2( 360, 880 )
+timeline_name = "Left Right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger2"]
+shape = SubResource( 1 )
+
+[node name="Trigger3" parent="." instance=ExtResource( 12 )]
+position = Vector2( 2624, 280 )
+timeline_name = "Jump"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger3"]
+shape = SubResource( 3 )
+
+[node name="Trigger4" parent="." instance=ExtResource( 12 )]
+position = Vector2( 5328, 184 )
+timeline_name = "Dash Crouch"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger4"]
+shape = SubResource( 4 )
+
+[node name="Trigger5" parent="." instance=ExtResource( 12 )]
+position = Vector2( 8848, -8 )
+timeline_name = "Objective"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger5"]
+shape = SubResource( 4 )
+
+[node name="Trigger6" parent="." instance=ExtResource( 12 )]
+position = Vector2( 9680, 568 )
+timeline_name = "Shield Death"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger6"]
+shape = SubResource( 4 )
+
+[node name="Trigger7" parent="." instance=ExtResource( 12 )]
+position = Vector2( 14488, 448 )
+timeline_name = "Magic"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger7"]
+shape = SubResource( 4 )
+
+[node name="Trigger8" parent="." instance=ExtResource( 12 )]
+position = Vector2( 16568, 176 )
+timeline_name = "Attack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger8"]
+shape = SubResource( 4 )
+
+[node name="Trigger9" parent="." instance=ExtResource( 12 )]
+position = Vector2( 23904, 304 )
+timeline_name = "Instability Spawn Rate"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger9"]
+shape = SubResource( 4 )
+
+[node name="LevelEntities" type="Node2D" parent="."]
+pause_mode = 1
+
+[node name="FloorSegment" parent="LevelEntities" instance=ExtResource( 5 )]
+position = Vector2( 24, 224 )
+expiration_speed = 4
+
+[node name="FloorSegmentIndestructible13" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 1344, 1000 )
+
+[node name="FloorSegmentIndestructible15" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 592, 1000 )
+
+[node name="FloorSegmentIndestructible16" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( -168, 1000 )
+
+[node name="FloorSegmentIndestructible17" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( -928, 1000 )
+
+[node name="FloorSegmentIndestructible" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 2096, 1000 )
+
+[node name="FloorSegmentIndestructible2" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 2840, 1000 )
+
+[node name="FloorSegmentMedium" parent="LevelEntities" instance=ExtResource( 10 )]
+position = Vector2( 3608, 720 )
+
+[node name="FloorSegmentMedium2" parent="LevelEntities" instance=ExtResource( 10 )]
+position = Vector2( 4216, 200 )
+
+[node name="FloorSegmentIndestructible3" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 5336, 680 )
+
+[node name="FloorSegment2" parent="LevelEntities" instance=ExtResource( 5 )]
+position = Vector2( 7104, 672 )
+
+[node name="FloorSegmentIndestructible4" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 7960, 672 )
+
+[node name="FloorSegmentIndestructible5" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 8856, 488 )
+
+[node name="FloorSegmentIndestructible7" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 9664, 1104 )
+
+[node name="FloorSegmentIndestructible8" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 11680, 1480 )
+
+[node name="FloorSegment3" parent="LevelEntities" instance=ExtResource( 5 )]
+position = Vector2( 13592, 1168 )
+
+[node name="FloorSegmentIndestructible9" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 14520, 952 )
+
+[node name="FloorSegment4" parent="LevelEntities" instance=ExtResource( 5 )]
+position = Vector2( 15464, 680 )
+
+[node name="FloorSegment5" parent="LevelEntities" instance=ExtResource( 5 )]
+position = Vector2( 16560, 680 )
+
+[node name="FloorSegmentIndestructible10" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 17528, 1080 )
+
+[node name="FloorSegmentIndestructible18" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 18288, 1080 )
+
+[node name="FloorSegmentIndestructible19" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 19040, 1072 )
+
+[node name="FloorSegmentIndestructible20" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 19800, 1072 )
+
+[node name="FloorSegmentIndestructible11" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 20888, 840 )
+
+[node name="FloorSegmentIndestructible12" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 21920, 848 )
+
+[node name="FloorSegmentIndestructible6" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 10568, 1400 )
+
+[node name="FloorSegmentIndestructible21" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 12840, 1472 )
+
+[node name="FloorSegmentIndestructible14" parent="LevelEntities" instance=ExtResource( 9 )]
+position = Vector2( 23936, 848 )
+
+[node name="FleshStump" parent="LevelEntities" instance=ExtResource( 14 )]
+position = Vector2( 19280, 896 )
+
+[node name="FloorSegment6" parent="LevelEntities" instance=ExtResource( 5 )]
+position = Vector2( 22936, 856 )
+
+[node name="Player" parent="LevelEntities" instance=ExtResource( 1 )]
+hud_path = NodePath("../../HUD")
+
+[node name="TrepanoGargoyle" parent="LevelEntities" instance=ExtResource( 13 )]
+position = Vector2( 12496, 48 )
+
+[node name="TrepanoGargoyle2" parent="LevelEntities" instance=ExtResource( 13 )]
+position = Vector2( 11472, 80 )

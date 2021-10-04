@@ -1,0 +1,27 @@
+{
+	"events": [
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Runner, you’ll find yourself more at ease when traversing our home if you decide to use your legs for something a bit more exerting than just running. "
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Jumping will be a tool of great use for a tool like you, but beware! For the clouds can get a little bit... unstable... after they touch your defiled self"
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[i]Press the [wave amp=50 freq=2]spacebar[/wave] to jump, double tap it to double jump.\n[wave amp=50 freq=2]Hold[/wave] the space bar to jump even higher[/i]"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.2.5",
+		"file": "timeline-1633359274.json",
+		"name": "Jump"
+	}
+}

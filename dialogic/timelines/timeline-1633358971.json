@@ -1,0 +1,27 @@
+{
+	"events": [
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Ah! Welcome Runner, we’re happy to have you in the ethereal plane."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You have been chosen from among your people to traverse these... “lands”..."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Allow us to say, that the trash bag in your head really suits you!"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.2.5",
+		"file": "timeline-1633358971.json",
+		"name": "Welcome"
+	}
+}

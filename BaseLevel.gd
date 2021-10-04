@@ -114,6 +114,10 @@ func _ready():
 		render_platform(false)
 
 
+func _on_player_died():
+	SceneManager.change_scene('res://MainMenu.tscn')
+
+
 func choose_platform(biome_props):
 	if not "platforms" in biome_props:
 		return Platform

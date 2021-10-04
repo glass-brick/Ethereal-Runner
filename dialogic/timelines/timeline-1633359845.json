@@ -1,0 +1,33 @@
+{
+	"events": [
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Runner, we have prepared a few challenges for you."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You may want to [b]dash[/b] to reach clouds far ahead or to escape from things, much in the way you did in your own world."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Although you’re a lowly entity already, you may want to [b]crouch down[/b] to avoid attacks."
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[i]Press [wave amp=50 freq=2]shift[/wave] or [wave amp=50 freq=2]C[/wave] to dash in the direction you’re running. Press the [wave amp=50 freq=2]down arrow key[/wave] to crouch[/i]"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.2.5",
+		"file": "timeline-1633359845.json",
+		"name": "Dash Crouch"
+	}
+}

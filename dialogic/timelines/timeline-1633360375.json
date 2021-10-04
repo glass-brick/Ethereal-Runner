@@ -1,0 +1,33 @@
+{
+	"events": [
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Runner, we are not as evil as to send you out there without any means of attack."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You can vomit the magic you unwillingly ingest by causing an explosion around you."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Feel free to try it out with that Flesh Stump over there..."
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[i]Press [wave amp=50 freq=2]Z[/wave] to attack. Doing so will deplete one magic bar, you can use this to reduce your speed[/i]"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.2.5",
+		"file": "timeline-1633360375.json",
+		"name": "Attack"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"events": [
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Runner, we understand the inherent limitations of your kind, thus we have provided you with a shield to defend yourself."
+		},
+		{
+			"character": "character-1633358948.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "But don’t trust [s]us[/s] it too much, if it takes enough of a beating your feeble body will not be able to handle the aftershock.  "
+		},
+		{
+			"character": "",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "[i]Press [wave amp=50 freq=2]X[/wave] to activate your shield. If it overloads or if your health is depleted, you will die[/i]"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.2.5",
+		"file": "timeline-1633360213.json",
+		"name": "Shield Death"
+	}
+}

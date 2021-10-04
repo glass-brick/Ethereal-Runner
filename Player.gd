@@ -107,7 +107,7 @@ func die():
 	hud.player_is_dead()
 	Globals.save_score(self.get_score(), hud.time_passed)
 	yield(get_tree().create_timer(death_timer), "timeout")
-	SceneManager.change_scene('res://MainMenu.tscn')
+	SceneManager.get_entity('Level')._on_player_died()
 
 
 func explode_body():

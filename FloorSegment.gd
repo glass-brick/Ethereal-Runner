@@ -10,7 +10,7 @@ var expiration_started = false
 var expiration_time = expiration_time_base
 var path_id
 var platform_number
-var color
+var color = Color.white
 
 
 func _ready():
