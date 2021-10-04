@@ -249,11 +249,12 @@ script = ExtResource( 1 )
 death_time = 1.4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 128.719, 2.79012 )
+position = Vector2( 17.5953, 9.52489 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 2 )
+position = Vector2( -109, 0 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 12 )
 animation = "Attack"
@@ -266,14 +267,14 @@ state_machine = SubResource( 33 )
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2( 127.136, 2.11896 )
+position = Vector2( 124.891, 2.11896 )
 shape = SubResource( 34 )
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
-position = Vector2( -105.892, -59.5527 )
+position = Vector2( -220.383, -66.2875 )
 shape = SubResource( 35 )
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
