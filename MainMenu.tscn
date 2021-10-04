@@ -153,12 +153,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -143.0
+margin_left = -226.0
 margin_top = -33.5
-margin_right = 143.0
+margin_right = 226.0
 margin_bottom = 33.5
 custom_fonts/font = SubResource( 3 )
-text = "Start Game"
+text = "Press space to start"
 __meta__ = {
 "_edit_use_anchors_": false
 }

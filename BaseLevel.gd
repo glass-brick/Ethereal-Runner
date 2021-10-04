@@ -226,7 +226,9 @@ var lightning_accuracy = 50
 
 func process_instability_effects():
 	var instability_props = instability_levels[current_instability_level]
-	if instability_props.has("lightning_chance"):
+	# TODO ESTO ESTA COMENTADO CON EL AND FALSE
+	# FIXME IF YOU WANT RASHITOS
+	if instability_props.has("lightning_chance") and false:
 		if lightning_timer < instability_props["lightning_frequency"]:
 			lightning_timer += 1
 		else:
