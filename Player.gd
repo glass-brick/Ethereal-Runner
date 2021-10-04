@@ -193,6 +193,7 @@ func get_input():
 			explosion.global_position = global_position
 			SceneManager._current_scene.add_child(explosion)
 			mana -= max_mana / mana_steps
+			$SoundExplosion.play()
 		else:
 			hud.show_not_enough_mana()
 
