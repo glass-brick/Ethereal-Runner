@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=2]
+[gd_scene load_steps=126 format=2]
 
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -30,6 +30,8 @@
 [ext_resource path="res://Sounds/damage_1.wav" type="AudioStream" id=28]
 [ext_resource path="res://Sounds/damage_2.wav" type="AudioStream" id=29]
 [ext_resource path="res://Sounds/reach_platform.wav" type="AudioStream" id=30]
+[ext_resource path="res://Sounds/cantshoot.wav" type="AudioStream" id=31]
+[ext_resource path="res://Sounds/Dash.wav" type="AudioStream" id=32]
 
 [sub_resource type="ShaderMaterial" id=1]
 render_priority = 1
@@ -795,6 +797,13 @@ stream = ExtResource( 27 )
 [node name="SoundFloorReached" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 30 )
 volume_db = -7.0
+
+[node name="SoundCantShoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 31 )
+
+[node name="SoundDash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 32 )
+volume_db = -3.0
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]

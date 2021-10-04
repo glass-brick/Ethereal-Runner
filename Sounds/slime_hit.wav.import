@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/slime_hit.wav-ed2d76d5f9dcf41b6c1f91c3df60d86c.sample"
+
+[deps]
+
+source_file="res://Sounds/slime_hit.wav"
+dest_files=[ "res://.import/slime_hit.wav-ed2d76d5f9dcf41b6c1f91c3df60d86c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

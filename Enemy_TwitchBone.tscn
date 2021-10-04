@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Shader/Wobbly.tres" type="Material" id=1]
 [ext_resource path="res://Sprites/TwitchBone.png" type="Texture" id=2]
@@ -10,25 +10,27 @@
 [ext_resource path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" type="Script" id=8]
 [ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=9]
 [ext_resource path="res://Enemy_TwitchBone.gd" type="Script" id=10]
+[ext_resource path="res://Sounds/shoot_4.wav" type="AudioStream" id=11]
+[ext_resource path="res://Sounds/slime_death.wav" type="AudioStream" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ SubResource( 1 ) ],
 "loop": true,
-"name": "Idle",
+"name": "Attack",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 2 ) ],
 "loop": true,
-"name": "Attack",
+"name": "Idle",
 "speed": 5.0
 } ]
 
@@ -171,6 +173,15 @@ position = Vector2( 42.8446, -5.20687 )
 rotation = -1.5708
 scale = Vector2( 4, 4 )
 texture = ExtResource( 3 )
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+volume_db = 6.0
+max_distance = 4000.0
+
+[node name="Die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+volume_db = 5.0
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]

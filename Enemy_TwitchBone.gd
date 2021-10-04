@@ -38,6 +38,7 @@ func _on_StateMachinePlayer_transited(from, to):
 
 
 func shoot_projectile():
+	$Shoot.play()
 	var projectile = Bullet.instance()
 	projectile.speed = projectile_speed
 	projectile.damage = projectile_damage
@@ -60,6 +61,7 @@ func _on_StateMachinePlayer_updated(state, delta):
 			if attack_time <= 0:
 				smp.set_trigger('attack_finished')
 		"Dead":
+			$Die.play()
 			death_dissolution += delta / death_time
 			$AnimatedSprite.material.set_shader_param("effect_percentage", 1 - death_dissolution)
 

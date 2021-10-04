@@ -200,6 +200,7 @@ func get_input():
 			$SoundExplosion.play()
 		else:
 			hud.show_not_enough_mana()
+			$SoundCantShoot.play()
 
 	if defend:
 		if not was_shielding:
@@ -262,6 +263,7 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.hide()
 		"Dash":
 			$AnimatedSprite.play('Dash')
+			$SoundDash.play()
 			$Trail.emitting = true
 			dash_timer = 0
 
@@ -359,7 +361,7 @@ func mana_digestion(delta):
 
 func affect_mana(delta):
 	var factor_affectation = mana_steps - mana_level
-	factor_affectation = min(factor_affectation, 0.5)
+	factor_affectation = max(factor_affectation, 0.5)
 	self.mana += delta * mana_gather_factor * factor_affectation
 
 	self.mana_digestion(delta)
