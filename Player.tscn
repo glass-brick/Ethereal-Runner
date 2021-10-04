@@ -619,7 +619,7 @@ volume_db = -1.0
 
 [node name="SoundShield" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 21 )
-volume_db = -7.0
+volume_db = -14.0
 
 [node name="SoundShieldDefense" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 23 )
