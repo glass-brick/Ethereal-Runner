@@ -103,6 +103,7 @@ var platforms_rendered = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	reset_music_volume()
 	randomize()
 
 	while render_paths[0]["position"].x < render_limit[1].x:
@@ -328,7 +329,10 @@ func process_instability_effects():
 
 func change_music_volume(change):
 	$Music.volume_db += change
+	print("baje el volumen")
 
 
 func reset_music_volume():
 	$Music.volume_db = starting_music_volume
+	print("volvi")
+
