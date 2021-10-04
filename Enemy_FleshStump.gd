@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 export (float) var death_time = 3
 export (float) var initial_time_to_attack = 2
+export (int) var points = 50
 
 onready var smp = $StateMachinePlayer
 
@@ -90,6 +91,8 @@ func _on_DetectionArea_body_exited(body):
 
 
 func _on_hit(damage, damager):
+	if damager.has_method("gain_points"):
+		damager.gain_points(self.points)
 	set_health(health - damage)
 
 

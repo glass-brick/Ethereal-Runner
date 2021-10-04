@@ -62,6 +62,7 @@ var last_melee_shielded = 0
 var dash_timer = 0
 var dash_direction = 1
 var dash_jumped = false
+var player_score = 0
 
 var velocity = Vector2()
 
@@ -99,7 +100,7 @@ func die():
 	velocity = Vector2()
 
 	hud.player_is_dead()
-	Globals.save_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100, hud.time_passed)
+	Globals.save_score(self.get_score(), hud.time_passed)
 	yield(get_tree().create_timer(death_timer), "timeout")
 	SceneManager.change_scene('res://MainMenu.tscn')
 
@@ -378,7 +379,7 @@ func _process(delta):
 	if current_state != PlayerStates.DEAD:
 		affect_mana(delta)
 		hud.update_health(self.health)
-		hud.update_score(($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100)
+		hud.update_score(self.get_score())
 
 
 func _on_hit(damage, damager):
@@ -391,3 +392,9 @@ func _on_hit(damage, damager):
 		else:
 			self.set_health(self.health - damage)
 			self.invincibility = true
+
+func gain_points(points):
+	self.player_score += points
+
+func get_score():
+	return player_score + ($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100

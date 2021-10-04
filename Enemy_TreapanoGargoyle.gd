@@ -12,6 +12,7 @@ export (int) var projectile_range = 5000
 export (float) var initial_attack_time = 2
 export (float) var time_attack_shoot = 0.6
 export (int) var speed = 100
+export (int) var points = 300
 
 var time_to_attack = 0
 var altitude = -700
@@ -80,6 +81,8 @@ func _on_StateMachinePlayer_updated(state, delta):
 
 
 func _on_hit(damage, damager):
+	if damager.has_method("gain_points"):
+		damager.gain_points(self.points)
 	set_health(health - damage)
 
 

@@ -18,5 +18,5 @@ func _process(delta):
 			and not target == SceneManager.get_entity("Player")
 			and target.has_method('_on_hit')
 		):
-			target._on_hit(damage, self)
+			target._on_hit(damage, SceneManager.get_entity("Player"))
 			hit_targets.push_back(target)

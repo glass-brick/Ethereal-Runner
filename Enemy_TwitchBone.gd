@@ -6,6 +6,7 @@ onready var smp = $StateMachinePlayer
 
 export (float) var death_time = 3
 export (float) var max_length_shoot = 1600
+export (int) var points = 50
 
 var initial_time_to_attack = 400
 var time_to_attack = 0
@@ -64,6 +65,8 @@ func _on_StateMachinePlayer_updated(state, delta):
 
 
 func _on_hit(damage, damager):
+	if damager.has_method("gain_points"):
+		damager.gain_points(self.points)
 	set_health(health - damage)
 
 
