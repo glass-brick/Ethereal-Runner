@@ -1,38 +1,44 @@
 extends KinematicBody2D
 
-var Bullet = preload('res://Bullet.tscn')
+var Bullet = preload('res://GargBullet.tscn')
 
 onready var smp = $StateMachinePlayer
 
 export (float) var death_time = 3
-export (float) var max_length_shoot = 1600
+export (float) var max_length_shoot = 3200
+export (int) var projectile_speed = 1000
+export (int) var projectile_damage = 10
+export (int) var projectile_range = 5000
+export (float) var initial_attack_time = 2
+export (float) var time_attack_shoot = 0.6
+export (int) var speed = 100
 
-var initial_time_to_attack = 400
 var time_to_attack = 0
+var altitude = -700
 
-var initial_attack_time = 100
 var attack_time = 0
 
-var projectile_speed = 1000
-var projectile_damage = 10
-var projectile_range = 5000
 var health = 1
 var death_dissolution = 0
 var path_id
+var flipped = false
+var time_to_flip = 1
+var flip_timer = 0
+var fire_now = false
 
 
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
-		"Idle":
+		"Fly":
+			print("vuela")
 			time_to_attack = initial_attack_time
-			$AnimatedSprite.play("Idle")
-		"Attack":
+			$AnimatedSprite.play("fly")
+		"Fire":
+			print("pasa a atacar")
 			attack_time = initial_attack_time
-			$AnimatedSprite.play("Attack")
-			shoot_projectile()
+			$AnimatedSprite.play("attack")
 		"Dead":
 			death_dissolution = 0.1  # for good measure
-			$AnimatedSprite.play("Attack")
 			$AnimatedSprite.set_material(load("res://Shader/EnemyDeathMaterial.tres"))
 
 
@@ -42,23 +48,33 @@ func shoot_projectile():
 	projectile.damage = projectile_damage
 	projectile.projectile_range = projectile_range
 	projectile.direction = (SceneManager.get_entity("Player").global_position - global_position).normalized()
+	projectile.look_at(SceneManager.get_entity("Player").global_position)
 	get_tree().get_root().add_child(projectile)
 	projectile.position = position
-	projectile.look_at(SceneManager.get_entity("Player").global_position)
 
 
 func _on_StateMachinePlayer_updated(state, delta):
 	match state:
-		"Idle":
-			$Arm.look_at(SceneManager.get_entity("Player").global_position)
-			time_to_attack -= 1
-			if time_to_attack <= 0 and (SceneManager.get_entity("Player").global_position - self.global_position).length() < max_length_shoot:
-				smp.set_trigger('attack')
-		"Attack":
-			attack_time -= 1
+		"Fly":
+			velocity.x = speed * (1 if flipped else -1)
+			velocity = move_and_slide(velocity, Vector2(0, -1))
+			if time_to_attack <= 0 and \
+				(SceneManager.get_entity("Player").global_position - self.global_position).length() < max_length_shoot:
+				smp.set_trigger('start_firing')
+				print("empieza a disparar")
+			time_to_attack -= delta
+			flip_timer += delta
+			if flip_timer > time_to_flip:
+				flipped = not flipped
+		"Fire":
+			if fire_now:
+				shoot_projectile()
+				fire_now = false
+			attack_time -= delta
 			if attack_time <= 0:
-				smp.set_trigger('attack_finished')
+				smp.set_trigger('stop_firing')
 		"Dead":
+			print("dead")
 			death_dissolution += delta / death_time
 			$AnimatedSprite.material.set_shader_param("effect_percentage", 1 - death_dissolution)
 
@@ -74,7 +90,7 @@ func kill():
 func set_health(new_health):
 	health = max(new_health, 0)
 	if health <= 0:
-		smp.set_trigger('death')
+		smp.set_trigger('die')
 		yield(get_tree().create_timer(death_time), "timeout")
 		queue_free()
 
@@ -84,5 +100,10 @@ var gravity = 1200
 
 
 func _physics_process(delta):
-	velocity.y += gravity * delta
+	# velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+
+
+func _on_AnimatedSprite_frame_changed():
+	if $AnimatedSprite.animation == ("attack") and $AnimatedSprite.frame == 4:
+		fire_now = true

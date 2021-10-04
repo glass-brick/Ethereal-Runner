@@ -17,7 +17,7 @@ shader_param/random_value = null
 shader_param/flowMap = ExtResource( 3 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 355.496, 10 )
+extents = Vector2( 528.727, 10 )
 
 [node name="FloorSegmentXL" type="RigidBody2D"]
 collision_layer = 4
@@ -34,7 +34,6 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 
 [node name="Player_grab" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_grab"]

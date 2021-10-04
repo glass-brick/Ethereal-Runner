@@ -10,6 +10,7 @@ var PlatformXL = preload('res://FloorSegmentXL.tscn')
 var PlatformIndestructible = preload('res://FloorSegmentIndestructible.tscn')
 var TwitchBone = preload('res://Enemy_TwitchBone.tscn')
 var FleshStump = preload('res://Enemy_FleshStump.tscn')
+var TreapanoGargoyle = preload('res://Enemy_TreapanoGargoyle.tscn')
 var Lightning = preload('res://Lightning.tscn')
 onready var camera = $Player/Camera2D
 onready var last_camera_position = camera.get_camera_screen_center()
@@ -26,7 +27,7 @@ var biomes = {
 	"normal":
 	{
 		"color": Color.white,
-		"monsters": [TwitchBone],
+		"monsters": [TreapanoGargoyle],
 		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)],
 		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL, PlatformIndestructible],
 		"platforms_prob": [0.05, 0.7, 0.1, 0.05, 0.1],
@@ -35,7 +36,7 @@ var biomes = {
 	"falling":
 	{
 		"color": Color.lightpink,
-		"monsters": [FleshStump],
+		"monsters": [TreapanoGargoyle],
 		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)],
 		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL, PlatformIndestructible],
 		"platforms_prob": [0.3, 0.47, 0.2, 0.02, 0.01],
@@ -44,7 +45,7 @@ var biomes = {
 	"rising":
 	{
 		"color": Color.lightblue,
-		"monsters": [TwitchBone, FleshStump],
+		"monsters": [TreapanoGargoyle],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
 		"platforms": [Platform, PlatformMedium, PlatformXL],
 		"platforms_prob": [0.80, 0.1, 0.1],
@@ -53,7 +54,7 @@ var biomes = {
 	"bad_boy":
 	{
 		"color": Color(0.3,0.3,0.3,1),
-		"monsters": [TwitchBone, FleshStump],
+		"monsters": [TreapanoGargoyle],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
 		"platforms": [Platform, PlatformMedium, PlatformSmall],
 		"platforms_prob": [0.4, 0.1, 0.5],
@@ -169,7 +170,9 @@ func render_platform(spawn_monsters):
 							monster.position.x += width/2
 					else:
 						monster.position.x -= (width * ((j+1)/(num_monsters+1) -1/2))
-					monster.position.y -= 300
+				monster.position.y -= 300
+				if monster.name == "TrepanoGargoyle":
+					monster.position.y += monster.altitude
 				monster.path_id = render_paths[i]["id"]
 				add_child(monster)
 				monsters.push_back(monster)

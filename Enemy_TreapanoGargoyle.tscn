@@ -1,39 +1,45 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Sprites/TrepanoGargoyle-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" type="Script" id=2]
+[ext_resource path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" type="Script" id=3]
+[ext_resource path="res://addons/imjp94.yafsm/src/conditions/Condition.gd" type="Script" id=4]
+[ext_resource path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" type="Script" id=5]
+[ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=6]
+[ext_resource path="res://Enemy_TreapanoGargoyle.gd" type="Script" id=7]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=31]
 extents = Vector2( 186.083, 128.603 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 128, 80 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 1 )
 region = Rect2( 128, 0, 128, 80 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 1 )
 region = Rect2( 256, 0, 128, 80 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 1 )
 region = Rect2( 384, 0, 128, 80 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=36]
 atlas = ExtResource( 1 )
 region = Rect2( 512, 0, 128, 80 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 1 )
 region = Rect2( 640, 0, 128, 80 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=38]
 atlas = ExtResource( 1 )
 region = Rect2( 768, 0, 128, 80 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=39]
 atlas = ExtResource( 1 )
 region = Rect2( 896, 0, 128, 80 )
 
@@ -61,9 +67,9 @@ region = Rect2( 1536, 0, 128, 80 )
 atlas = ExtResource( 1 )
 region = Rect2( 1664, 0, 128, 80 )
 
-[sub_resource type="SpriteFrames" id=16]
+[sub_resource type="SpriteFrames" id=40]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
 "loop": true,
 "name": "fly",
 "speed": 5.0
@@ -74,15 +80,131 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="Resource" id=17]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 388, 100 )
+}
+name = "Entry"
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 628, 100 )
+}
+name = "Fly"
+
+[sub_resource type="Resource" id=19]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 628, -60 )
+}
+name = "Fire"
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 868, -60 )
+}
+name = "Dead"
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 2 )
+from = "Entry"
+to = "Fly"
+conditions = {
+}
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 4 )
+name = "start_firing"
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 2 )
+from = "Fly"
+to = "Fire"
+conditions = {
+"start_firing": SubResource( 22 )
+}
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 4 )
+name = "die"
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 2 )
+from = "Fly"
+to = "Dead"
+conditions = {
+"die": SubResource( 24 )
+}
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 4 )
+name = "stop_firing"
+
+[sub_resource type="Resource" id=27]
+script = ExtResource( 2 )
+from = "Fire"
+to = "Fly"
+conditions = {
+"stop_firing": SubResource( 26 )
+}
+
+[sub_resource type="Resource" id=28]
+script = ExtResource( 4 )
+name = "die"
+
+[sub_resource type="Resource" id=29]
+script = ExtResource( 2 )
+from = "Fire"
+to = "Dead"
+conditions = {
+"die": SubResource( 28 )
+}
+
+[sub_resource type="Resource" id=30]
+script = ExtResource( 3 )
+name = ""
+states = {
+"Dead": SubResource( 20 ),
+"Entry": SubResource( 17 ),
+"Fire": SubResource( 19 ),
+"Fly": SubResource( 18 )
+}
+transitions = {
+"Entry": {
+"Fly": SubResource( 21 )
+},
+"Fire": {
+"Dead": SubResource( 29 ),
+"Fly": SubResource( 27 )
+},
+"Fly": {
+"Dead": SubResource( 25 ),
+"Fire": SubResource( 23 )
+}
+}
+
 [node name="TrepanoGargoyle" type="KinematicBody2D"]
+position = Vector2( 0, -350 )
 collision_layer = 2
 collision_mask = 0
+script = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.667419, 17.3529 )
-shape = SubResource( 1 )
+shape = SubResource( 31 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 4, 4 )
-frames = SubResource( 16 )
+frames = SubResource( 40 )
 animation = "attack"
+
+[node name="StateMachinePlayer" type="Node" parent="."]
+script = ExtResource( 5 )
+state_machine = SubResource( 30 )
+
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
+[connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
+[connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]

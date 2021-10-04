@@ -18,6 +18,7 @@ func _physics_process(delta):
 		return
 	self.position += self.direction * self.speed * delta
 	distance_made += (self.direction * self.speed * delta).length()
+	self.rotation =  direction.angle()
 	if distance_made > projectile_range:
 		queue_free()
 

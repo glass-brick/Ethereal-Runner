@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/TrepanoGargoyle_PROJECTILE.png" type="Texture" id=1]
+[ext_resource path="res://Bullet.gd" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 32.3967, 23.4935 )
+
+[node name="GargBullet" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+use_parent_material = true
+position = Vector2( -77.2213, 0.374191 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 3 )
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
