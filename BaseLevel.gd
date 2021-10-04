@@ -2,6 +2,7 @@ extends Node2D
 
 export (int) var starting_music_volume = 0
 export (float) var timer_expiration_non_taken_path = 1
+export (float) var change_music_prob = 0.2
 
 var Platform = preload('res://FloorSegment.tscn')
 var PlatformSmall = preload('res://FloorSegmentSmall.tscn')
@@ -20,6 +21,7 @@ var time_passed = 0
 var hue_value = 0
 var new_path_frequency = 10
 var new_path_height_diff = 400
+var songs = ['Vals', 'Inferno', 'NuevoMundo']
 
 var current_instability_level = 0
 
@@ -106,6 +108,7 @@ var platforms_rendered = 0
 func _ready():
 	reset_music_volume()
 	randomize()
+	change_music("Vals")
 
 	while render_paths[0]["position"].x < render_limit[1].x:
 		render_platform(false)
@@ -209,6 +212,15 @@ func _on_platform_stepped(path_id, platform_number):
 		for monster in monsters:
 			if monster.path_id != path_id:
 				monster.kill()
+		
+		var random_number = randf()
+		print(random_number)
+		if random_number < change_music_prob:
+			if Globals.instability_level > 2:
+				change_music("Inferno")
+			else:
+				var poss_songs = ['Vals', 'NuevoMundo']
+				change_music(poss_songs[randi() % poss_songs.size()])
 
 
 func _process(delta):
@@ -216,6 +228,7 @@ func _process(delta):
 	change_instability_if_necessary()
 	process_instability_effects()
 	change_background_colors(delta)
+	process_music(delta)
 
 func choose_biome_key():
 	var total_weight = 0
@@ -329,13 +342,71 @@ func process_instability_effects():
 					lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
 				add_child(lightning)
 
-
+func get_music_node(name = null):
+	if not name:
+		return get_node("Music")
+	return get_node("Music").get_node(name)
+				
 func change_music_volume(change):
-	$Music.volume_db += change
-	print("baje el volumen")
+	for node in get_music_node().get_children():
+		if node.has_method('stop') and node.is_playing():
+			node.volume_db += change
 
 
 func reset_music_volume():
-	$Music.volume_db = starting_music_volume
-	print("volvi")
+	for node in get_music_node().get_children():
+		if node.has_method('stop') and node.is_playing():
+			node.volume_db = starting_music_volume
 
+
+func start_music(name, fadein):
+	stop_music(false)
+	var targetNode = get_music_node(name)
+	print(name)
+	if targetNode.has_method("play"):
+		if fadein:
+			music_fading_in.append(targetNode)
+			targetNode.volume_db = -60
+		else:
+			targetNode.volume_db = starting_music_volume
+
+		targetNode.play()
+
+func change_music(name):
+	stop_music(true)
+	next_music = name
+
+var music_fading_in = []
+var next_music = null
+var music_fading_out = []
+export (float) var fade_out_speed = 20
+export (float) var change_music_level = -50
+export (float) var fade_in_speed = 20
+
+
+func stop_music(fadeout):
+	for node in get_music_node().get_children():
+		if node.has_method('stop') and node.is_playing():
+			if fadeout:
+				music_fading_out.append(node)
+			else:
+				node.stop()
+
+
+func process_music(delta):
+	for node in music_fading_in:
+		node.volume_db += delta * fade_in_speed
+		if node.volume_db > starting_music_volume:
+			music_fading_in.remove(music_fading_in.bsearch(node))
+	var not_change_yet = false
+	for node in music_fading_out:
+		node.volume_db -= delta * fade_out_speed
+		if node.volume_db < -80:
+			music_fading_out.remove(music_fading_out.bsearch(node))
+			node.stop()
+		if node.volume_db > change_music_level:
+			not_change_yet = true
+	if next_music and not not_change_yet:
+		start_music(next_music, true)
+		next_music = null
+	
