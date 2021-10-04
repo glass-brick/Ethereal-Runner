@@ -95,6 +95,10 @@ func _on_dialogue_end(_timeline_file_name):
 		Globals.tutorial_finished = true
 		Globals.save_game()
 		SceneManager.change_scene('res://MainMenu.tscn')
+	elif current_timeline == "Magic":
+		SceneManager.get_entity("Player").mana_gather_factor = 10
+	elif current_timeline == "Attack":
+		SceneManager.get_entity("Player").mana += 250
 	current_timeline = null
 
 
