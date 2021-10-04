@@ -22,6 +22,7 @@ var hue_value = 0
 var new_path_frequency = 10
 var new_path_height_diff = 400
 var songs = ['Vals', 'Inferno', 'NuevoMundo']
+var current_music = null
 
 var current_instability_level = 0
 
@@ -323,9 +324,7 @@ var lightning_accuracy = 50
 
 func process_instability_effects():
 	var instability_props = instability_levels[current_instability_level]
-	# TODO ESTO ESTA COMENTADO CON EL AND FALSE
-	# FIXME IF YOU WANT RASHITOS
-	if instability_props.has("lightning_chance") and false:
+	if instability_props.has("lightning_chance"):
 		if lightning_timer < instability_props["lightning_frequency"]:
 			lightning_timer += 1
 		else:
@@ -333,7 +332,7 @@ func process_instability_effects():
 			if lightning_appears:
 				lightning_timer = 0
 				var lightning = Lightning.instance()
-				var is_accurate = rand_range(0, 100) <= lightning_accuracy
+				var is_accurate = rand_range(0, 100) <= min(100, monsters.size() * 10)
 				if is_accurate:
 					var target_index = randi() % (monsters.size() + 1)
 					if target_index == monsters.size():
@@ -342,7 +341,9 @@ func process_instability_effects():
 						lightning.position = monsters[target_index].global_position
 				else:
 					lightning.position = SceneManager.get_entity('Player').global_position
-					lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
+					lightning.position += Vector2(
+						rand_range(400, 1600) * ((randi() % 2) * 2 - 1), rand_range(-600, -200)
+					)
 				add_child(lightning)
 
 
@@ -373,11 +374,13 @@ func start_music(name, fadein):
 			targetNode.volume_db = -60
 		else:
 			targetNode.volume_db = starting_music_volume
-
 		targetNode.play()
+	current_music = name
 
 
 func change_music(name):
+	if current_music == name:
+		return
 	stop_music(true)
 	next_music = name
 

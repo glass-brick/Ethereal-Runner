@@ -8,6 +8,11 @@ func _ready():
 
 
 func _process(delta):
+	$Button.text = (
+		"Press space to start"
+		if Globals.tutorial_finished
+		else "Press space to play tutorial"
+	)
 	var seconds = int(Globals.high_time) % 60
 	var minutes = int((Globals.high_time - seconds) / 60)
 	$HighScore.text = "High score: %d in %02d:%02d" % [Globals.high_score, minutes, seconds]

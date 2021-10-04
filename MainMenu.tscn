@@ -189,9 +189,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -240.0
+margin_left = -335.0
 margin_top = -33.5
-margin_right = 240.0
+margin_right = 335.0
 margin_bottom = 33.5
 focus_mode = 0
 custom_styles/hover = SubResource( 3 )
@@ -199,15 +199,18 @@ custom_styles/pressed = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 custom_fonts/font = SubResource( 6 )
 enabled_focus_mode = 0
-text = "Press space to start"
+text = "Press space to play tutorial"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2( 228.869, 304.142 )
+position = Vector2( 112.161, 305.924 )
 scale = Vector2( 0.743833, 0.743833 )
 curve = SubResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2( 17.4839, -13.0494 )
