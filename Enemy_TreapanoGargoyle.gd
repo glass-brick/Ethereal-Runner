@@ -50,6 +50,7 @@ func shoot_projectile():
 	projectile.look_at(SceneManager.get_entity("Player").global_position)
 	get_tree().get_root().add_child(projectile)
 	projectile.position = position
+	$Shoot.play()
 
 
 func _on_StateMachinePlayer_updated(state, delta):
