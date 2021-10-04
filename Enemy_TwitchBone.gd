@@ -51,7 +51,6 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Idle":
 			$Arm.look_at(SceneManager.get_entity("Player").global_position)
 			time_to_attack -= 1
-			print((SceneManager.get_entity("Player").global_position - self.global_position).length())
 			if time_to_attack <= 0 and (SceneManager.get_entity("Player").global_position - self.global_position).length() < max_length_shoot:
 				smp.set_trigger('attack')
 		"Attack":

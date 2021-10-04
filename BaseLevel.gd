@@ -51,6 +51,7 @@ var instability_levels = [
 		"high_treshold": 1,
 		"distance_modifier": 1,
 		"monster_chance": 10,
+		"max_monsters_per_platform": 1,
 	},
 	{
 		"low_treshold": 2,
@@ -59,6 +60,7 @@ var instability_levels = [
 		"monster_chance": 30,
 		"lightning_chance": 10,
 		"lightning_frequency": 300,
+		"max_monsters_per_platform": 2,
 	},
 	{
 		"low_treshold": 3,
@@ -67,6 +69,7 @@ var instability_levels = [
 		"monster_chance": 50,
 		"lightning_chance": 20,
 		"lightning_frequency": 200,
+		"max_monsters_per_platform": 3,
 	},
 	{
 		"low_treshold": 4,
@@ -74,6 +77,7 @@ var instability_levels = [
 		"monster_chance": 60,
 		"lightning_chance": 20,
 		"lightning_frequency": 100,
+		"max_monsters_per_platform": 4,
 	}
 ]
 
@@ -124,13 +128,35 @@ func render_platform(spawn_monsters):
 		platforms.push_back(platform)
 		var spawn_monster = spawn_monsters and randi() % 100 <= instability_props["monster_chance"]
 		if spawn_monster:
-			var monster_kind = biome_props["monsters"][randi() % biome_props["monsters"].size()]
-			var monster = monster_kind.instance()
-			monster.position = render_paths[i]["position"]
-			monster.position.y -= 300
-			monster.path_id = render_paths[i]["id"]
-			add_child(monster)
-			monsters.push_back(monster)
+			var num_monsters
+			if not "max_monsters_per_platform" in instability_props:
+				num_monsters = 1
+			else:
+				num_monsters = (randi() % instability_props['max_monsters_per_platform']) + 1
+				num_monsters = min(num_monsters, platform.max_monsters)
+			
+			for j in range(num_monsters):
+				var monster_kind = biome_props["monsters"][randi() % biome_props["monsters"].size()]
+				var monster = monster_kind.instance()
+				var width = platform.get_node("CollisionShape2D2").shape.extents.x
+				monster.position = render_paths[i]["position"]
+				if num_monsters > 1:
+					if num_monsters == 2:
+						if j == 0:
+							monster.position.x -= width/2
+						else:
+							monster.position.x += width/2
+					elif num_monsters == 3:
+						if j == 0:
+							monster.position.x -= width/2
+						elif j == 2:
+							monster.position.x += width/2
+					else:
+						monster.position.x -= (width * ((j+1)/(num_monsters+1) -1/2))
+					monster.position.y -= 300
+				monster.path_id = render_paths[i]["id"]
+				add_child(monster)
+				monsters.push_back(monster)
 
 		render_paths[i]["position"].x += (
 			rand_range(biome_spawn_area[0].x, biome_spawn_area[1].x)

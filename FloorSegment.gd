@@ -4,6 +4,7 @@ signal platform_stepped
 export (int) var expiration_time_base = 4
 export (int) var expiration_speed = 1
 export (bool) var test = false
+export (int) var max_monsters = 3
 var expiration_started = false
 var expiration_time = expiration_time_base
 var path_id
@@ -12,7 +13,6 @@ var color
 
 
 func _ready():
-	print(path_id)
 	$Sprite.modulate = color
 	var mat = $Sprite.get_material()
 	mat.set_shader_param("random_value", randf() * 2)
