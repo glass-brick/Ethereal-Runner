@@ -1,10 +1,10 @@
 extends KinematicBody2D
 
 export (float) var death_time = 3
+export (float) var initial_time_to_attack = 2
 
 onready var smp = $StateMachinePlayer
 
-var initial_time_to_attack = 400
 var time_to_attack = 0
 
 var initial_attack_time = 30
@@ -63,7 +63,7 @@ func _on_StateMachinePlayer_updated(state, delta):
 			velocity.x = speed * (1 if flipped else -1)
 			velocity = move_and_slide(velocity, Vector2(0, -1))
 			if time_to_attack > 0:
-				time_to_attack -= 1
+				time_to_attack -= delta
 			elif abs(target.x - global_position.x) < attack_range:
 				smp.set_trigger('attack')
 		"Attack":
