@@ -6,6 +6,7 @@ export (float) var timer_expiration_non_taken_path = 1
 var Platform = preload('res://FloorSegment.tscn')
 var PlatformSmall = preload('res://FloorSegmentSmall.tscn')
 var PlatformMedium = preload('res://FloorSegmentMedium.tscn')
+var PlatformXL = preload('res://FloorSegmentXL.tscn')
 var TwitchBone = preload('res://Enemy_TwitchBone.tscn')
 var FleshStump = preload('res://Enemy_FleshStump.tscn')
 var Lightning = preload('res://Lightning.tscn')
@@ -26,24 +27,24 @@ var biomes = {
 		"color": Color.white,
 		"monsters": [TwitchBone],
 		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)],
-		"platforms": [PlatformSmall, Platform, PlatformMedium],
-		"platforms_prob": [0.1, 0.7, 0.2]
+		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL],
+		"platforms_prob": [0.1, 0.7, 0.15, 0.05]
 	},
 	"falling":
 	{
 		"color": Color.lightpink,
 		"monsters": [FleshStump],
 		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)],
-		"platforms": [PlatformSmall, Platform, PlatformMedium],
-		"platforms_prob": [0.3, 0.5, 0.2]
+		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL],
+		"platforms_prob": [0.3, 0.48, 0.2, 0.02]
 	},
 	"rising":
 	{
 		"color": Color.lightblue,
 		"monsters": [TwitchBone, FleshStump],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
-		"platforms": [Platform, PlatformMedium],
-		"platforms_prob": [0.9, 0.1]
+		"platforms": [Platform, PlatformMedium, PlatformXL],
+		"platforms_prob": [0.80, 0.1, 0.1]
 	}
 }
 
