@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+export (int) var message_fade_time = 2
+
+var message_timer = 0
 var time_passed = 0
 
 
@@ -7,6 +10,7 @@ var time_passed = 0
 func _ready():
 	$Controls.hide()
 	$Continue.hide()
+	$NotEnoughMana.hide()
 	$Digestion.value = 0
 
 
@@ -22,6 +26,8 @@ func _process(delta):
 			self.pause()
 		else:
 			self.unpause()
+	message_timer += delta
+	$NotEnoughMana.modulate.a = 1.0 - message_timer / message_fade_time
 
 
 func update_mana(mana):
@@ -73,3 +79,7 @@ func unpause():
 
 func _on_Continue_pressed():
 	unpause()
+
+func show_not_enough_mana():
+	message_timer = 0
+	$NotEnoughMana.show()
