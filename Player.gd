@@ -144,8 +144,7 @@ func get_input():
 		smp.set_trigger('stand_up')
 
 	if dash and not (left and right) and (is_on_floor() or not dash_jumped):
-		if abs(velocity.x) < max_speed:
-			dash_direction = -1 if $AnimatedSprite.flip_h else 1
+		dash_direction = -1 if $AnimatedSprite.flip_h else 1
 		if not is_on_floor():
 			dash_jumped = true
 		smp.set_trigger('start_dash')

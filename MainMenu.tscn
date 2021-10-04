@@ -15,7 +15,7 @@ font_data = ExtResource( 1 )
 size = 32
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=22]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.443137, 0.0745098, 0.0745098, 1 )
 border_width_left = 4
 border_width_top = 4
@@ -27,7 +27,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id=23]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.607843, 0.105882, 0.105882, 1 )
 border_width_left = 4
 border_width_top = 4
@@ -39,7 +39,7 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id=21]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.286275, 0.0470588, 0.0470588, 1 )
 border_width_left = 4
 border_width_top = 4
@@ -51,95 +51,95 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=6]
 size = 42
 font_data = ExtResource( 1 )
 
-[sub_resource type="Curve2D" id=4]
+[sub_resource type="Curve2D" id=7]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 17.4839, -13.0494, 0, 0, 0, 0, 1302.63, -13.0494 )
 }
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 4 )
 region = Rect2( 200, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 4 )
 region = Rect2( 400, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 4 )
 region = Rect2( 600, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 3 )
-region = Rect2( 200, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 3 )
-region = Rect2( 400, 0, 200, 200 )
-
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 5 )
 region = Rect2( 600, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 5 )
 region = Rect2( 800, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 3 )
-region = Rect2( 1000, 0, 200, 200 )
+region = Rect2( 0, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 800, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 1000, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 5 )
 region = Rect2( 200, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 5 )
 region = Rect2( 400, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 5 )
-region = Rect2( 600, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 5 )
-region = Rect2( 800, 0, 200, 200 )
-
-[sub_resource type="SpriteFrames" id=20]
+[sub_resource type="SpriteFrames" id=23]
 animations = [ {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ) ],
+"loop": false,
+"name": "Fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "Run",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
 "loop": false,
 "name": "Jump",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
-"loop": false,
-"name": "Fall",
 "speed": 10.0
 } ]
 
@@ -194,10 +194,10 @@ margin_top = -33.5
 margin_right = 240.0
 margin_bottom = 33.5
 focus_mode = 0
-custom_styles/hover = SubResource( 22 )
-custom_styles/pressed = SubResource( 23 )
-custom_styles/normal = SubResource( 21 )
-custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 enabled_focus_mode = 0
 text = "Press space to start"
 __meta__ = {
@@ -207,7 +207,7 @@ __meta__ = {
 [node name="Path2D" type="Path2D" parent="."]
 position = Vector2( 228.869, 304.142 )
 scale = Vector2( 0.743833, 0.743833 )
-curve = SubResource( 4 )
+curve = SubResource( 7 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2( 17.4839, -13.0494 )
@@ -215,7 +215,7 @@ loop = false
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Path2D/PathFollow2D"]
 position = Vector2( -17.4839, 13.0494 )
-frames = SubResource( 20 )
+frames = SubResource( 23 )
 animation = "Idle"
 
 [node name="Controls" type="Label" parent="."]
