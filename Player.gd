@@ -63,6 +63,9 @@ var dash_timer = 0
 var dash_direction = 1
 var dash_jumped = false
 var player_score = 0
+var was_on_floor = false
+var floor_timer = 0
+var floor_time_sound = 0.4
 
 var velocity = Vector2()
 
@@ -310,6 +313,10 @@ func _physics_process(delta):
 		$SoundShield.play()
 	else:
 		$SoundShield.stop()
+	if not was_on_floor and is_on_floor() and floor_timer > floor_time_sound:
+		$SoundFloorReached.play()
+	floor_timer += delta
+	was_on_floor = is_on_floor()
 
 
 
