@@ -19,7 +19,7 @@ var time_to_flip = 0
 
 var damage = 20
 var speed = 300
-var health = 100
+var health = 1
 var death_dissolution = 0
 var path_id
 

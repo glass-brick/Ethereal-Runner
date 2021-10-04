@@ -16,7 +16,7 @@ var attack_time = 0
 var projectile_speed = 1000
 var projectile_damage = 10
 var projectile_range = 5000
-var health = 100
+var health = 1
 var death_dissolution = 0
 var path_id
 
