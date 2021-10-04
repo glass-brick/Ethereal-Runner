@@ -61,6 +61,7 @@ var time_between_mellee_shielded = 0.5
 var last_melee_shielded = 0
 var dash_timer = 0
 var dash_direction = 1
+var dash_jumped = false
 
 var velocity = Vector2()
 
@@ -134,11 +135,13 @@ func get_input():
 	else:
 		smp.set_trigger('stand_up')
 
-	if dash and (left or right) and not (left and right):
+	if dash and (left or right) and not (left and right) and (is_on_floor() or not dash_jumped):
 		if right and velocity.x < max_speed:
 			dash_direction = 1
 		elif left and velocity.x > -max_speed:
 			dash_direction = -1
+		if not is_on_floor():
+			dash_jumped = true
 		smp.set_trigger('start_dash')
 		
 	if (left or right) and not (left and right):
@@ -232,6 +235,7 @@ func _on_StateMachinePlayer_transited(from, to):
 			var sound = jump_sounds[num]
 			sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
 			jump_sounds[num].play()
+			dash_jumped = false
 		"DoubleJump":
 			$AnimatedSprite.play('Jump')
 			$AnimatedSprite.frame = 0
