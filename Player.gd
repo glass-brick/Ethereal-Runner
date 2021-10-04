@@ -73,6 +73,7 @@ var camera_limit = 2000
 
 onready var jump_sounds = [$SoundJump1, $SoundJump2, $SoundJump3]
 onready var double_jump_sounds = [$SoundDoubleJump1, $SoundDoubleJump2]
+onready var damage_sounds = [$SoundDamage1, $SoundDamage2, $SoundDamage3]
 onready var dash_texture = "res://Sprites/Runner_dash.png"
 onready var dash_texture_flipped = "res://Sprites/Runner_dash_flipped.png"
 
@@ -350,7 +351,9 @@ func mana_digestion(delta):
 
 
 func affect_mana(delta):
-	self.mana += delta * mana_gather_factor * (mana_steps - mana_level)
+	var factor_affectation = mana_steps - mana_level
+	factor_affectation = min(factor_affectation, 0.5)
+	self.mana += delta * mana_gather_factor * factor_affectation
 
 	self.mana_digestion(delta)
 	self.mana = min(max_mana, self.mana)
@@ -391,6 +394,7 @@ func _on_hit(damage, damager):
 				last_melee_shielded = 0
 				$SoundShieldDefense.play()
 		else:
+			self.damage_sounds[randi() % self.damage_sounds.size()].play()
 			self.set_health(self.health - damage)
 			self.invincibility = true
 
