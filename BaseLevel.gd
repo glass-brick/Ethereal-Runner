@@ -27,7 +27,7 @@ var biomes = {
 	"normal":
 	{
 		"color": Color.white,
-		"monsters": [TreapanoGargoyle],
+		"monsters": [TwitchBone],
 		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)],
 		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL, PlatformIndestructible],
 		"platforms_prob": [0.05, 0.7, 0.1, 0.05, 0.1],
@@ -36,7 +36,7 @@ var biomes = {
 	"falling":
 	{
 		"color": Color.lightpink,
-		"monsters": [TreapanoGargoyle],
+		"monsters": [FleshStump, TreapanoGargoyle],
 		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)],
 		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL, PlatformIndestructible],
 		"platforms_prob": [0.3, 0.47, 0.2, 0.02, 0.01],
@@ -45,7 +45,7 @@ var biomes = {
 	"rising":
 	{
 		"color": Color.lightblue,
-		"monsters": [TreapanoGargoyle],
+		"monsters": [TwitchBone, FleshStump],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
 		"platforms": [Platform, PlatformMedium, PlatformXL],
 		"platforms_prob": [0.80, 0.1, 0.1],
