@@ -28,7 +28,8 @@ var biomes = {
 		"monsters": [TwitchBone],
 		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)],
 		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL],
-		"platforms_prob": [0.1, 0.7, 0.15, 0.05]
+		"platforms_prob": [0.1, 0.7, 0.15, 0.05],
+		"weight": 9,
 	},
 	"falling":
 	{
@@ -36,7 +37,8 @@ var biomes = {
 		"monsters": [FleshStump],
 		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)],
 		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL],
-		"platforms_prob": [0.3, 0.48, 0.2, 0.02]
+		"platforms_prob": [0.3, 0.48, 0.2, 0.02],
+		"weight": 6,
 	},
 	"rising":
 	{
@@ -44,7 +46,17 @@ var biomes = {
 		"monsters": [TwitchBone, FleshStump],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
 		"platforms": [Platform, PlatformMedium, PlatformXL],
-		"platforms_prob": [0.80, 0.1, 0.1]
+		"platforms_prob": [0.80, 0.1, 0.1],
+		"weight": 6,
+	},
+	"bad_boy":
+	{
+		"color": Color(0.3,0.3,0.3,1),
+		"monsters": [TwitchBone, FleshStump],
+		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
+		"platforms": [Platform, PlatformMedium, PlatformXL],
+		"platforms_prob": [0.80, 0.1, 0.1],
+		"weight": 1
 	}
 }
 
@@ -200,6 +212,17 @@ func _process(delta):
 	process_instability_effects()
 	change_background_colors(delta)
 
+func choose_biome_key():
+	var total_weight = 0
+	for value in biomes.values():
+		total_weight += value['weight']
+	var weight_passed = 0
+	var random_num = randf() * total_weight
+	for key in biomes.keys():
+		weight_passed += biomes[key]['weight']
+		if random_num < weight_passed:
+			return key
+	return biomes.keys()[randi() % biomes.keys().size()]
 
 func process_platforms():
 	var new_camera_position = camera.get_camera_screen_center()
@@ -219,7 +242,7 @@ func process_platforms():
 			if platforms_rendered % new_path_frequency == 0:
 				render_paths[0]["position"].y += new_path_height_diff
 				render_paths[0]["branch_on"] = platforms_rendered + 1
-				render_paths[0]["biome"] = biomes.keys()[randi() % biomes.keys().size()]
+				render_paths[0]["biome"] = choose_biome_key()
 				render_paths.push_back(
 					{
 						"position":
