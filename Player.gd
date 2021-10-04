@@ -53,6 +53,8 @@ var digestion = 0
 var was_shielding = false
 var crouched = false
 var digestion_danger = false
+var time_between_mellee_shielded = 0.5
+var last_melee_shielded = 0
 
 var velocity = Vector2()
 
@@ -257,6 +259,7 @@ func _physics_process(delta):
 	self.check_falling_death()
 	self.process_invincibility(delta)
 	last_shield_activation += delta
+	last_melee_shielded += delta
 	if was_shielding:
 		self.add_digestion(delta * shield_digestion_add)
 		$SoundShield.play()
@@ -337,8 +340,10 @@ func _process(delta):
 func _on_hit(damage, damager):
 	if not self.invincibility and self.current_state != PlayerStates.DEAD:
 		if self.was_shielding:
-			self.add_digestion(digestion_for_bullet)
-			$SoundShieldDefense.play()
+			if last_melee_shielded < time_between_mellee_shielded:
+				self.add_digestion(digestion_for_bullet)
+				last_melee_shielded = 0
+				$SoundShieldDefense.play()
 		else:
 			self.set_health(self.health - damage)
 			self.invincibility = true
