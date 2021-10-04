@@ -5,6 +5,7 @@ export (int) var expiration_time_base = 4
 export (int) var expiration_speed = 1
 export (bool) var test = false
 export (int) var max_monsters = 3
+export (bool) var have_shader = true
 var expiration_started = false
 var expiration_time = expiration_time_base
 var path_id
@@ -14,10 +15,11 @@ var color
 
 func _ready():
 	$Sprite.modulate = color
-	var mat = $Sprite.get_material()
-	mat.set_shader_param("random_value", randf() * 2)
-	mat.set_shader_param("frames", ceil(randf() * 5 + 2))
-	mat.set_shader_param("speed", ceil(randf() * 5 + 2))
+	if have_shader:
+		var mat = $Sprite.get_material()
+		mat.set_shader_param("random_value", randf() * 2)
+		mat.set_shader_param("frames", ceil(randf() * 5 + 2))
+		mat.set_shader_param("speed", ceil(randf() * 5 + 2))
 
 
 func _process(delta):

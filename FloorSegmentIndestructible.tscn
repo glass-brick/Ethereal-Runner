@@ -16,6 +16,7 @@ mode = 1
 script = ExtResource( 2 )
 test = true
 max_monsters = 2
+have_shader = false
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 3, 3 )
