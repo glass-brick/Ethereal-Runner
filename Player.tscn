@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=2]
+[gd_scene load_steps=117 format=2]
 
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -23,8 +23,9 @@
 [ext_resource path="res://Sounds/shield.wav" type="AudioStream" id=21]
 [ext_resource path="res://Sounds/shield_defense.wav" type="AudioStream" id=22]
 [ext_resource path="res://Sounds/shield_defense_melee.wav" type="AudioStream" id=23]
+[ext_resource path="res://Sprites/Runner_dash.png" type="Texture" id=24]
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=93]
 render_priority = 1
 shader = ExtResource( 3 )
 shader_param/radius = 0.5
@@ -33,116 +34,121 @@ shader_param/modulate_active = Color( 1, 0.85098, 0.85098, 1 )
 shader_param/active = false
 shader_param/time_scale = 20.0
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=94]
 atlas = ExtResource( 20 )
 region = Rect2( 0, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=95]
 atlas = ExtResource( 20 )
 region = Rect2( 200, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=96]
 atlas = ExtResource( 20 )
 region = Rect2( 400, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=97]
 atlas = ExtResource( 20 )
 region = Rect2( 600, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=98]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=99]
 atlas = ExtResource( 4 )
 region = Rect2( 200, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=100]
 atlas = ExtResource( 4 )
 region = Rect2( 400, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=101]
 atlas = ExtResource( 4 )
 region = Rect2( 600, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=102]
 atlas = ExtResource( 4 )
 region = Rect2( 800, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=103]
 atlas = ExtResource( 4 )
 region = Rect2( 1000, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=104]
 atlas = ExtResource( 1 )
 region = Rect2( 600, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=105]
 atlas = ExtResource( 1 )
 region = Rect2( 800, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 4 )
-region = Rect2( 400, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 4 )
-region = Rect2( 600, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 4 )
-region = Rect2( 800, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 4 )
-region = Rect2( 1000, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=106]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=107]
+atlas = ExtResource( 4 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=108]
+atlas = ExtResource( 4 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=109]
+atlas = ExtResource( 4 )
+region = Rect2( 800, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=110]
+atlas = ExtResource( 4 )
+region = Rect2( 1000, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=111]
 atlas = ExtResource( 1 )
 region = Rect2( 200, 0, 200, 200 )
 
-[sub_resource type="AtlasTexture" id=20]
+[sub_resource type="AtlasTexture" id=112]
 atlas = ExtResource( 1 )
 region = Rect2( 400, 0, 200, 200 )
 
-[sub_resource type="SpriteFrames" id=21]
+[sub_resource type="SpriteFrames" id=113]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 94 ), SubResource( 95 ), SubResource( 96 ), SubResource( 97 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"frames": [ SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ) ],
 "loop": true,
 "name": "Run",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 104 ), SubResource( 105 ) ],
 "loop": false,
 "name": "Fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"frames": [ SubResource( 106 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ) ],
 "loop": true,
 "name": "Walk",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"frames": [ SubResource( 106 ), SubResource( 111 ), SubResource( 112 ) ],
 "loop": false,
 "name": "Jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 18 ) ],
+"frames": [ ExtResource( 24 ) ],
 "loop": true,
-"name": "Crouch",
+"name": "Dash",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=22]
+[sub_resource type="RectangleShape2D" id=114]
 extents = Vector2( 97.7714, 118.066 )
 
 [sub_resource type="Resource" id=23]
@@ -162,7 +168,7 @@ name = "Death"
 [sub_resource type="Resource" id=25]
 script = ExtResource( 7 )
 __meta__ = {
-"graph_offset": Vector2( 948, -80 )
+"graph_offset": Vector2( 1028.5, -20 )
 }
 name = "DoubleJump"
 
@@ -197,9 +203,16 @@ name = "Jump"
 [sub_resource type="Resource" id=30]
 script = ExtResource( 7 )
 __meta__ = {
-"graph_offset": Vector2( 528, -180 )
+"graph_offset": Vector2( 268, -300 )
 }
 name = "Run"
+
+[sub_resource type="Resource" id=76]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 688, -320 )
+}
+name = "Dash"
 
 [sub_resource type="Resource" id=31]
 script = ExtResource( 8 )
@@ -225,6 +238,18 @@ conditions = {
 "stand_up": SubResource( 33 )
 }
 
+[sub_resource type="Resource" id=91]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=92]
+script = ExtResource( 10 )
+from = "Crouch"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 91 )
+}
+
 [sub_resource type="Resource" id=35]
 script = ExtResource( 9 )
 name = "v_speed"
@@ -237,6 +262,18 @@ from = "DoubleJump"
 to = "Fall"
 conditions = {
 "v_speed": SubResource( 35 )
+}
+
+[sub_resource type="Resource" id=83]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=84]
+script = ExtResource( 10 )
+from = "DoubleJump"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 83 )
 }
 
 [sub_resource type="Resource" id=37]
@@ -292,6 +329,18 @@ from = "Fall"
 to = "Run"
 conditions = {
 "land": SubResource( 44 )
+}
+
+[sub_resource type="Resource" id=85]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=86]
+script = ExtResource( 10 )
+from = "Fall"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 85 )
 }
 
 [sub_resource type="Resource" id=46]
@@ -358,6 +407,18 @@ conditions = {
 "h_speed": SubResource( 54 )
 }
 
+[sub_resource type="Resource" id=82]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=77]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 82 )
+}
+
 [sub_resource type="Resource" id=56]
 script = ExtResource( 8 )
 name = "die"
@@ -394,6 +455,18 @@ from = "Jump"
 to = "Fall"
 conditions = {
 "v_speed": SubResource( 60 )
+}
+
+[sub_resource type="Resource" id=87]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=88]
+script = ExtResource( 10 )
+from = "Jump"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 87 )
 }
 
 [sub_resource type="Resource" id=62]
@@ -460,11 +533,48 @@ conditions = {
 "jump": SubResource( 70 )
 }
 
+[sub_resource type="Resource" id=89]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=90]
+script = ExtResource( 10 )
+from = "Run"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 89 )
+}
+
+[sub_resource type="Resource" id=78]
+script = ExtResource( 8 )
+name = "end_dash"
+
+[sub_resource type="Resource" id=79]
+script = ExtResource( 10 )
+from = "Dash"
+to = "Idle"
+conditions = {
+"end_dash": SubResource( 78 )
+}
+
+[sub_resource type="Resource" id=80]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=81]
+script = ExtResource( 10 )
+from = "Dash"
+to = "Death"
+conditions = {
+"die": SubResource( 80 )
+}
+
 [sub_resource type="Resource" id=72]
 script = ExtResource( 6 )
 name = ""
 states = {
 "Crouch": SubResource( 23 ),
+"Dash": SubResource( 76 ),
 "Death": SubResource( 24 ),
 "DoubleJump": SubResource( 25 ),
 "Entry": SubResource( 26 ),
@@ -475,16 +585,23 @@ states = {
 }
 transitions = {
 "Crouch": {
+"Dash": SubResource( 92 ),
 "Death": SubResource( 32 ),
 "Idle": SubResource( 34 )
 },
+"Dash": {
+"Death": SubResource( 81 ),
+"Idle": SubResource( 79 )
+},
 "DoubleJump": {
+"Dash": SubResource( 84 ),
 "Fall": SubResource( 36 )
 },
 "Entry": {
 "Idle": SubResource( 37 )
 },
 "Fall": {
+"Dash": SubResource( 86 ),
 "Death": SubResource( 39 ),
 "DoubleJump": SubResource( 41 ),
 "Idle": SubResource( 43 ),
@@ -492,18 +609,21 @@ transitions = {
 },
 "Idle": {
 "Crouch": SubResource( 47 ),
+"Dash": SubResource( 77 ),
 "Death": SubResource( 49 ),
 "Fall": SubResource( 51 ),
 "Jump": SubResource( 53 ),
 "Run": SubResource( 55 )
 },
 "Jump": {
+"Dash": SubResource( 88 ),
 "Death": SubResource( 57 ),
 "DoubleJump": SubResource( 59 ),
 "Fall": SubResource( 61 )
 },
 "Run": {
 "Crouch": SubResource( 63 ),
+"Dash": SubResource( 90 ),
 "Death": SubResource( 65 ),
 "Fall": SubResource( 67 ),
 "Idle": SubResource( 69 ),
@@ -511,14 +631,14 @@ transitions = {
 }
 }
 
-[sub_resource type="CircleShape2D" id=73]
+[sub_resource type="CircleShape2D" id=115]
 radius = 186.429
 
-[sub_resource type="Gradient" id=74]
+[sub_resource type="Gradient" id=116]
 offsets = PoolRealArray( 0, 0.848101, 1 )
 colors = PoolColorArray( 1, 0.943359, 0, 1, 0, 0.507813, 1, 1, 0, 0, 0, 0 )
 
-[sub_resource type="RectangleShape2D" id=75]
+[sub_resource type="RectangleShape2D" id=117]
 extents = Vector2( 51.4751, 80.8868 )
 
 [node name="Player" type="KinematicBody2D" groups=[
@@ -532,16 +652,17 @@ gravity = 1500
 death_timer = 4.0
 mana_factor = 10.0
 invincibility_time = 1.1
+dash_speed_base = 1500.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-material = SubResource( 1 )
+material = SubResource( 93 )
 position = Vector2( 1.00003, 11 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 21 )
-animation = "Idle"
+frames = SubResource( 113 )
+animation = "Dash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 22 )
+shape = SubResource( 114 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -558,7 +679,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
-shape = SubResource( 73 )
+shape = SubResource( 115 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Shield"]
 z_index = -1
@@ -579,14 +700,14 @@ radial_accel = -19.36
 damping = 20.0
 angle = 720.0
 angle_random = 1.0
-color_ramp = SubResource( 74 )
+color_ramp = SubResource( 116 )
 hue_variation = -0.1
 hue_variation_random = 0.4
 
 [node name="CollisionShapeCrouched" type="CollisionShape2D" parent="."]
 modulate = Color( 0.694118, 0.0980392, 0.0980392, 1 )
 position = Vector2( 0.793701, 38.1621 )
-shape = SubResource( 75 )
+shape = SubResource( 117 )
 disabled = true
 
 [node name="SoundJump1" type="AudioStreamPlayer" parent="."]

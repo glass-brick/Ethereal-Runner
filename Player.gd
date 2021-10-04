@@ -24,6 +24,9 @@ export (float) var digestion_for_bullet = 10
 export (float) var digestion_danger_threshold = 80
 export (float) var shield_digestion_add = 5
 export (float) var mana = 0
+export (float) var dash_anim_duration = 1
+export (float) var dash_speed_base = 100
+export (float) var dash_stop = 0.1
 
 var ExplosionAttack = preload('ExplosionAttack.tscn')
 
@@ -41,6 +44,7 @@ var initial_jump_time = 10
 var max_speed = max_speed_base
 var acceleration = acceleration_base
 var jump_speed = jump_speed_base / initial_jump_time
+var dash_speed = dash_speed_base
 var double_jump = false
 var invincibility = false
 var invincibility_counter = 0.0
@@ -55,6 +59,8 @@ var crouched = false
 var digestion_danger = false
 var time_between_mellee_shielded = 0.5
 var last_melee_shielded = 0
+var dash_timer = 0
+var dash_direction = 1
 
 var velocity = Vector2()
 
@@ -121,17 +127,29 @@ func get_input():
 	var jump_just_pressed = Input.is_action_just_pressed('ui_select')
 	var fire = Input.is_action_just_pressed('fire')
 	var defend = Input.is_action_pressed('shield')
+	var dash = Input.is_action_pressed('dash')
 
 	if crouch and is_on_floor():
 		smp.set_trigger('crouch')
 	else:
 		smp.set_trigger('stand_up')
 
+	if dash and (left or right) and not (left and right):
+		if right and velocity.x < max_speed:
+			dash_direction = 1
+		elif left and velocity.x > -max_speed:
+			dash_direction = -1
+		smp.set_trigger('start_dash')
+		
 	if (left or right) and not (left and right):
 		if right and velocity.x < max_speed:
 			velocity.x += acceleration
+			if dash_direction == -1:
+				dash_timer += dash_stop
 		elif left and velocity.x > -max_speed:
 			velocity.x -= acceleration
+			if dash_direction == 1:
+				dash_timer += dash_stop
 	else:
 		if velocity.x > 0:
 			velocity.x = max(velocity.x - acceleration, 0)
@@ -230,6 +248,9 @@ func _on_StateMachinePlayer_transited(from, to):
 			$CollisionShape2D.disabled = true
 		"Death":
 			$AnimatedSprite.hide()
+		"Dash":
+			$AnimatedSprite.play('Dash')
+			dash_timer = 0
 
 	match from:
 		"Crouch":
@@ -245,6 +266,11 @@ func _on_StateMachinePlayer_updated(state, delta):
 				double_jump = true
 		"Crouch":
 			velocity.x = 0
+		"Dash":
+			velocity.x += dash_direction * dash_speed * (dash_anim_duration - dash_timer)
+			dash_timer += delta
+			if dash_timer > dash_anim_duration:
+				smp.set_trigger("end_dash")
 
 
 func _physics_process(delta):
@@ -321,6 +347,8 @@ func affect_mana(delta):
 	max_speed = max_speed_base + pow(mana_level * mana_factor, 2)
 	acceleration = acceleration_base + pow(mana_level * mana_factor, 2)
 	jump_speed = (jump_speed_base - (mana_level * mana_factor)) / initial_jump_time
+	dash_speed = dash_speed_base + pow(mana_level * mana_factor, 2)
+
 
 	hud.update_mana(mana / max_mana)
 
