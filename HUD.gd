@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 export (int) var message_fade_time = 2
+export (float) var controls_opacity = 0.4
 
 var message_timer = 0
 var time_passed = 0
@@ -8,7 +9,7 @@ var time_passed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Controls.hide()
+	$Controls.modulate.a = controls_opacity
 	$Continue.hide()
 	$NotEnoughMana.hide()
 	$Digestion.value = 0
@@ -66,12 +67,14 @@ func player_is_dead():
 
 
 func pause():
+	$Controls.modulate.a = 1
 	$Continue.show()
 	$Controls.show()
 	get_tree().paused = true
 
 
 func unpause():
+	$Controls.modulate.a = controls_opacity
 	$Continue.hide()
 	$Controls.hide()
 	get_tree().paused = false
