@@ -31,11 +31,9 @@ var fire_now = false
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
 		"Fly":
-			print("vuela")
 			time_to_attack = initial_attack_time
 			$AnimatedSprite.play("fly")
 		"Fire":
-			print("pasa a atacar")
 			attack_time = initial_attack_time
 			$AnimatedSprite.play("attack")
 		"Dead":
@@ -59,10 +57,14 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Fly":
 			velocity.x = speed * (1 if flipped else -1)
 			velocity = move_and_slide(velocity, Vector2(0, -1))
-			if time_to_attack <= 0 and \
-				(SceneManager.get_entity("Player").global_position - self.global_position).length() < max_length_shoot:
+			if (
+				time_to_attack <= 0
+				and (
+					(SceneManager.get_entity("Player").global_position - self.global_position).length()
+					< max_length_shoot
+				)
+			):
 				smp.set_trigger('start_firing')
-				print("empieza a disparar")
 			time_to_attack -= delta
 			flip_timer += delta
 			if flip_timer > time_to_flip:
@@ -75,7 +77,6 @@ func _on_StateMachinePlayer_updated(state, delta):
 			if attack_time <= 0:
 				smp.set_trigger('stop_firing')
 		"Dead":
-			print("dead")
 			death_dissolution += delta / death_time
 			$AnimatedSprite.material.set_shader_param("effect_percentage", 1 - death_dissolution)
 

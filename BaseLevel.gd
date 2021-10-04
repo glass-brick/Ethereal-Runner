@@ -55,7 +55,7 @@ var biomes = {
 	},
 	"bad_boy":
 	{
-		"color": Color(0.3,0.3,0.3,1),
+		"color": Color(0.3, 0.3, 0.3, 1),
 		"monsters": [TreapanoGargoyle],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
 		"platforms": [Platform, PlatformMedium, PlatformSmall],
@@ -113,22 +113,21 @@ func _ready():
 	while render_paths[0]["position"].x < render_limit[1].x:
 		render_platform(false)
 
+
 func choose_platform(biome_props):
 	if not "platforms" in biome_props:
 		return Platform
 	if not "platforms_prob" in biome_props:
 		return biome_props['platforms'][randi() % biome_props['platforms'].size()]
-	
+
 	var rand_num = randf()
-	print(rand_num)
 	var passed_prob = 0.0
 	for i in range(biome_props['platforms_prob'].size()):
 		passed_prob += biome_props['platforms_prob'][i]
 		if rand_num < passed_prob:
-			print(i)
 			return biome_props['platforms'][i]
 	return Platform
-	
+
 
 func render_platform(spawn_monsters):
 	platforms_rendered += 1
@@ -154,7 +153,7 @@ func render_platform(spawn_monsters):
 			else:
 				num_monsters = (randi() % instability_props['max_monsters_per_platform']) + 1
 				num_monsters = min(num_monsters, platform.max_monsters)
-			
+
 			for j in range(num_monsters):
 				var monster_kind = biome_props["monsters"][randi() % biome_props["monsters"].size()]
 				var monster = monster_kind.instance()
@@ -163,16 +162,16 @@ func render_platform(spawn_monsters):
 				if num_monsters > 1:
 					if num_monsters == 2:
 						if j == 0:
-							monster.position.x -= width/2
+							monster.position.x -= width / 2
 						else:
-							monster.position.x += width/2
+							monster.position.x += width / 2
 					elif num_monsters == 3:
 						if j == 0:
-							monster.position.x -= width/2
+							monster.position.x -= width / 2
 						elif j == 2:
-							monster.position.x += width/2
+							monster.position.x += width / 2
 					else:
-						monster.position.x -= (width * ((j+1)/(num_monsters+1) -1/2))
+						monster.position.x -= (width * ((j + 1) / (num_monsters + 1) - 1 / 2))
 				monster.position.y -= 300
 				if monster.name == "TrepanoGargoyle":
 					monster.position.y += monster.altitude
@@ -198,7 +197,6 @@ func _on_platform_stepped(path_id, platform_number):
 		and render_paths[0]["branch_on"] != 0
 		and render_paths[0]["branch_on"] <= platform_number
 	):
-		print('new path taken %d, number %d' % [path_id, platform_number])
 		for platform in platforms:
 			if platform.path_id != path_id:
 				platform.start_expiration_timer(timer_expiration_non_taken_path)
@@ -212,9 +210,8 @@ func _on_platform_stepped(path_id, platform_number):
 		for monster in monsters:
 			if monster.path_id != path_id:
 				monster.kill()
-		
+
 		var random_number = randf()
-		print(random_number)
 		if random_number < change_music_prob:
 			if Globals.instability_level > 2:
 				change_music("Inferno")
@@ -230,6 +227,7 @@ func _process(delta):
 	change_background_colors(delta)
 	process_music(delta)
 
+
 func choose_biome_key():
 	var total_weight = 0
 	for value in biomes.values():
@@ -241,6 +239,7 @@ func choose_biome_key():
 		if random_num < weight_passed:
 			return key
 	return biomes.keys()[randi() % biomes.keys().size()]
+
 
 func process_platforms():
 	var new_camera_position = camera.get_camera_screen_center()
@@ -342,11 +341,13 @@ func process_instability_effects():
 					lightning.position += Vector2(rand_range(-1000, 1000), rand_range(-300, -50))
 				add_child(lightning)
 
+
 func get_music_node(name = null):
 	if not name:
 		return get_node("Music")
 	return get_node("Music").get_node(name)
-				
+
+
 func change_music_volume(change):
 	for node in get_music_node().get_children():
 		if node.has_method('stop') and node.is_playing():
@@ -362,7 +363,6 @@ func reset_music_volume():
 func start_music(name, fadein):
 	stop_music(false)
 	var targetNode = get_music_node(name)
-	print(name)
 	if targetNode.has_method("play"):
 		if fadein:
 			music_fading_in.append(targetNode)
@@ -372,9 +372,11 @@ func start_music(name, fadein):
 
 		targetNode.play()
 
+
 func change_music(name):
 	stop_music(true)
 	next_music = name
+
 
 var music_fading_in = []
 var next_music = null
@@ -409,4 +411,3 @@ func process_music(delta):
 	if next_music and not not_change_yet:
 		start_music(next_music, true)
 		next_music = null
-	

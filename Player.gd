@@ -45,7 +45,7 @@ var max_speed = max_speed_base
 var acceleration = acceleration_base
 var jump_speed = jump_speed_base / initial_jump_time
 var dash_speed = dash_speed_base
-var double_jump = false
+var can_double_jump = false
 var invincibility = false
 var invincibility_counter = 0.0
 var mana_level = 1
@@ -123,7 +123,6 @@ func explode_body():
 		var vector = Vector2(
 			velocity.x + rand_range(-1, 1) * 200, velocity.y + rand_range(-1, -0.5) * 200
 		)
-		print(vector)
 		part.apply_impulse(Vector2(), vector)
 		SceneManager._current_scene.add_child(part)
 
@@ -170,13 +169,13 @@ func get_input():
 
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
-	if jump_just_pressed and (is_on_floor() or double_jump):
+	if jump_just_pressed and (is_on_floor() or can_double_jump):
 		smp.set_trigger('jump')
 		jumping = true
 		jump_time = initial_jump_time
 		velocity.y = jump_speed * initial_jump_time
 		if not is_on_floor():
-			double_jump = false
+			can_double_jump = false
 
 	if jump_time > 0:
 		if not jump:
@@ -248,7 +247,6 @@ func _on_StateMachinePlayer_transited(from, to):
 		"DoubleJump":
 			$AnimatedSprite.play('Jump')
 			$AnimatedSprite.frame = 0
-			print("double_jump")
 			var num = randi() % double_jump_sounds.size()
 			var sound = double_jump_sounds[num]
 			sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
@@ -281,7 +279,7 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Fall":
 			if is_on_floor():
 				smp.set_trigger('land')
-				double_jump = true
+				can_double_jump = true
 		"Crouch":
 			velocity.x = 0
 		"Dash":
