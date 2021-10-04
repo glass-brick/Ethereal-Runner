@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Lightning.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/lightning.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/aoe_particle.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -75,6 +76,10 @@ animations = [ {
 "speed": 10.0
 } ]
 
+[sub_resource type="Gradient" id=18]
+offsets = PoolRealArray( 0.255034, 0.66443, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0.890625, 0, 1, 1, 0, 0, 1 )
+
 [node name="Lightning" type="Area2D"]
 collision_layer = 2
 collision_mask = 3
@@ -87,6 +92,25 @@ frames = SubResource( 17 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -34.1638, -205.594, -56.341, -77.4565, -63.3477, -13.6529, -54.368, 81.7563, -36.4086, 192.88, 26.4492, 194.003, 20.8369, 82.8788, 25.3268, -32.7347, 25.3268, -83.2455, 37.6738, -204.471 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( -2, 190 )
+scale = Vector2( 0.6, 0.6 )
+emitting = false
+amount = 100
+lifetime = 5.0
+one_shot = true
+speed_scale = 17.23
+explosiveness = 1.0
+texture = ExtResource( 3 )
+direction = Vector2( 0, -1 )
+spread = 74.03
+gravity = Vector2( 0, 0 )
+initial_velocity = 342.59
+initial_velocity_random = 0.67
+linear_accel = -86.02
+linear_accel_random = 0.3
+color_ramp = SubResource( 18 )
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]

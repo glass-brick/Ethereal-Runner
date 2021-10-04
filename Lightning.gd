@@ -13,6 +13,7 @@ func _on_AnimatedSprite_animation_finished():
 
 func _on_AnimatedSprite_frame_changed():
 	if $AnimatedSprite.frame == 10:
+		$CPUParticles2D.restart()
 		var targets = get_overlapping_bodies()
 		for target in targets:
 			if target.has_method('_on_hit'):
