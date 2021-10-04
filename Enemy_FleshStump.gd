@@ -55,7 +55,7 @@ func _on_StateMachinePlayer_updated(state, delta):
 			if time_to_flip > 0:
 				time_to_flip -= 1
 			else:
-				var should_flip = flipped != (target.x > global_position.x)
+				var should_flip = (flipped != (target.x > global_position.x))
 				if should_flip:
 					flipped = not flipped
 					time_to_flip = initial_time_to_flip
