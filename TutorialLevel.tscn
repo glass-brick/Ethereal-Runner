@@ -75,7 +75,7 @@ stream = ExtResource( 7 )
 
 [node name="Wind" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource( 15 )
-volume_db = 2.019
+volume_db = 24.0
 
 [node name="Trigger" parent="." instance=ExtResource( 12 )]
 position = Vector2( 0, 192 )
@@ -105,35 +105,35 @@ timeline_name = "Dash Crouch"
 shape = SubResource( 4 )
 
 [node name="Trigger5" parent="." instance=ExtResource( 12 )]
-position = Vector2( 8760, 152 )
+position = Vector2( 8464, 152 )
 timeline_name = "Objective"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger5"]
 shape = SubResource( 4 )
 
 [node name="Trigger6" parent="." instance=ExtResource( 12 )]
-position = Vector2( 10480, 568 )
+position = Vector2( 10184, 568 )
 timeline_name = "Shield Death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger6"]
 shape = SubResource( 4 )
 
 [node name="Trigger7" parent="." instance=ExtResource( 12 )]
-position = Vector2( 15288, 448 )
+position = Vector2( 14992, 448 )
 timeline_name = "Magic"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger7"]
 shape = SubResource( 4 )
 
 [node name="Trigger8" parent="." instance=ExtResource( 12 )]
-position = Vector2( 17368, 176 )
+position = Vector2( 17072, 176 )
 timeline_name = "Attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger8"]
 shape = SubResource( 4 )
 
 [node name="Trigger9" parent="." instance=ExtResource( 12 )]
-position = Vector2( 24704, 304 )
+position = Vector2( 24408, 304 )
 timeline_name = "Instability Spawn Rate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger9"]
@@ -174,71 +174,71 @@ position = Vector2( 4216, 200 )
 position = Vector2( 5336, 680 )
 
 [node name="FloorSegment2" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 7904, 672 )
+position = Vector2( 7608, 672 )
 
 [node name="FloorSegmentIndestructible4" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 8760, 672 )
+position = Vector2( 8464, 672 )
 
 [node name="FloorSegmentIndestructible5" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 9656, 488 )
+position = Vector2( 9360, 488 )
 
 [node name="FloorSegmentIndestructible7" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 10464, 1104 )
+position = Vector2( 10168, 1104 )
 
 [node name="FloorSegmentIndestructible8" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 12480, 1480 )
+position = Vector2( 12184, 1480 )
 
 [node name="FloorSegment3" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 14392, 1168 )
+position = Vector2( 14096, 1168 )
 
 [node name="FloorSegmentIndestructible9" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 15320, 952 )
+position = Vector2( 15024, 952 )
 
 [node name="FloorSegment4" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 16264, 680 )
+position = Vector2( 15968, 680 )
 
 [node name="FloorSegment5" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 17360, 680 )
+position = Vector2( 17064, 680 )
 
 [node name="FloorSegmentIndestructible10" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 18328, 1080 )
+position = Vector2( 18032, 1080 )
 
 [node name="FloorSegmentIndestructible18" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 19088, 1080 )
+position = Vector2( 18792, 1080 )
 
 [node name="FloorSegmentIndestructible19" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 19840, 1072 )
+position = Vector2( 19544, 1072 )
 
 [node name="FloorSegmentIndestructible20" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 20600, 1072 )
+position = Vector2( 20304, 1072 )
 
 [node name="FloorSegmentIndestructible11" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 21688, 840 )
+position = Vector2( 21392, 840 )
 
 [node name="FloorSegmentIndestructible12" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 22720, 848 )
+position = Vector2( 22424, 848 )
 
 [node name="FloorSegmentIndestructible6" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 11368, 1400 )
+position = Vector2( 11072, 1400 )
 
 [node name="FloorSegmentIndestructible21" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 13640, 1472 )
+position = Vector2( 13344, 1472 )
 
 [node name="FloorSegmentIndestructible14" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 24736, 848 )
+position = Vector2( 24440, 848 )
 
 [node name="FleshStump" parent="LevelEntities" instance=ExtResource( 14 )]
-position = Vector2( 20080, 896 )
+position = Vector2( 19784, 896 )
 
 [node name="FloorSegment6" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 23736, 856 )
+position = Vector2( 23440, 856 )
 
 [node name="Player" parent="LevelEntities" instance=ExtResource( 1 )]
 hud_path = NodePath("../../HUD")
 mana_gather_factor = 0.0
 
 [node name="TrepanoGargoyle" parent="LevelEntities" instance=ExtResource( 13 )]
-position = Vector2( 13296, 48 )
+position = Vector2( 13000, 48 )
 
 [node name="TrepanoGargoyle2" parent="LevelEntities" instance=ExtResource( 13 )]
-position = Vector2( 12272, 80 )
+position = Vector2( 11976, 80 )
