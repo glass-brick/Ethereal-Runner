@@ -24,55 +24,55 @@ shader_param/flowMap = ExtResource( 10 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 260, 0, 130, 64 )
+region = Rect2( 0, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
-region = Rect2( 390, 0, 130, 64 )
+region = Rect2( 130, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
-region = Rect2( 520, 0, 130, 64 )
+region = Rect2( 650, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 130, 64 )
+region = Rect2( 780, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
-region = Rect2( 130, 0, 130, 64 )
+region = Rect2( 910, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
-region = Rect2( 650, 0, 130, 64 )
+region = Rect2( 1040, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
-region = Rect2( 780, 0, 130, 64 )
+region = Rect2( 260, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 2 )
-region = Rect2( 910, 0, 130, 64 )
+region = Rect2( 390, 0, 130, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
-region = Rect2( 1040, 0, 130, 64 )
+region = Rect2( 520, 0, 130, 64 )
 
 [sub_resource type="SpriteFrames" id=12]
 animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "Attack",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "Run",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "Attack",
 "speed": 10.0
 } ]
 
@@ -277,6 +277,7 @@ collision_layer = 2
 position = Vector2( -220.383, -66.2875 )
 shape = SubResource( 35 )
 
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]

@@ -26,6 +26,11 @@ var path_id
 
 var velocity = Vector2(0, 0)
 var gravity = 1200
+var attack_frame = false
+
+
+func _on_AnimatedSprite_frame_changed():
+	attack_frame = $AnimatedSprite.frame == 1 and $AnimatedSprite.animation == "Attack"
 
 
 func _on_StateMachinePlayer_transited(from, to):
@@ -56,7 +61,7 @@ func _on_StateMachinePlayer_updated(state, delta):
 			if time_to_flip > 0:
 				time_to_flip -= 1
 			else:
-				var should_flip = (flipped != (target.x > global_position.x))
+				var should_flip = flipped != (target.x > global_position.x)
 				if should_flip:
 					flipped = not flipped
 					time_to_flip = initial_time_to_flip
@@ -68,6 +73,8 @@ func _on_StateMachinePlayer_updated(state, delta):
 			elif abs(target.x - global_position.x) < attack_range:
 				smp.set_trigger('attack')
 		"Attack":
+			if not attack_frame:
+				return
 			var targets = $AttackHitbox.get_overlapping_bodies()
 			for target in targets:
 				if target == SceneManager.get_entity("Player") and target.has_method('_on_hit'):

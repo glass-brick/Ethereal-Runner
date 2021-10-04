@@ -213,7 +213,7 @@ func _on_platform_stepped(path_id, platform_number):
 				new_paths.push_front(render_path)
 		render_paths = new_paths
 		for monster in monsters:
-			if monster.path_id != path_id:
+			if is_instance_valid(monster) and monster.path_id != path_id:
 				monster.kill()
 
 		var random_number = randf()
