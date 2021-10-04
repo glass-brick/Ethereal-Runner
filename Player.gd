@@ -24,8 +24,8 @@ export (float) var digestion_for_bullet = 10
 export (float) var digestion_danger_threshold = 80
 export (float) var shield_digestion_add = 5
 export (float) var mana = 0
-export (float) var dash_anim_duration = 1
-export (float) var dash_speed_base = 100
+export (float) var dash_anim_duration = 0.2
+export (float) var dash_speed_base = 1
 export (float) var dash_stop = 0.1
 
 var ExplosionAttack = preload('ExplosionAttack.tscn')
@@ -85,6 +85,7 @@ onready var dash_texture_flipped = "res://Sprites/Runner_dash_flipped.png"
 func _ready():
 	hud.update_health(self.health)
 	Globals.max_instability_level = mana_steps
+
 
 func set_health(health):
 	self.health = max(health, 0)
@@ -150,7 +151,7 @@ func get_input():
 		if not is_on_floor():
 			dash_jumped = true
 		smp.set_trigger('start_dash')
-		
+
 	if (left or right) and not (left and right):
 		if right and velocity.x < max_speed:
 			velocity.x += acceleration
@@ -229,8 +230,10 @@ func delete_with_shield():
 				self.add_digestion(digestion_for_bullet)
 				$SoundShieldDeleteProjectile.play()
 
+
 func add_digestion(dig):
 	digestion += dig
+
 
 func _on_StateMachinePlayer_transited(from, to):
 	match to:
@@ -285,7 +288,8 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Crouch":
 			velocity.x = 0
 		"Dash":
-			velocity.x += dash_direction * dash_speed * (dash_anim_duration - dash_timer)
+			velocity.y = 0
+			velocity.x += dash_direction * dash_speed
 			dash_timer += delta
 			if not $AnimatedSprite.flip_h:
 				$Trail.emitting = true
@@ -319,7 +323,6 @@ func _physics_process(delta):
 		$SoundFloorReached.play()
 	floor_timer += delta
 	was_on_floor = is_on_floor()
-
 
 
 func process_invincibility(delta):
@@ -379,7 +382,6 @@ func affect_mana(delta):
 	jump_speed = (jump_speed_base - (mana_level * mana_factor)) / initial_jump_time
 	dash_speed = dash_speed_base + pow(mana_level * mana_factor, 2)
 
-
 	hud.update_mana(mana / max_mana)
 
 	var mat = $AnimatedSprite.get_material()
@@ -407,8 +409,10 @@ func _on_hit(damage, damager):
 			self.set_health(self.health - damage)
 			self.invincibility = true
 
+
 func gain_points(points):
 	self.player_score += points
+
 
 func get_score():
 	return player_score + ($Camera2D.get_limit(MARGIN_LEFT) + 1800) / 100
