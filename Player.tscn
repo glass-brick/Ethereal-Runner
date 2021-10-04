@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=2]
+[gd_scene load_steps=119 format=2]
 
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://Sounds/shield_defense.wav" type="AudioStream" id=22]
 [ext_resource path="res://Sounds/shield_defense_melee.wav" type="AudioStream" id=23]
 [ext_resource path="res://Sprites/Runner_dash.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Runner_dash_flipped.png" type="Texture" id=25]
 
 [sub_resource type="ShaderMaterial" id=93]
 render_priority = 1
@@ -641,6 +642,9 @@ colors = PoolColorArray( 1, 0.943359, 0, 1, 0, 0.507813, 1, 1, 0, 0, 0, 0 )
 [sub_resource type="RectangleShape2D" id=117]
 extents = Vector2( 51.4751, 80.8868 )
 
+[sub_resource type="Gradient" id=118]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
 [node name="Player" type="KinematicBody2D" groups=[
 "scene_manager_entity_nodes",
 ]]
@@ -749,6 +753,26 @@ volume_db = -3.0
 [node name="SoundShieldDeleteProjectile" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
 volume_db = -3.0
+
+[node name="Trail" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.5
+local_coords = false
+texture = ExtResource( 24 )
+damping_random = 0.52
+scale_amount = 2.0
+color_ramp = SubResource( 118 )
+
+[node name="TrailFlipped" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.5
+local_coords = false
+texture = ExtResource( 25 )
+damping_random = 0.52
+scale_amount = 2.0
+color_ramp = SubResource( 118 )
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]

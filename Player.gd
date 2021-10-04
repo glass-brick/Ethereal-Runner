@@ -72,6 +72,8 @@ var camera_limit = 2000
 
 onready var jump_sounds = [$SoundJump1, $SoundJump2, $SoundJump3]
 onready var double_jump_sounds = [$SoundDoubleJump1, $SoundDoubleJump2]
+onready var dash_texture = "res://Sprites/Runner_dash.png"
+onready var dash_texture_flipped = "res://Sprites/Runner_dash_flipped.png"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -254,12 +256,16 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.hide()
 		"Dash":
 			$AnimatedSprite.play('Dash')
+			$Trail.emitting = true
 			dash_timer = 0
 
 	match from:
 		"Crouch":
 			$CollisionShapeCrouched.disabled = true
 			$CollisionShape2D.disabled = false
+		"Dash":
+			$Trail.emitting = false
+			$TrailFlipped.emitting = false
 
 
 func _on_StateMachinePlayer_updated(state, delta):
@@ -273,6 +279,12 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Dash":
 			velocity.x += dash_direction * dash_speed * (dash_anim_duration - dash_timer)
 			dash_timer += delta
+			if not $AnimatedSprite.flip_h:
+				$Trail.emitting = true
+				$TrailFlipped.emitting = false
+			else:
+				$Trail.emitting = false
+				$TrailFlipped.emitting = true
 			if dash_timer > dash_anim_duration:
 				smp.set_trigger("end_dash")
 
