@@ -5,6 +5,7 @@ var started = false
 
 func _ready():
 	$Path2D/PathFollow2D/AnimatedSprite.play('Idle')
+	$HTTPRequest.request("https://ethereal-runner-server.gggelo.repl.co/leaderboard")
 
 
 func _process(delta):
@@ -33,3 +34,22 @@ func start_game():
 	SceneManager.change_scene(
 		'res://BaseLevel.tscn' if Globals.tutorial_finished else 'res://TutorialLevel.tscn'
 	)
+
+
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	print(result)
+	print(response_code)
+	print(body)
+	if response_code == 200:
+		var json = parse_json(body.get_string_from_utf8())
+		if json:
+			for i in json.keys():
+				if not json[i]:
+					continue
+				var name = json[i].get('name','')
+				var points = json[i].get('points','')
+				var node = "Leaderboard/VBoxContainer/Pos{}".format([i], "{}")
+				get_node(node).text = "[{}] {}".format([points, name], "{}")
+	else:
+		get_node("Leaderboard/VBoxContainer/Pos0").text = "Could not connect to server"
+	pass # Replace with function body.
