@@ -2,10 +2,24 @@ extends CanvasLayer
 
 var started = false
 
+var starter_names = ['Filthy Scum', 'Worthless Pawn', 'Abominable Human', 'Human Garbage', 
+'Hominid Parasite', "Embodiment of Suffering", "Flesh Automaton", "Lowest Common Denominator",
+"Deaf and Dumbstruck", "Rotting Head", "Cauldron of Hate", "Exhibit A of the Human Condition", 
+"Perpetrator of Unauthorized Exploitation"]
 
 func _ready():
 	$Path2D/PathFollow2D/AnimatedSprite.play('Idle')
 	$HTTPRequest.request("https://ethereal-runner-server.gggelo.repl.co/leaderboard")
+	if Globals.player_name:
+		$Name/NameInput.text = Globals.player_name
+	else:
+		randomize()
+		var r = randi()
+		var rand_number = r % len(starter_names)
+		print(r)
+		print(rand_number)
+		print(len(starter_names))
+		$Name/NameInput.text = starter_names[rand_number]
 
 
 func _process(delta):
@@ -29,6 +43,7 @@ func _on_Button_button_down():
 
 func start_game():
 	$Path2D/PathFollow2D/AnimatedSprite.play('Run')
+	Globals.player_name = $Name/NameInput.text
 	started = true
 	yield(get_tree().create_timer(1.0), "timeout")
 	SceneManager.change_scene(
