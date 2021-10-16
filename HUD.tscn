@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=1]
 [ext_resource path="res://HUD.gd" type="Script" id=2]
@@ -10,35 +10,40 @@ size = 64
 extra_spacing_space = 1
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.447059, 0.0117647, 0, 1 )
+[sub_resource type="DynamicFont" id=2]
+size = 64
+extra_spacing_space = 1
+font_data = ExtResource( 3 )
 
 [sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.207843, 0.109804, 0.133333, 1 )
+bg_color = Color( 0.447059, 0.0117647, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.207843, 0.109804, 0.133333, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.152941, 0.105882, 0.105882, 1 )
 border_width_top = 1
 border_color = Color( 0.329412, 0.121569, 0.266667, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.180392, 0.12549, 0.196078, 1 )
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.505882, 0.47451, 0.00784314, 1 )
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 shadow_color = Color( 0.145098, 0, 0.384314, 0.6 )
 shadow_size = 1
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.00392157, 0.105882, 0, 1 )
 shadow_color = Color( 0.819608, 0, 0, 0.6 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=9]
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.462745, 0.0588235, 0.470588, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -46,7 +51,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.14915, 0.099, 0.15, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -118,14 +123,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Score" type="Label" parent="DeathMsg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -222.0
+margin_top = 27.5
+margin_right = 222.0
+margin_bottom = 108.5
+custom_fonts/font = SubResource( 1 )
+text = "Score:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Leaderboard" type="Label" parent="DeathMsg"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -377.0
+margin_top = 92.4406
+margin_right = 377.0
+margin_bottom = 257.441
+custom_fonts/font = SubResource( 2 )
+text = "You are in the top 10 
+filthy scum"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HealthBar" type="ProgressBar" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -1.88776
 margin_right = -824.0
 margin_bottom = -551.888
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
 value = 50.0
 percent_visible = false
 __meta__ = {
@@ -150,7 +189,7 @@ anchor_bottom = 1.0
 margin_left = 864.0
 margin_top = 48.0
 margin_bottom = -472.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -173,7 +212,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 864.0
 margin_bottom = -552.0
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 6 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -243,8 +282,8 @@ __meta__ = {
 margin_top = 96.0
 margin_right = 200.0
 margin_bottom = 116.0
-custom_styles/fg = SubResource( 6 )
-custom_styles/bg = SubResource( 7 )
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 8 )
 value = 50.0
 percent_visible = false
 __meta__ = {
@@ -256,7 +295,7 @@ __meta__ = {
 margin_top = -1.0
 margin_right = 200.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Shield Overload"
 align = 1
 __meta__ = {
@@ -280,8 +319,8 @@ margin_left = 0.66629
 margin_top = 46.0
 margin_right = 50.6663
 margin_bottom = 96.0
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
 value = 33.0
 percent_visible = false
 __meta__ = {
@@ -300,8 +339,8 @@ margin_top = 34.5
 margin_right = 50.75
 margin_bottom = 84.5
 rect_pivot_offset = Vector2( -178.395, 14.3956 )
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
 value = 60.0
 percent_visible = false
 __meta__ = {
@@ -319,8 +358,8 @@ margin_left = 0.75
 margin_top = 34.5
 margin_right = 50.75
 margin_bottom = 84.5
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
 value = 60.0
 percent_visible = false
 __meta__ = {
@@ -338,8 +377,8 @@ margin_left = 125.25
 margin_top = 25.25
 margin_right = 175.25
 margin_bottom = 75.25
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
 value = 60.0
 percent_visible = false
 __meta__ = {
@@ -378,4 +417,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="pressed" from="Continue" to="." method="_on_Continue_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

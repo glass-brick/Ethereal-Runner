@@ -104,7 +104,7 @@ func die():
 	explode_body()
 	velocity = Vector2()
 
-	hud.player_is_dead()
+	hud.player_is_dead(self.get_score())
 	Globals.save_score(self.get_score(), hud.time_passed)
 	yield(get_tree().create_timer(death_timer), "timeout")
 	SceneManager.get_entity('Level')._on_player_died()

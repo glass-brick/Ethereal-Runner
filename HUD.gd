@@ -68,8 +68,15 @@ func update_health(health):
 	get_node("HealthBar").value = health
 
 
-func player_is_dead():
+func player_is_dead(score):
 	$DeathMsg.visible = true
+	$DeathMsg.get_node("Score").text = "Score: %d" % score
+	
+	var body = to_json({"name": "Godette", "points": score})
+	var error = $HTTPRequest.request("https://ethereal-runner-server.gggelo.repl.co/submit_score", ["Content-Type: application/json"], true, HTTPClient.METHOD_POST, body)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+
 
 
 func pause():
@@ -95,3 +102,16 @@ func _on_Continue_pressed():
 func show_not_enough_mana():
 	message_timer = 0
 	$NotEnoughMana.show()
+
+
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	if response_code == 200:
+		var json = parse_json(body.get_string_from_utf8())
+		if json:
+			print(json['status'])
+			print(json['msg'])
+			if json['msg'] == 'You made the top 10!':
+				$DeathMsg.get_node("Leaderboard").show()
+	else:
+		print("Could not connect to server")
+

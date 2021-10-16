@@ -37,9 +37,6 @@ func start_game():
 
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
-	print(result)
-	print(response_code)
-	print(body)
 	if response_code == 200:
 		var json = parse_json(body.get_string_from_utf8())
 		if json:
@@ -52,4 +49,3 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				get_node(node).text = "[{}] {}".format([points, name], "{}")
 	else:
 		get_node("Leaderboard/VBoxContainer/Pos0").text = "Could not connect to server"
-	pass # Replace with function body.
