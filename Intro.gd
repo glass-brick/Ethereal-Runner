@@ -11,5 +11,10 @@ func _ready():
 	$AudioStreamPlayer.play()
 
 
+func _process(_delta):
+	if Input.is_action_just_pressed('ui_accept') and not SceneManager.is_transitioning:
+		SceneManager.change_scene('res://MainMenu.tscn')
+
+
 func _on_AnimationPlayer_animation_finished(_animation_name):
 	SceneManager.change_scene('res://MainMenu.tscn')

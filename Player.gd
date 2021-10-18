@@ -131,8 +131,8 @@ func get_input():
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
 	var crouch = Input.is_action_pressed('ui_down')
-	var jump = Input.is_action_pressed('ui_select')
-	var jump_just_pressed = Input.is_action_just_pressed('ui_select')
+	var jump = Input.is_action_pressed('jump')
+	var jump_just_pressed = Input.is_action_just_pressed('jump')
 	var fire = Input.is_action_just_pressed('fire')
 	var defend = Input.is_action_pressed('shield')
 	var dash = Input.is_action_pressed('dash')
@@ -344,11 +344,11 @@ func mana_digestion(delta):
 			if not digestion_danger:
 				digestion_danger = true
 				$SoundDigestionDanger.play()
-				SceneManager.get_entity('Level').change_music_volume(-6)
+				# SceneManager.get_entity('Level').change_music_volume(-6)
 		else:
 			digestion_danger = false
 			$SoundDigestionDanger.stop()
-			SceneManager.get_entity('Level').reset_music_volume()
+			# SceneManager.get_entity('Level').reset_music_volume()
 		if digestion > 100:
 			self.die()
 		if self.mana != max_mana:

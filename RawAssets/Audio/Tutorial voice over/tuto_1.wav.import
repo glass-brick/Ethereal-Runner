@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/tuto_1.wav-5681f10cf200ae9f159fcec4c7fdd77e.sample"
+
+[deps]
+
+source_file="res://RawAssets/Audio/Tutorial voice over/tuto_1.wav"
+dest_files=[ "res://.import/tuto_1.wav-5681f10cf200ae9f159fcec4c7fdd77e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

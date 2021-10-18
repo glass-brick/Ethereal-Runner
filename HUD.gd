@@ -11,7 +11,7 @@ var menu_open = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Controls.modulate.a = 0 if Globals.tutorial_finished else controls_opacity
-	$Continue.hide()
+	$Paused.hide()
 	$NotEnoughMana.hide()
 	$Digestion.value = 0
 
@@ -74,7 +74,7 @@ func player_is_dead():
 
 func pause():
 	$Controls.modulate.a = 1
-	$Continue.show()
+	$Paused.show()
 	$Controls.show()
 	get_tree().paused = true
 	menu_open = true
@@ -82,14 +82,10 @@ func pause():
 
 func unpause():
 	$Controls.modulate.a = 0 if Globals.tutorial_finished else controls_opacity
-	$Continue.hide()
+	$Paused.hide()
 	$Controls.hide()
 	get_tree().paused = false
 	menu_open = false
-
-
-func _on_Continue_pressed():
-	unpause()
 
 
 func show_not_enough_mana():

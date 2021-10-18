@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/vals3.wav-e4643e7b813dc910be8f9b800d4d8c9f.sample"
+
+[deps]
+
+source_file="res://RawAssets/Audio/vals3.wav"
+dest_files=[ "res://.import/vals3.wav-e4643e7b813dc910be8f9b800d4d8c9f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
