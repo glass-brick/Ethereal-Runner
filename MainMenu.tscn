@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://MainMenu.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Sprites/idle.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/jumpfall.png" type="Texture" id=5]
 [ext_resource path="res://fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=6]
+[ext_resource path="res://BGMVolume.gd" type="Script" id=7]
+[ext_resource path="res://SFXVolume.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -18,6 +20,15 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=6]
 size = 42
 font_data = ExtResource( 1 )
+
+[sub_resource type="ImageTexture" id=24]
+
+[sub_resource type="StyleBoxLine" id=25]
+color = Color( 0.282353, 0.101961, 0.223529, 1 )
+thickness = 10
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.501961, 0.121569, 0.443137, 1 )
 
 [sub_resource type="Curve2D" id=7]
 _data = {
@@ -220,14 +231,71 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Volume" type="Label" parent="SettingsMenu"]
+[node name="BGMVolume" type="Control" parent="SettingsMenu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -143.0
-margin_right = 143.0
+margin_left = -250.0
+margin_right = 250.0
 margin_bottom = 61.0
+script = ExtResource( 7 )
+
+[node name="HSlider" type="HSlider" parent="SettingsMenu/BGMVolume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 50.0
+custom_icons/grabber = SubResource( 24 )
+custom_styles/slider = SubResource( 25 )
+custom_styles/grabber_area = SubResource( 26 )
+min_value = -25.0
+max_value = 5.0
+value = -10.0
+tick_count = 7
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="SettingsMenu/BGMVolume"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -187.0
+margin_right = 187.0
+margin_bottom = 53.0
 custom_fonts/font = SubResource( 6 )
-text = "Volume"
+text = "Music Volume"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFXVolume" type="Control" parent="SettingsMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -250.0
+margin_top = 75.0
+margin_right = 250.0
+margin_bottom = 61.0
+script = ExtResource( 8 )
+
+[node name="HSlider" type="HSlider" parent="SettingsMenu/SFXVolume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 50.0
+custom_icons/grabber = SubResource( 24 )
+custom_styles/slider = SubResource( 25 )
+custom_styles/grabber_area = SubResource( 26 )
+min_value = -15.0
+max_value = 15.0
+tick_count = 7
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="SettingsMenu/SFXVolume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 6 )
+text = "Sound Effects Volume"
 align = 1
 valign = 1
 __meta__ = {
@@ -238,7 +306,7 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -187.0
-margin_top = 75.0
+margin_top = 150.0
 margin_right = 187.0
 margin_bottom = 83.8887
 custom_fonts/font = SubResource( 6 )
