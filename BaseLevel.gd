@@ -348,7 +348,10 @@ func change_music(name):
 	if current_music == name:
 		return
 	if current_music:
-		print(current_music)
 		SoundManager.stop(current_music)
 	SoundManager.play_bgm(name)
 	current_music = name
+
+
+func _exit_tree():
+	SoundManager.stop(current_music)

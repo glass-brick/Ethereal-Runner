@@ -60,3 +60,7 @@ func change_background_colors(delta):
 	parallaxLayer1.modulate.s = sat
 	parallaxLayer2.modulate.h = hue_value
 	parallaxLayer2.modulate.s = sat
+
+
+func _exit_tree():
+	SoundManager.stop('Wind')

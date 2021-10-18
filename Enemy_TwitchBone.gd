@@ -38,7 +38,7 @@ func _on_StateMachinePlayer_transited(from, to):
 
 
 func shoot_projectile():
-	$Shoot.play()
+	SoundManager.play_se('TwitchBoneShoot')
 	var projectile = Bullet.instance()
 	projectile.speed = projectile_speed
 	projectile.damage = projectile_damage
@@ -54,14 +54,20 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Idle":
 			$Arm.look_at(SceneManager.get_entity("Player").global_position)
 			time_to_attack -= 1
-			if time_to_attack <= 0 and (SceneManager.get_entity("Player").global_position - self.global_position).length() < max_length_shoot:
+			if (
+				time_to_attack <= 0
+				and (
+					(SceneManager.get_entity("Player").global_position - self.global_position).length()
+					< max_length_shoot
+				)
+			):
 				smp.set_trigger('attack')
 		"Attack":
 			attack_time -= 1
 			if attack_time <= 0:
 				smp.set_trigger('attack_finished')
 		"Dead":
-			$Die.play()
+			SoundManager.play_se('TwitchBoneDeath')
 			death_dissolution += delta / death_time
 			$AnimatedSprite.material.set_shader_param("effect_percentage", 1 - death_dissolution)
 

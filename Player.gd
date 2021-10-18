@@ -74,9 +74,9 @@ var current_state = PlayerStates.ALIVE
 
 var camera_limit = 2000
 
-onready var jump_sounds = [$SoundJump1, $SoundJump2, $SoundJump3]
-onready var double_jump_sounds = [$SoundDoubleJump1, $SoundDoubleJump2]
-onready var damage_sounds = [$SoundDamage1, $SoundDamage2, $SoundDamage3]
+onready var jump_sounds = ['Jump1', 'Jump2', 'Jump3']
+onready var double_jump_sounds = ['DoubleJump1', 'DoubleJump2']
+onready var damage_sounds = ['Damage1', 'Damage2', 'Damage3']
 onready var dash_texture = "res://Sprites/Runner_dash.png"
 onready var dash_texture_flipped = "res://Sprites/Runner_dash_flipped.png"
 
@@ -194,10 +194,10 @@ func get_input():
 			explosion.global_position = global_position
 			SceneManager._current_scene.add_child(explosion)
 			mana -= max_mana / mana_steps
-			$SoundExplosion.play()
+			SoundManager.play_se('Explosion')
 		else:
 			hud.show_not_enough_mana()
-			$SoundCantShoot.play()
+			SoundManager.play_se('CantShoot')
 
 	if defend:
 		if not was_shielding:
@@ -224,7 +224,7 @@ func delete_with_shield():
 		if target.has_method('explode'):
 			if not target.explode():  # if it explodes returns nothing
 				self.add_digestion(digestion_for_bullet)
-				$SoundShieldDeleteProjectile.play()
+				SoundManager.play_se('ShieldDeleteProjectile')
 
 
 func add_digestion(dig):
@@ -241,16 +241,16 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.play('Jump')
 			var num = randi() % jump_sounds.size()
 			var sound = jump_sounds[num]
-			sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
-			jump_sounds[num].play()
+			# sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
+			SoundManager.play_se(sound)
 			dash_jumped = false
 		"DoubleJump":
 			$AnimatedSprite.play('Jump')
 			$AnimatedSprite.frame = 0
 			var num = randi() % double_jump_sounds.size()
 			var sound = double_jump_sounds[num]
-			sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
-			double_jump_sounds[num].play()
+			# sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
+			SoundManager.play_se(sound)
 		"Fall":
 			$AnimatedSprite.play('Fall')
 		"Crouch":
@@ -261,7 +261,7 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.hide()
 		"Dash":
 			$AnimatedSprite.play('Dash')
-			$SoundDash.play()
+			SoundManager.play_se('Dash')
 			$Trail.emitting = true
 			dash_timer = 0
 
@@ -311,11 +311,11 @@ func _physics_process(delta):
 	last_melee_shielded += delta
 	if was_shielding:
 		self.add_digestion(delta * shield_digestion_add)
-		$SoundShield.play()
+		SoundManager.play_se('Shield')
 	else:
-		$SoundShield.stop()
+		SoundManager.stop('Shield')
 	if not was_on_floor and is_on_floor() and floor_timer > floor_time_sound:
-		$SoundFloorReached.play()
+		SoundManager.play_se('FloorReached')
 	floor_timer += delta
 	was_on_floor = is_on_floor()
 
@@ -343,11 +343,11 @@ func mana_digestion(delta):
 		if digestion > digestion_danger_threshold:
 			if not digestion_danger:
 				digestion_danger = true
-				$SoundDigestionDanger.play()
+				SoundManager.play_se('DigestionDanger')
 				# SceneManager.get_entity('Level').change_music_volume(-6)
 		else:
 			digestion_danger = false
-			$SoundDigestionDanger.stop()
+			SoundManager.stop('DigestionDanger')
 			# SceneManager.get_entity('Level').reset_music_volume()
 		if digestion > 100:
 			self.die()
@@ -370,7 +370,7 @@ func affect_mana(delta):
 	mana_level = floor(mana / max_mana * mana_steps) + 1
 	Globals.instability_level = mana_level
 	if mana_level_before < mana_level:
-		$SoundInstabilityUp.play()
+		SoundManager.play_se('InstabilityUp')
 
 	max_speed = max_speed_base + pow(mana_level * mana_factor, 2)
 	acceleration = acceleration_base + pow(mana_level * mana_factor, 2)
@@ -398,13 +398,13 @@ func _on_hit(damage, damager):
 			if last_melee_shielded < time_between_mellee_shielded:
 				self.add_digestion(digestion_for_bullet)
 				last_melee_shielded = 0
-				$SoundShieldDefense.play()
+				SoundManager.play_se('ShieldDefenseMelee')
 		else:
 			self.set_health(self.health - damage)
 			if self.current_state == PlayerStates.DEAD:
-				$SoundDeath.play()
+				SoundManager.play_se('PlayerDeath')
 			else:
-				self.damage_sounds[randi() % self.damage_sounds.size()].play()
+				SoundManager.play_se(damage_sounds[randi() % damage_sounds.size()])
 			self.invincibility = true
 
 
