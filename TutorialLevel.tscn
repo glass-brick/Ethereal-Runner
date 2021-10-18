@@ -1,25 +1,21 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Music/vals3.wav" type="AudioStream" id=2]
 [ext_resource path="res://Sprites/background.png" type="Texture" id=3]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://FloorSegment.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Sprites/background_low.png" type="Texture" id=6]
-[ext_resource path="res://Music/nuevo_mundo3.wav" type="AudioStream" id=7]
-[ext_resource path="res://Music/inferno6.wav" type="AudioStream" id=8]
 [ext_resource path="res://FloorSegmentIndestructible.tscn" type="PackedScene" id=9]
 [ext_resource path="res://FloorSegmentMedium.tscn" type="PackedScene" id=10]
 [ext_resource path="res://TutorialLevel.gd" type="Script" id=11]
 [ext_resource path="res://DialogueTrigger.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Enemy_TreapanoGargoyle.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Enemy_FleshStump.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Music/Desert Howling Wind.mp3" type="AudioStream" id=15]
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 128, 32 )
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 128, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1464, 88 )
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -62,33 +58,18 @@ scale = Vector2( 8, 8 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="Music" type="Node" parent="."]
-
-[node name="Vals" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 2 )
-
-[node name="Inferno" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 8 )
-
-[node name="NuevoMundo" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 7 )
-
-[node name="Wind" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 15 )
-volume_db = 24.0
-
 [node name="Trigger" parent="." instance=ExtResource( 12 )]
 position = Vector2( 0, 192 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Trigger2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 360, 880 )
 timeline_name = "Left Right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger2"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Trigger3" parent="." instance=ExtResource( 12 )]
 position = Vector2( 2624, 280 )
