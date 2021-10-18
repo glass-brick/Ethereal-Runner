@@ -3,7 +3,7 @@ signal platform_stepped
 
 export (int) var expiration_time_base = 4
 export (int) var expiration_speed = 1
-export (bool) var test = false
+export (bool) var indestructible = false
 export (int) var max_monsters = 3
 export (bool) var have_shader = true
 var expiration_started = false
@@ -47,6 +47,6 @@ func make_phaseable():
 
 
 func _on_Player_grab_body_entered(body):
-	if not test:
-		emit_signal("platform_stepped", path_id, platform_number)
+	emit_signal("platform_stepped", path_id, platform_number)
+	if not indestructible:
 		self.start_expiration_timer()
