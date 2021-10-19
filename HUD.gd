@@ -73,7 +73,7 @@ func player_is_dead(score):
 	$DeathMsg.get_node("Score").text = "Score: %d" % score
 	
 	var body = to_json({"name": Globals.player_name, "points": score})
-	var error = $HTTPRequest.request("https://ethereal-runner-server.gggelo.repl.co/submit_score", ["Content-Type: application/json"], true, HTTPClient.METHOD_POST, body)
+	var error = $HTTPRequest.request("{path}/submit_score".format({"path":Globals.leaderboards_server}), ["Content-Type: application/json"], true, HTTPClient.METHOD_POST, body)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 

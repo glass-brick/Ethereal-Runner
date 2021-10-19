@@ -9,16 +9,13 @@ var starter_names = ['Filthy Scum', 'Worthless Pawn', 'Abominable Human', 'Human
 
 func _ready():
 	$Path2D/PathFollow2D/AnimatedSprite.play('Idle')
-	$HTTPRequest.request("https://ethereal-runner-server.gggelo.repl.co/leaderboard")
+	$HTTPRequest.request("{path}/leaderboard".format({"path":Globals.leaderboards_server}))
 	if Globals.player_name:
 		$Name/NameInput.text = Globals.player_name
 	else:
 		randomize()
 		var r = randi()
 		var rand_number = r % len(starter_names)
-		print(r)
-		print(rand_number)
-		print(len(starter_names))
 		$Name/NameInput.text = starter_names[rand_number]
 
 
