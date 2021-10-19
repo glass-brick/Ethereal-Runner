@@ -71,12 +71,17 @@ func update_health(health):
 func player_is_dead(score):
 	$DeathMsg.visible = true
 	$DeathMsg.get_node("Score").text = "Score: %d" % score
-	
+
 	var body = to_json({"name": Globals.player_name, "points": score})
-	var error = $HTTPRequest.request("{path}/submit_score".format({"path":Globals.leaderboards_server}), ["Content-Type: application/json"], true, HTTPClient.METHOD_POST, body)
+	var error = $HTTPRequest.request(
+		"{path}/submit_score".format({"path": Globals.leaderboards_server}),
+		["Content-Type: application/json", "User-Agent: EtherealRunner/1.0"],
+		true,
+		HTTPClient.METHOD_POST,
+		body
+	)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
-
 
 
 func pause():
@@ -114,4 +119,3 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				$DeathMsg.get_node("Leaderboard").show()
 	else:
 		print("Could not connect to server")
-

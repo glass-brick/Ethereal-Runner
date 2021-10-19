@@ -2,14 +2,29 @@ extends CanvasLayer
 
 var started = false
 
-var starter_names = ['Filthy Scum', 'Worthless Pawn', 'Abominable Human', 'Human Garbage', 
-'Hominid Parasite', "Embodiment of Suffering", "Flesh Automaton", "Lowest Common Denominator",
-"Deaf and Dumbstruck", "Rotting Head", "Cauldron of Hate", "Exhibit A of the Human Condition", 
-"Perpetrator of Unauthorized Exploitation"]
+var starter_names = [
+	'Filthy Scum',
+	'Worthless Pawn',
+	'Abominable Human',
+	'Human Garbage',
+	'Hominid Parasite',
+	"Embodiment of Suffering",
+	"Flesh Automaton",
+	"Lowest Common Denominator",
+	"Deaf and Dumbstruck",
+	"Rotting Head",
+	"Cauldron of Hate",
+	"Exhibit A of the Human Condition",
+	"Perpetrator of Unauthorized Exploitation"
+]
+
 
 func _ready():
 	$Path2D/PathFollow2D/AnimatedSprite.play('Idle')
-	$HTTPRequest.request("{path}/leaderboard".format({"path":Globals.leaderboards_server}))
+	$HTTPRequest.request(
+		"{path}/leaderboard".format({"path": Globals.leaderboards_server}),
+		["User-Agent: EtherealRunner/1.0"]
+	)
 	if Globals.player_name:
 		$Name/NameInput.text = Globals.player_name
 	else:
@@ -55,8 +70,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			for i in json.keys():
 				if not json[i]:
 					continue
-				var name = json[i].get('name','')
-				var points = json[i].get('points','')
+				var name = json[i].get('name', '')
+				var points = json[i].get('points', '')
 				var node = "Leaderboard/VBoxContainer/Pos{}".format([i], "{}")
 				get_node(node).text = "[{}] {}".format([points, name], "{}")
 	else:
