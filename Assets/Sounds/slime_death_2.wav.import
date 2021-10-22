@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/slime_death_2.wav-d06e2cdc45cee2f48a6ba3f0fa5f70d0.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/slime_death_2.wav"
+dest_files=[ "res://.import/slime_death_2.wav-d06e2cdc45cee2f48a6ba3f0fa5f70d0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

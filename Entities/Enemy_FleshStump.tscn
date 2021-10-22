@@ -1,0 +1,284 @@
+[gd_scene load_steps=46 format=2]
+
+[ext_resource path="res://Entities/Enemy_FleshStump.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/FleshStump-Sheet.png" type="Texture" id=2]
+[ext_resource path="res://addons/imjp94.yafsm/src/conditions/BooleanCondition.gd" type="Script" id=3]
+[ext_resource path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" type="Script" id=4]
+[ext_resource path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" type="Script" id=5]
+[ext_resource path="res://addons/imjp94.yafsm/src/conditions/Condition.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Shader/wobblyEffect.shader" type="Shader" id=7]
+[ext_resource path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" type="Script" id=8]
+[ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Normals/glass.jpg" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 120.054, 124.826 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 7 )
+shader_param/strength = 0.004
+shader_param/speed = 6.0
+shader_param/frames = 7
+shader_param/random_value = null
+shader_param/flowMap = ExtResource( 10 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 260, 0, 130, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 390, 0, 130, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 520, 0, 130, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 130, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 130, 0, 130, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 650, 0, 130, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 780, 0, 130, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 910, 0, 130, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 1040, 0, 130, 64 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "Attack",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "Run",
+"speed": 10.0
+} ]
+
+[sub_resource type="Resource" id=13]
+script = ExtResource( 9 )
+__meta__ = {
+"graph_offset": Vector2( 508, -260 )
+}
+name = "Attack"
+
+[sub_resource type="Resource" id=14]
+script = ExtResource( 9 )
+__meta__ = {
+"graph_offset": Vector2( 428, 20 )
+}
+name = "Dead"
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 9 )
+__meta__ = {
+"graph_offset": Vector2( -6, -160 )
+}
+name = "Entry"
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 9 )
+__meta__ = {
+"graph_offset": Vector2( 154, -160 )
+}
+name = "Idle"
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 9 )
+__meta__ = {
+"graph_offset": Vector2( 348, -260 )
+}
+name = "Run"
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 6 )
+name = "death"
+
+[sub_resource type="Resource" id=19]
+script = ExtResource( 5 )
+from = "Attack"
+to = "Dead"
+conditions = {
+"death": SubResource( 18 )
+}
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 6 )
+name = "attack_finished"
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 5 )
+from = "Attack"
+to = "Run"
+conditions = {
+"attack_finished": SubResource( 20 )
+}
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 5 )
+from = "Entry"
+to = "Idle"
+conditions = {
+}
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 6 )
+name = "death"
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 5 )
+from = "Idle"
+to = "Dead"
+conditions = {
+"death": SubResource( 23 )
+}
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 3 )
+name = "player_detected"
+comparation = 0
+value = true
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 5 )
+from = "Idle"
+to = "Run"
+conditions = {
+"player_detected": SubResource( 25 )
+}
+
+[sub_resource type="Resource" id=27]
+script = ExtResource( 6 )
+name = "attack"
+
+[sub_resource type="Resource" id=28]
+script = ExtResource( 5 )
+from = "Run"
+to = "Attack"
+conditions = {
+"attack": SubResource( 27 )
+}
+
+[sub_resource type="Resource" id=29]
+script = ExtResource( 6 )
+name = "death"
+
+[sub_resource type="Resource" id=30]
+script = ExtResource( 5 )
+from = "Run"
+to = "Dead"
+conditions = {
+"death": SubResource( 29 )
+}
+
+[sub_resource type="Resource" id=31]
+script = ExtResource( 3 )
+name = "player_detected"
+comparation = 0
+value = false
+
+[sub_resource type="Resource" id=32]
+script = ExtResource( 5 )
+from = "Run"
+to = "Idle"
+conditions = {
+"player_detected": SubResource( 31 )
+}
+
+[sub_resource type="Resource" id=33]
+script = ExtResource( 4 )
+name = ""
+states = {
+"Attack": SubResource( 13 ),
+"Dead": SubResource( 14 ),
+"Entry": SubResource( 15 ),
+"Idle": SubResource( 16 ),
+"Run": SubResource( 17 )
+}
+transitions = {
+"Attack": {
+"Dead": SubResource( 19 ),
+"Run": SubResource( 21 )
+},
+"Entry": {
+"Idle": SubResource( 22 )
+},
+"Idle": {
+"Dead": SubResource( 24 ),
+"Run": SubResource( 26 )
+},
+"Run": {
+"Attack": SubResource( 28 ),
+"Dead": SubResource( 30 ),
+"Idle": SubResource( 32 )
+}
+}
+
+[sub_resource type="CircleShape2D" id=34]
+radius = 860.078
+
+[sub_resource type="RectangleShape2D" id=35]
+extents = Vector2( 155.447, 69.6265 )
+
+[node name="FleshStump" type="KinematicBody2D"]
+position = Vector2( -128.657, -1.68179 )
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 1 )
+death_time = 1.4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 17.5953, 9.52489 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 2 )
+position = Vector2( -109, 0 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 12 )
+animation = "Attack"
+frame = 1
+
+[node name="StateMachinePlayer" type="Node" parent="."]
+script = ExtResource( 8 )
+state_machine = SubResource( 33 )
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2( 124.891, 2.11896 )
+shape = SubResource( 34 )
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2( -220.383, -66.2875 )
+shape = SubResource( 35 )
+
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
+[connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
+[connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_DetectionArea_body_exited"]

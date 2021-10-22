@@ -1,0 +1,352 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://ContainerScenes/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Sprites/Runner_run.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/idle.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/jumpfall.png" type="Texture" id=5]
+[ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Utilities/BGMVolume.gd" type="Script" id=7]
+[ext_resource path="res://Utilities/SFXVolume.gd" type="Script" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 42
+font_data = ExtResource( 1 )
+
+[sub_resource type="ImageTexture" id=24]
+
+[sub_resource type="StyleBoxLine" id=25]
+color = Color( 0.282353, 0.101961, 0.223529, 1 )
+thickness = 10
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.501961, 0.121569, 0.443137, 1 )
+
+[sub_resource type="Curve2D" id=7]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 17.4839, -13.0494, 0, 0, 0, 0, 970.402, -13.6697 )
+}
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 5 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 5 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 4 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 4 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 4 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 800, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 1000, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 5 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 5 )
+region = Rect2( 800, 0, 200, 200 )
+
+[sub_resource type="SpriteFrames" id=23]
+animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": false,
+"name": "Jump",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "Run",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 21 ), SubResource( 22 ) ],
+"loop": false,
+"name": "Fall",
+"speed": 10.0
+} ]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.000976563
+anchor_right = 1.00098
+anchor_bottom = 1.0
+margin_left = 1.49829
+margin_right = 1.49829
+color = Color( 0.105882, 0.054902, 0.101961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 325.0
+margin_top = 100.0
+margin_right = -324.0
+margin_bottom = -439.0
+custom_fonts/font = SubResource( 1 )
+text = "Ethereal Runner"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighScore" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.49829
+margin_top = -107.498
+margin_right = 1.49829
+margin_bottom = -66.4983
+custom_fonts/font = SubResource( 2 )
+text = "High score: 0 in 00:00"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -338.5
+margin_top = -109.0
+margin_right = 338.5
+margin_bottom = 109.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartGame" type="Label" parent="MainMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -129.5
+margin_right = 130.5
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 6 )
+text = "Start Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tutorial" type="Label" parent="MainMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -120.0
+margin_top = 75.0
+margin_right = 120.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 6 )
+text = "Tutorial"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="Label" parent="MainMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -110.0
+margin_top = 150.0
+margin_right = 110.0
+margin_bottom = 210.9
+custom_fonts/font = SubResource( 6 )
+text = "Settings"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsMenu" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -338.5
+margin_top = -109.0
+margin_right = 338.5
+margin_bottom = 109.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BGMVolume" type="Control" parent="SettingsMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -250.0
+margin_right = 250.0
+margin_bottom = 61.0
+script = ExtResource( 7 )
+
+[node name="HSlider" type="HSlider" parent="SettingsMenu/BGMVolume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 50.0
+custom_icons/grabber = SubResource( 24 )
+custom_styles/slider = SubResource( 25 )
+custom_styles/grabber_area = SubResource( 26 )
+min_value = -25.0
+max_value = 5.0
+value = -10.0
+tick_count = 7
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="SettingsMenu/BGMVolume"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -187.0
+margin_right = 187.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 6 )
+text = "Music Volume"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFXVolume" type="Control" parent="SettingsMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -250.0
+margin_top = 75.0
+margin_right = 250.0
+margin_bottom = 61.0
+script = ExtResource( 8 )
+
+[node name="HSlider" type="HSlider" parent="SettingsMenu/SFXVolume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 50.0
+custom_icons/grabber = SubResource( 24 )
+custom_styles/slider = SubResource( 25 )
+custom_styles/grabber_area = SubResource( 26 )
+min_value = -15.0
+max_value = 15.0
+tick_count = 7
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="SettingsMenu/SFXVolume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 6 )
+text = "Sound Effects Volume"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ControlRemapping" type="Label" parent="SettingsMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -187.0
+margin_top = 150.0
+margin_right = 187.0
+margin_bottom = 83.8887
+custom_fonts/font = SubResource( 6 )
+text = "Control Remapping"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2( 349.095, 306.591 )
+scale = Vector2( 0.743833, 0.743833 )
+curve = SubResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 17.4839, -13.0494 )
+rotation = -0.000651232
+loop = false
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Path2D/PathFollow2D"]
+position = Vector2( -17.4839, 13.0494 )
+frames = SubResource( 23 )
+animation = "Idle"
+
+[node name="Controls" type="Label" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -167.0
+margin_right = 260.0
+custom_fonts/font = ExtResource( 6 )
+text = "Movement: Arrow keys
+Jump / Double jump: Space bar
+Attack: Z
+Shield: X
+Dash: Shift or C"
+__meta__ = {
+"_edit_use_anchors_": false
+}

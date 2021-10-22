@@ -1,0 +1,728 @@
+[gd_scene load_steps=109 format=2]
+
+[ext_resource path="res://Assets/Sprites/jumpfall.png" type="Texture" id=1]
+[ext_resource path="res://Entities/Player.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Shader/aura_shader.gdshader" type="Shader" id=3]
+[ext_resource path="res://Assets/Sprites/Runner_run.png" type="Texture" id=4]
+[ext_resource path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" type="Script" id=5]
+[ext_resource path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" type="Script" id=6]
+[ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=7]
+[ext_resource path="res://addons/imjp94.yafsm/src/conditions/Condition.gd" type="Script" id=8]
+[ext_resource path="res://addons/imjp94.yafsm/src/conditions/FloatCondition.gd" type="Script" id=9]
+[ext_resource path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Sprites/aoe_particle.png" type="Texture" id=12]
+[ext_resource path="res://Utilities/Camera2D.gd" type="Script" id=18]
+[ext_resource path="res://Assets/Sprites/idle.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Sprites/Runner_dash.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Sprites/Runner_dash_flipped.png" type="Texture" id=25]
+
+[sub_resource type="ShaderMaterial" id=1]
+render_priority = 1
+shader = ExtResource( 3 )
+shader_param/radius = 0.5
+shader_param/modulate = Color( 0.0313726, 0, 0.0509804, 1 )
+shader_param/modulate_active = Color( 1, 0.85098, 0.85098, 1 )
+shader_param/active = false
+shader_param/time_scale = 20.0
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 20 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 20 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 20 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 4 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 4 )
+region = Rect2( 800, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 4 )
+region = Rect2( 1000, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 4 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 4 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 4 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 4 )
+region = Rect2( 800, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 4 )
+region = Rect2( 1000, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 1 )
+region = Rect2( 800, 0, 200, 200 )
+
+[sub_resource type="SpriteFrames" id=21]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": false,
+"name": "Jump",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ) ],
+"loop": true,
+"name": "Dash",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
+"loop": true,
+"name": "Run",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ) ],
+"loop": false,
+"name": "Fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 97.7714, 118.066 )
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 306, 80 )
+}
+name = "Crouch"
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 688, -320 )
+}
+name = "Dash"
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 428, 200 )
+}
+name = "Death"
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 1028.5, -20 )
+}
+name = "DoubleJump"
+
+[sub_resource type="Resource" id=27]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 148, -80 )
+}
+name = "Entry"
+
+[sub_resource type="Resource" id=28]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 802, 63 )
+}
+name = "Fall"
+
+[sub_resource type="Resource" id=29]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 548, 20 )
+}
+name = "Idle"
+
+[sub_resource type="Resource" id=30]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 788, -80 )
+}
+name = "Jump"
+
+[sub_resource type="Resource" id=31]
+script = ExtResource( 7 )
+__meta__ = {
+"graph_offset": Vector2( 268, -300 )
+}
+name = "Run"
+
+[sub_resource type="Resource" id=32]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=33]
+script = ExtResource( 10 )
+from = "Crouch"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 32 )
+}
+
+[sub_resource type="Resource" id=34]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=35]
+script = ExtResource( 10 )
+from = "Crouch"
+to = "Death"
+conditions = {
+"die": SubResource( 34 )
+}
+
+[sub_resource type="Resource" id=36]
+script = ExtResource( 8 )
+name = "stand_up"
+
+[sub_resource type="Resource" id=37]
+script = ExtResource( 10 )
+from = "Crouch"
+to = "Idle"
+conditions = {
+"stand_up": SubResource( 36 )
+}
+
+[sub_resource type="Resource" id=38]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=39]
+script = ExtResource( 10 )
+from = "Dash"
+to = "Death"
+conditions = {
+"die": SubResource( 38 )
+}
+
+[sub_resource type="Resource" id=40]
+script = ExtResource( 8 )
+name = "end_dash"
+
+[sub_resource type="Resource" id=41]
+script = ExtResource( 10 )
+from = "Dash"
+to = "Idle"
+conditions = {
+"end_dash": SubResource( 40 )
+}
+
+[sub_resource type="Resource" id=42]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=43]
+script = ExtResource( 10 )
+from = "DoubleJump"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 42 )
+}
+
+[sub_resource type="Resource" id=44]
+script = ExtResource( 9 )
+name = "v_speed"
+comparation = 3
+value = 0.0
+
+[sub_resource type="Resource" id=45]
+script = ExtResource( 10 )
+from = "DoubleJump"
+to = "Fall"
+conditions = {
+"v_speed": SubResource( 44 )
+}
+
+[sub_resource type="Resource" id=46]
+script = ExtResource( 10 )
+from = "Entry"
+to = "Idle"
+conditions = {
+}
+
+[sub_resource type="Resource" id=47]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=48]
+script = ExtResource( 10 )
+from = "Fall"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 47 )
+}
+
+[sub_resource type="Resource" id=49]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=50]
+script = ExtResource( 10 )
+from = "Fall"
+to = "Death"
+conditions = {
+"die": SubResource( 49 )
+}
+
+[sub_resource type="Resource" id=51]
+script = ExtResource( 8 )
+name = "jump"
+
+[sub_resource type="Resource" id=52]
+script = ExtResource( 10 )
+from = "Fall"
+to = "DoubleJump"
+conditions = {
+"jump": SubResource( 51 )
+}
+
+[sub_resource type="Resource" id=53]
+script = ExtResource( 8 )
+name = "land"
+
+[sub_resource type="Resource" id=54]
+script = ExtResource( 10 )
+from = "Fall"
+to = "Idle"
+conditions = {
+"land": SubResource( 53 )
+}
+
+[sub_resource type="Resource" id=55]
+script = ExtResource( 8 )
+name = "land"
+
+[sub_resource type="Resource" id=56]
+script = ExtResource( 10 )
+from = "Fall"
+to = "Run"
+conditions = {
+"land": SubResource( 55 )
+}
+
+[sub_resource type="Resource" id=57]
+script = ExtResource( 8 )
+name = "crouch"
+
+[sub_resource type="Resource" id=58]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Crouch"
+conditions = {
+"crouch": SubResource( 57 )
+}
+
+[sub_resource type="Resource" id=59]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=60]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 59 )
+}
+
+[sub_resource type="Resource" id=61]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=62]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Death"
+conditions = {
+"die": SubResource( 61 )
+}
+
+[sub_resource type="Resource" id=63]
+script = ExtResource( 9 )
+name = "v_speed"
+comparation = 2
+value = 0.0
+
+[sub_resource type="Resource" id=64]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Fall"
+conditions = {
+"v_speed": SubResource( 63 )
+}
+
+[sub_resource type="Resource" id=65]
+script = ExtResource( 8 )
+name = "jump"
+
+[sub_resource type="Resource" id=66]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Jump"
+conditions = {
+"jump": SubResource( 65 )
+}
+
+[sub_resource type="Resource" id=67]
+script = ExtResource( 9 )
+name = "h_speed"
+comparation = 1
+value = 0.0
+
+[sub_resource type="Resource" id=68]
+script = ExtResource( 10 )
+from = "Idle"
+to = "Run"
+conditions = {
+"h_speed": SubResource( 67 )
+}
+
+[sub_resource type="Resource" id=69]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=70]
+script = ExtResource( 10 )
+from = "Jump"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 69 )
+}
+
+[sub_resource type="Resource" id=71]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=72]
+script = ExtResource( 10 )
+from = "Jump"
+to = "Death"
+conditions = {
+"die": SubResource( 71 )
+}
+
+[sub_resource type="Resource" id=73]
+script = ExtResource( 8 )
+name = "jump"
+
+[sub_resource type="Resource" id=74]
+script = ExtResource( 10 )
+from = "Jump"
+to = "DoubleJump"
+conditions = {
+"jump": SubResource( 73 )
+}
+
+[sub_resource type="Resource" id=75]
+script = ExtResource( 9 )
+name = "v_speed"
+comparation = 2
+value = 0.0
+
+[sub_resource type="Resource" id=76]
+script = ExtResource( 10 )
+from = "Jump"
+to = "Fall"
+conditions = {
+"v_speed": SubResource( 75 )
+}
+
+[sub_resource type="Resource" id=77]
+script = ExtResource( 8 )
+name = "crouch"
+
+[sub_resource type="Resource" id=78]
+script = ExtResource( 10 )
+from = "Run"
+to = "Crouch"
+conditions = {
+"crouch": SubResource( 77 )
+}
+
+[sub_resource type="Resource" id=79]
+script = ExtResource( 8 )
+name = "start_dash"
+
+[sub_resource type="Resource" id=80]
+script = ExtResource( 10 )
+from = "Run"
+to = "Dash"
+conditions = {
+"start_dash": SubResource( 79 )
+}
+
+[sub_resource type="Resource" id=81]
+script = ExtResource( 8 )
+name = "die"
+
+[sub_resource type="Resource" id=82]
+script = ExtResource( 10 )
+from = "Run"
+to = "Death"
+conditions = {
+"die": SubResource( 81 )
+}
+
+[sub_resource type="Resource" id=83]
+script = ExtResource( 9 )
+name = "v_speed"
+comparation = 2
+value = 0.0
+
+[sub_resource type="Resource" id=84]
+script = ExtResource( 10 )
+from = "Run"
+to = "Fall"
+conditions = {
+"v_speed": SubResource( 83 )
+}
+
+[sub_resource type="Resource" id=85]
+script = ExtResource( 9 )
+name = "h_speed"
+comparation = 0
+value = 0.0
+
+[sub_resource type="Resource" id=86]
+script = ExtResource( 10 )
+from = "Run"
+to = "Idle"
+conditions = {
+"h_speed": SubResource( 85 )
+}
+
+[sub_resource type="Resource" id=87]
+script = ExtResource( 8 )
+name = "jump"
+
+[sub_resource type="Resource" id=88]
+script = ExtResource( 10 )
+from = "Run"
+to = "Jump"
+conditions = {
+"jump": SubResource( 87 )
+}
+
+[sub_resource type="Resource" id=89]
+script = ExtResource( 6 )
+name = ""
+states = {
+"Crouch": SubResource( 23 ),
+"Dash": SubResource( 24 ),
+"Death": SubResource( 25 ),
+"DoubleJump": SubResource( 26 ),
+"Entry": SubResource( 27 ),
+"Fall": SubResource( 28 ),
+"Idle": SubResource( 29 ),
+"Jump": SubResource( 30 ),
+"Run": SubResource( 31 )
+}
+transitions = {
+"Crouch": {
+"Dash": SubResource( 33 ),
+"Death": SubResource( 35 ),
+"Idle": SubResource( 37 )
+},
+"Dash": {
+"Death": SubResource( 39 ),
+"Idle": SubResource( 41 )
+},
+"DoubleJump": {
+"Dash": SubResource( 43 ),
+"Fall": SubResource( 45 )
+},
+"Entry": {
+"Idle": SubResource( 46 )
+},
+"Fall": {
+"Dash": SubResource( 48 ),
+"Death": SubResource( 50 ),
+"DoubleJump": SubResource( 52 ),
+"Idle": SubResource( 54 ),
+"Run": SubResource( 56 )
+},
+"Idle": {
+"Crouch": SubResource( 58 ),
+"Dash": SubResource( 60 ),
+"Death": SubResource( 62 ),
+"Fall": SubResource( 64 ),
+"Jump": SubResource( 66 ),
+"Run": SubResource( 68 )
+},
+"Jump": {
+"Dash": SubResource( 70 ),
+"Death": SubResource( 72 ),
+"DoubleJump": SubResource( 74 ),
+"Fall": SubResource( 76 )
+},
+"Run": {
+"Crouch": SubResource( 78 ),
+"Dash": SubResource( 80 ),
+"Death": SubResource( 82 ),
+"Fall": SubResource( 84 ),
+"Idle": SubResource( 86 ),
+"Jump": SubResource( 88 )
+}
+}
+
+[sub_resource type="CircleShape2D" id=90]
+radius = 186.429
+
+[sub_resource type="Gradient" id=91]
+offsets = PoolRealArray( 0, 0.848101, 1 )
+colors = PoolColorArray( 1, 0.943359, 0, 1, 0, 0.507813, 1, 1, 0, 0, 0, 0 )
+
+[sub_resource type="RectangleShape2D" id=92]
+extents = Vector2( 51.4751, 80.8868 )
+
+[sub_resource type="Gradient" id=93]
+colors = PoolColorArray( 0.757813, 0, 1, 1, 0.137255, 0.0509804, 0.556863, 0 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"scene_manager_entity_nodes",
+]]
+script = ExtResource( 2 )
+__meta__ = {
+"entity_name": "Player"
+}
+gravity = 1500
+death_timer = 4.0
+mana_factor = 10.0
+invincibility_time = 1.1
+dash_speed_base = 1500.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 1.00003, 11 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 21 )
+animation = "Dash"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 22 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 4, 4 )
+limit_left = -1800
+script = ExtResource( 18 )
+
+[node name="StateMachinePlayer" type="Node" parent="."]
+script = ExtResource( 5 )
+state_machine = SubResource( 89 )
+
+[node name="Shield" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+shape = SubResource( 90 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Shield"]
+z_index = -1
+emitting = false
+amount = 250
+lifetime = 300.0
+speed_scale = 10.0
+explosiveness = 1.0
+texture = ExtResource( 12 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 225.0
+initial_velocity_random = 0.02
+orbit_velocity_random = 0.48
+linear_accel = -100.0
+linear_accel_random = 0.2
+radial_accel = -19.36
+damping = 20.0
+angle = 720.0
+angle_random = 1.0
+color_ramp = SubResource( 91 )
+hue_variation = -0.1
+hue_variation_random = 0.4
+
+[node name="CollisionShapeCrouched" type="CollisionShape2D" parent="."]
+modulate = Color( 0.694118, 0.0980392, 0.0980392, 1 )
+position = Vector2( 0.793701, 38.1621 )
+shape = SubResource( 92 )
+disabled = true
+
+[node name="Trail" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.5
+local_coords = false
+texture = ExtResource( 24 )
+damping_random = 0.52
+scale_amount = 2.0
+color_ramp = SubResource( 93 )
+
+[node name="TrailFlipped" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.5
+local_coords = false
+texture = ExtResource( 25 )
+damping_random = 0.52
+scale_amount = 2.0
+color_ramp = SubResource( 93 )
+
+[connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
+[connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]

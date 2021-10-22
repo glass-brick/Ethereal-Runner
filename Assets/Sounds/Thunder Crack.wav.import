@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Thunder Crack.wav-62b1a929868735b6cb5a14fc55bc3eb8.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/Thunder Crack.wav"
+dest_files=[ "res://.import/Thunder Crack.wav-62b1a929868735b6cb5a14fc55bc3eb8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

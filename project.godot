@@ -57,8 +57,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Ethereal Runner"
-run/main_scene="res://Intro.tscn"
-boot_splash/image="res://Sprites/bg_black_color.png"
+run/main_scene="res://ContainerScenes/Intro.tscn"
+boot_splash/image="res://Assets/Sprites/bg_black_color.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
@@ -66,7 +66,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://Globals.gd"
+Globals="*res://Utilities/Globals.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 DialogicSingleton="*res://addons/dialogic/Other/DialogicSingleton.gd"
 SoundManager="*res://addons/sound_manager/module/SoundManager.tscn"

@@ -1,0 +1,386 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ContainerScenes/HUD.gd" type="Script" id=2]
+[ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Sprites/time.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+extra_spacing_space = 1
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.447059, 0.0117647, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.207843, 0.109804, 0.133333, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.152941, 0.105882, 0.105882, 1 )
+border_width_top = 1
+border_color = Color( 0.329412, 0.121569, 0.266667, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.180392, 0.12549, 0.196078, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.505882, 0.47451, 0.00784314, 1 )
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+shadow_color = Color( 0.145098, 0, 0.384314, 0.6 )
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.462745, 0.0588235, 0.470588, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=13]
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
+shadow_color = Color( 0.819608, 0, 0, 0.6 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.14915, 0.099, 0.15, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
+shadow_color = Color( 0.819608, 0, 0, 0.6 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
+shadow_color = Color( 0.819608, 0, 0, 0.6 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
+shadow_color = Color( 0.819608, 0, 0, 0.6 )
+
+[node name="HUD" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="MainThings" type="VBoxContainer" parent="."]
+visible = false
+margin_right = 153.0
+margin_bottom = 194.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="Label" parent="MainThings"]
+margin_right = 153.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 1 )
+text = "Health:"
+
+[node name="Mana" type="Label" parent="MainThings"]
+margin_top = 35.0
+margin_right = 153.0
+margin_bottom = 66.0
+custom_fonts/font = ExtResource( 1 )
+text = "Mana"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="MainThings"]
+margin_top = 70.0
+margin_right = 153.0
+margin_bottom = 101.0
+custom_fonts/font = ExtResource( 1 )
+text = "Time:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Distance" type="Label" parent="MainThings"]
+margin_top = 105.0
+margin_right = 153.0
+margin_bottom = 136.0
+custom_fonts/font = ExtResource( 1 )
+text = "Distance:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeathMsg" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -221.0
+margin_top = -40.5
+margin_right = 221.0
+margin_bottom = 40.5
+custom_fonts/font = SubResource( 1 )
+text = "You are Dead."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1.88776
+margin_right = -824.0
+margin_bottom = -551.888
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 3 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HealthBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+text = "Health"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScorePanel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 864.0
+margin_top = 48.0
+margin_bottom = -472.0
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="ScorePanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+text = "Score
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimePanel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 864.0
+margin_bottom = -552.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Clock" type="TextureRect" parent="TimePanel"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 41.0
+margin_bottom = 41.0
+texture = ExtResource( 4 )
+
+[node name="Time" type="Label" parent="TimePanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 48.0
+custom_fonts/font = ExtResource( 1 )
+text = "00:00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 7.0
+margin_top = -167.0
+margin_right = 384.0
+custom_fonts/font = ExtResource( 1 )
+text = "Movement: Arrow keys
+Jump / Double jump: Space bar
+Attack: Z
+Shield: X
+Dash: Shift or C"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Paused" type="Label" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+margin_top = 20.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 1 )
+text = "Paused
+Press [ESC] to return"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 1.18358
+margin_top = 46.4475
+margin_right = 201.184
+margin_bottom = 96.4475
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Digestion" type="ProgressBar" parent="."]
+margin_top = 96.0
+margin_right = 200.0
+margin_bottom = 116.0
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 7 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Digestion" type="Label" parent="Digestion"]
+margin_top = -1.0
+margin_right = 200.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 13 )
+text = "Shield Overload"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaBars" type="Control" parent="."]
+margin_top = 48.0
+margin_right = 40.0
+margin_bottom = 88.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaBar" type="ProgressBar" parent="ManaBars"]
+anchor_left = -0.025
+anchor_top = -1.175
+anchor_right = -0.025
+anchor_bottom = -1.175
+margin_left = 0.66629
+margin_top = 46.0
+margin_right = 50.6663
+margin_bottom = 96.0
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 14 )
+value = 33.0
+percent_visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ManaBar2" type="ProgressBar" parent="ManaBars"]
+modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
+anchor_left = 1.225
+anchor_top = -0.875
+anchor_right = 1.225
+anchor_bottom = -0.875
+margin_left = 0.75
+margin_top = 34.5
+margin_right = 50.75
+margin_bottom = 84.5
+rect_pivot_offset = Vector2( -178.395, 14.3956 )
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 14 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ManaBar3" type="ProgressBar" parent="ManaBars"]
+modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
+anchor_left = 2.475
+anchor_top = -0.875
+anchor_right = 2.475
+anchor_bottom = -0.875
+margin_left = 0.75
+margin_top = 34.5
+margin_right = 50.75
+margin_bottom = 84.5
+custom_styles/fg = SubResource( 15 )
+custom_styles/bg = SubResource( 14 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ManaBar4" type="ProgressBar" parent="ManaBars"]
+modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
+anchor_left = 0.625
+anchor_top = -0.65
+anchor_right = 0.625
+anchor_bottom = -0.65
+margin_left = 125.25
+margin_top = 25.25
+margin_right = 175.25
+margin_bottom = 75.25
+custom_styles/fg = SubResource( 16 )
+custom_styles/bg = SubResource( 14 )
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ManaBars"]
+anchor_left = 1.675
+anchor_top = 0.05
+anchor_right = 2.675
+anchor_bottom = 1.05
+margin_top = -1.33371
+margin_right = 25.0
+margin_bottom = -1.33371
+custom_fonts/font = ExtResource( 1 )
+text = "Magic"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NotEnoughMana" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -104.0
+margin_top = -172.5
+margin_right = 104.0
+margin_bottom = -141.5
+custom_fonts/font = ExtResource( 1 )
+text = "Not Enough Magic"
+__meta__ = {
+"_edit_use_anchors_": false
+}
