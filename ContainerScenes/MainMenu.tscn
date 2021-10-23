@@ -1,13 +1,9 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://ContainerScenes/MainMenu.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Sprites/Runner_run.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Sprites/idle.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Sprites/jumpfall.png" type="Texture" id=5]
-[ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=6]
-[ext_resource path="res://Utilities/BGMVolume.gd" type="Script" id=7]
-[ext_resource path="res://Utilities/SFXVolume.gd" type="Script" id=8]
+[ext_resource path="res://Utilities/CursorMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Utilities/Cursor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ContainerScenes/MainMenu.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -17,109 +13,21 @@ font_data = ExtResource( 1 )
 size = 32
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=3]
 size = 42
 font_data = ExtResource( 1 )
 
-[sub_resource type="ImageTexture" id=24]
+[sub_resource type="ImageTexture" id=4]
 
-[sub_resource type="StyleBoxLine" id=25]
+[sub_resource type="StyleBoxLine" id=5]
 color = Color( 0.282353, 0.101961, 0.223529, 1 )
 thickness = 10
 
-[sub_resource type="StyleBoxFlat" id=26]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.501961, 0.121569, 0.443137, 1 )
 
-[sub_resource type="Curve2D" id=7]
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 17.4839, -13.0494, 0, 0, 0, 0, 970.402, -13.6697 )
-}
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 5 )
-region = Rect2( 200, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 5 )
-region = Rect2( 400, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 4 )
-region = Rect2( 200, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 4 )
-region = Rect2( 400, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 4 )
-region = Rect2( 600, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 3 )
-region = Rect2( 200, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 3 )
-region = Rect2( 400, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 3 )
-region = Rect2( 600, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 3 )
-region = Rect2( 800, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 3 )
-region = Rect2( 1000, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 5 )
-region = Rect2( 600, 0, 200, 200 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 5 )
-region = Rect2( 800, 0, 200, 200 )
-
-[sub_resource type="SpriteFrames" id=23]
-animations = [ {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
-"loop": false,
-"name": "Jump",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
-"loop": true,
-"name": "Run",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 21 ), SubResource( 22 ) ],
-"loop": false,
-"name": "Fall",
-"speed": 10.0
-} ]
-
 [node name="MainMenu" type="CanvasLayer"]
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_left = 0.000976563
@@ -160,7 +68,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MainMenu" type="Control" parent="."]
+[node name="CursorMenu" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -169,17 +77,15 @@ margin_left = -338.5
 margin_top = -109.0
 margin_right = 338.5
 margin_bottom = 109.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+cursor_scene = ExtResource( 3 )
 
-[node name="StartGame" type="Label" parent="MainMenu"]
+[node name="StartGame" type="Label" parent="CursorMenu"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -129.5
 margin_right = 130.5
-margin_bottom = 53.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 text = "Start Game"
 align = 1
 valign = 1
@@ -187,14 +93,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tutorial" type="Label" parent="MainMenu"]
+[node name="Tutorial" type="Label" parent="CursorMenu"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -120.0
 margin_top = 75.0
 margin_right = 120.0
-margin_bottom = 128.0
-custom_fonts/font = SubResource( 6 )
+margin_bottom = 75.0
+custom_fonts/font = SubResource( 3 )
 text = "Tutorial"
 align = 1
 valign = 1
@@ -202,14 +109,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Settings" type="Label" parent="MainMenu"]
+[node name="Settings" type="Label" parent="CursorMenu"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -110.0
 margin_top = 150.0
 margin_right = 110.0
-margin_bottom = 210.9
-custom_fonts/font = SubResource( 6 )
+margin_bottom = 150.0
+custom_fonts/font = SubResource( 3 )
 text = "Settings"
 align = 1
 valign = 1
@@ -217,8 +125,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SettingsMenu" type="Control" parent="."]
-visible = false
+[node name="SettingsMenu" parent="CursorMenu" instance=ExtResource( 2 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -227,41 +134,37 @@ margin_left = -338.5
 margin_top = -109.0
 margin_right = 338.5
 margin_bottom = 109.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="BGMVolume" type="Control" parent="SettingsMenu"]
+[node name="BGMVolume" type="HSlider" parent="CursorMenu/SettingsMenu"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -250.0
+margin_top = 39.0
 margin_right = 250.0
-margin_bottom = 61.0
-script = ExtResource( 7 )
-
-[node name="HSlider" type="HSlider" parent="SettingsMenu/BGMVolume"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 50.0
-custom_icons/grabber = SubResource( 24 )
-custom_styles/slider = SubResource( 25 )
-custom_styles/grabber_area = SubResource( 26 )
+margin_bottom = 49.0
+focus_mode = 0
+size_flags_vertical = 1
+custom_icons/grabber = SubResource( 4 )
+custom_styles/slider = SubResource( 5 )
+custom_styles/grabber_area = SubResource( 6 )
 min_value = -25.0
 max_value = 5.0
+step = 5.0
 value = -10.0
 tick_count = 7
 ticks_on_borders = true
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
-[node name="Label" type="Label" parent="SettingsMenu/BGMVolume"]
+[node name="Label" type="Label" parent="CursorMenu/SettingsMenu/BGMVolume"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -187.0
+margin_top = -53.0
 margin_right = 187.0
-margin_bottom = 53.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 text = "Music Volume"
 align = 1
 valign = 1
@@ -269,47 +172,51 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SFXVolume" type="Control" parent="SettingsMenu"]
+[node name="SFXVolume" type="HSlider" parent="CursorMenu/SettingsMenu"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -250.0
-margin_top = 75.0
+margin_top = 114.0
 margin_right = 250.0
-margin_bottom = 61.0
-script = ExtResource( 8 )
-
-[node name="HSlider" type="HSlider" parent="SettingsMenu/SFXVolume"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 50.0
-custom_icons/grabber = SubResource( 24 )
-custom_styles/slider = SubResource( 25 )
-custom_styles/grabber_area = SubResource( 26 )
-min_value = -15.0
-max_value = 15.0
+margin_bottom = 49.0
+focus_mode = 0
+size_flags_vertical = 1
+custom_icons/grabber = SubResource( 4 )
+custom_styles/slider = SubResource( 5 )
+custom_styles/grabber_area = SubResource( 6 )
+min_value = -25.0
+max_value = 5.0
+step = 5.0
+value = -10.0
 tick_count = 7
 ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
 
-[node name="Label" type="Label" parent="SettingsMenu/SFXVolume"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 53.0
-custom_fonts/font = SubResource( 6 )
-text = "Sound Effects Volume"
+[node name="Label" type="Label" parent="CursorMenu/SettingsMenu/SFXVolume"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -200.0
+margin_top = -53.0
+margin_right = 200.0
+custom_fonts/font = SubResource( 3 )
+text = "Sound Effect Volume"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ControlRemapping" type="Label" parent="SettingsMenu"]
+[node name="ControlRemapping" type="Label" parent="CursorMenu/SettingsMenu"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -187.0
 margin_top = 150.0
 margin_right = 187.0
-margin_bottom = 83.8887
-custom_fonts/font = SubResource( 6 )
+margin_bottom = 203.0
+custom_fonts/font = SubResource( 3 )
 text = "Control Remapping"
 align = 1
 valign = 1
@@ -317,36 +224,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2( 349.095, 306.591 )
-scale = Vector2( 0.743833, 0.743833 )
-curve = SubResource( 7 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 17.4839, -13.0494 )
-rotation = -0.000651232
-loop = false
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Path2D/PathFollow2D"]
-position = Vector2( -17.4839, 13.0494 )
-frames = SubResource( 23 )
-animation = "Idle"
-
-[node name="Controls" type="Label" parent="."]
-visible = false
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -167.0
-margin_right = 260.0
-custom_fonts/font = ExtResource( 6 )
-text = "Movement: Arrow keys
-Jump / Double jump: Space bar
-Attack: Z
-Shield: X
-Dash: Shift or C"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[connection signal="option_changed" from="CursorMenu" to="." method="_on_CursorMenu_option_changed"]
+[connection signal="selected_option" from="CursorMenu" to="." method="_on_CursorMenu_selected_option"]
