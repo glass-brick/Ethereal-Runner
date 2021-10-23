@@ -1,17 +1,17 @@
 extends CanvasLayer
 
 
-func _on_CursorMenu_selected_option(option):
+func _on_CursorMenu_selected_option(option, menu):
 	match option.name:
 		"StartGame":
 			start_game()
 		"Tutorial":
 			start_tutorial()
 		"Settings":
-			$CursorMenu.open_menu('SettingsMenu')
+			menu.open_menu('SettingsMenu')
 
 
-func _on_CursorMenu_option_changed(option):
+func _on_CursorMenu_option_changed(option, _menu):
 	match option.name:
 		"BGMVolume":
 			SoundManager.set_bgm_volume_db(option.value if option.value > option.min_value else -81)
