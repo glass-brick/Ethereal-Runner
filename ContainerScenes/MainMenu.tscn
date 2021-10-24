@@ -1,30 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Utilities/CursorMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Utilities/Cursor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ContainerScenes/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://Assets/theme.tres" type="Theme" id=5]
+[ext_resource path="res://Utilities/KeybindingOption.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
-size = 48
+size = 46
 font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 32
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 42
-font_data = ExtResource( 1 )
-
-[sub_resource type="ImageTexture" id=4]
-
-[sub_resource type="StyleBoxLine" id=5]
-color = Color( 0.282353, 0.101961, 0.223529, 1 )
-thickness = 10
-
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.501961, 0.121569, 0.443137, 1 )
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 4 )
@@ -47,8 +32,11 @@ margin_left = 325.0
 margin_top = 100.0
 margin_right = -324.0
 margin_bottom = -439.0
+theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 1 )
 text = "Ethereal Runner"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -61,7 +49,7 @@ margin_left = 1.49829
 margin_top = -107.498
 margin_right = 1.49829
 margin_bottom = -66.4983
-custom_fonts/font = SubResource( 2 )
+theme = ExtResource( 5 )
 text = "High score: 0 in 00:00"
 align = 1
 __meta__ = {
@@ -85,7 +73,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -129.5
 margin_right = 130.5
-custom_fonts/font = SubResource( 3 )
+theme = ExtResource( 5 )
 text = "Start Game"
 align = 1
 valign = 1
@@ -101,7 +89,7 @@ margin_left = -120.0
 margin_top = 75.0
 margin_right = 120.0
 margin_bottom = 75.0
-custom_fonts/font = SubResource( 3 )
+theme = ExtResource( 5 )
 text = "Tutorial"
 align = 1
 valign = 1
@@ -117,7 +105,7 @@ margin_left = -110.0
 margin_top = 150.0
 margin_right = 110.0
 margin_bottom = 150.0
-custom_fonts/font = SubResource( 3 )
+theme = ExtResource( 5 )
 text = "Settings"
 align = 1
 valign = 1
@@ -136,6 +124,7 @@ margin_right = 338.5
 margin_bottom = 109.0
 
 [node name="BGMVolume" type="HSlider" parent="CursorMenu/SettingsMenu"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -250.0
@@ -144,9 +133,7 @@ margin_right = 250.0
 margin_bottom = 49.0
 focus_mode = 0
 size_flags_vertical = 1
-custom_icons/grabber = SubResource( 4 )
-custom_styles/slider = SubResource( 5 )
-custom_styles/grabber_area = SubResource( 6 )
+theme = ExtResource( 5 )
 min_value = -25.0
 max_value = 5.0
 step = 5.0
@@ -164,7 +151,7 @@ anchor_right = 0.5
 margin_left = -187.0
 margin_top = -53.0
 margin_right = 187.0
-custom_fonts/font = SubResource( 3 )
+theme = ExtResource( 5 )
 text = "Music Volume"
 align = 1
 valign = 1
@@ -173,6 +160,7 @@ __meta__ = {
 }
 
 [node name="SFXVolume" type="HSlider" parent="CursorMenu/SettingsMenu"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -250.0
@@ -181,9 +169,7 @@ margin_right = 250.0
 margin_bottom = 49.0
 focus_mode = 0
 size_flags_vertical = 1
-custom_icons/grabber = SubResource( 4 )
-custom_styles/slider = SubResource( 5 )
-custom_styles/grabber_area = SubResource( 6 )
+theme = ExtResource( 5 )
 min_value = -25.0
 max_value = 5.0
 step = 5.0
@@ -201,7 +187,7 @@ anchor_right = 0.5
 margin_left = -200.0
 margin_top = -53.0
 margin_right = 200.0
-custom_fonts/font = SubResource( 3 )
+theme = ExtResource( 5 )
 text = "Sound Effect Volume"
 align = 1
 valign = 1
@@ -210,19 +196,58 @@ __meta__ = {
 }
 
 [node name="ControlRemapping" type="Label" parent="CursorMenu/SettingsMenu"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -187.0
 margin_top = 150.0
 margin_right = 187.0
 margin_bottom = 203.0
-custom_fonts/font = SubResource( 3 )
+theme = ExtResource( 5 )
 text = "Control Remapping"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ControlsMenu" parent="CursorMenu/SettingsMenu" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -338.5
+margin_top = -109.0
+margin_right = 338.5
+margin_bottom = 109.0
+
+[node name="KeybindingOption" parent="CursorMenu/SettingsMenu/ControlsMenu" instance=ExtResource( 6 )]
+margin_left = -21.0
+margin_top = 1.0
+margin_right = -286.0
+margin_bottom = -176.0
+action_name = "fire"
+
+[node name="KeybindingOption2" parent="CursorMenu/SettingsMenu/ControlsMenu" instance=ExtResource( 6 )]
+margin_left = -21.0
+margin_top = 64.0
+margin_right = -286.0
+margin_bottom = -113.0
+action_name = "shield"
+
+[node name="KeybindingOption3" parent="CursorMenu/SettingsMenu/ControlsMenu" instance=ExtResource( 6 )]
+margin_left = -21.0
+margin_top = 128.0
+margin_right = -286.0
+margin_bottom = -49.0
+action_name = "dash"
+
+[node name="KeybindingOption4" parent="CursorMenu/SettingsMenu/ControlsMenu" instance=ExtResource( 6 )]
+margin_left = -21.0
+margin_top = 189.0
+margin_right = -286.0
+margin_bottom = 12.0
+action_name = "jump"
 
 [connection signal="option_changed" from="CursorMenu" to="." method="_on_CursorMenu_option_changed"]
 [connection signal="selected_option" from="CursorMenu" to="." method="_on_CursorMenu_selected_option"]

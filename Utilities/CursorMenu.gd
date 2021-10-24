@@ -12,7 +12,7 @@ var cursor = null
 var menu_options = []
 var sub_menus = []
 var selected_option = null
-
+var locked = false
 var selectable_option_types = [Range]
 
 
@@ -44,6 +44,7 @@ func set_cursor(_cursor_scene):
 
 
 func activate():
+	locked = false
 	visible = true
 	is_active = true
 	menu_options = []
@@ -56,6 +57,14 @@ func deactivate():
 	for menu_option in menu_options:
 		menu_option.visible = false
 	remove_child(cursor)
+
+
+func lock():
+	locked = true
+
+
+func unlock():
+	locked = false
 
 
 func open_menu(menu_name):
@@ -77,7 +86,7 @@ func _process(_delta):
 			+ Vector2(-20, focused_option.rect_size.y / 2)
 		)
 
-	if not is_active:
+	if not is_active or locked:
 		return
 	if selected_option:
 		process_selected_option()

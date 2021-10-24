@@ -9,6 +9,8 @@ func _on_CursorMenu_selected_option(option, menu):
 			start_tutorial()
 		"Settings":
 			menu.open_menu('SettingsMenu')
+		"ControlRemapping":
+			menu.open_menu('ControlsMenu')
 
 
 func _on_CursorMenu_option_changed(option, _menu):

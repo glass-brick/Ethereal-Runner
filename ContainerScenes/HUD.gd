@@ -25,7 +25,7 @@ func _process(delta):
 	if not paused:
 		time_passed += delta
 		update_time(time_passed)
-	var pause = Input.is_action_just_pressed('pause')
+	var pause = Input.is_action_just_pressed('ui_cancel')
 	if pause:
 		if not paused:
 			self.pause()
