@@ -120,11 +120,10 @@ func explode_body():
 	var body_parts = [head, torso, pierna, pierna2, brazo, brazo2]
 	for part in body_parts:
 		part.global_position = self.global_position
-		var vector = Vector2(
-			velocity.x + rand_range(-1, 1) * 200, velocity.y + rand_range(-1, -0.5) * 200
-		)
+		var vector = Vector2(rand_range(-1, 1) * 200, rand_range(-1, -0.5) * 200)
 		part.apply_impulse(Vector2(), vector)
 		SceneManager._current_scene.add_child(part)
+	$DeathBloodEffect.emitting = true
 
 
 func get_input():
