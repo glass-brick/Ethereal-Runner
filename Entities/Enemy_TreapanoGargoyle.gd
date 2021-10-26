@@ -39,6 +39,8 @@ func _on_StateMachinePlayer_transited(from, to):
 		"Dead":
 			death_dissolution = 0.1  # for good measure
 			$AnimatedSprite.set_material(load("res://Assets/Shader/EnemyDeathMaterial.tres"))
+			yield(get_tree().create_timer(death_time), "timeout")
+			queue_free()
 
 
 func shoot_projectile():
@@ -96,8 +98,6 @@ func set_health(new_health):
 	health = max(new_health, 0)
 	if health <= 0:
 		smp.set_trigger('die')
-		yield(get_tree().create_timer(death_time), "timeout")
-		queue_free()
 
 
 var velocity = Vector2(0, 0)

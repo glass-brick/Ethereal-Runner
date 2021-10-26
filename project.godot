@@ -78,7 +78,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/imjp94.yafsm/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/sound_manager/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/cursor_menu/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/imjp94.yafsm/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/sound_manager/plugin.cfg" )
 
 [importer_defaults]
 

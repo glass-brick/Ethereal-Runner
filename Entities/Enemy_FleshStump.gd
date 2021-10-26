@@ -52,6 +52,8 @@ func _on_StateMachinePlayer_transited(from, to):
 			death_dissolution = 0.1  # for good measure
 			$AnimatedSprite.play("Idle")
 			$AnimatedSprite.set_material(load("res://Assets/Shader/EnemyDeathMaterial.tres"))
+			yield(get_tree().create_timer(death_time), "timeout")
+			queue_free()
 
 
 func _on_StateMachinePlayer_updated(state, delta):
@@ -111,8 +113,6 @@ func set_health(new_health):
 	health = max(new_health, 0)
 	if health <= 0:
 		smp.set_trigger('death')
-		yield(get_tree().create_timer(death_time), "timeout")
-		queue_free()
 
 
 func _physics_process(delta):

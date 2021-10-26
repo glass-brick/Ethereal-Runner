@@ -70,6 +70,8 @@ func _on_StateMachinePlayer_updated(state, delta):
 			SoundManager.play_se('TwitchBoneDeath')
 			death_dissolution += delta / death_time
 			$AnimatedSprite.material.set_shader_param("effect_percentage", 1 - death_dissolution)
+			yield(get_tree().create_timer(death_time), "timeout")
+			queue_free()
 
 
 func _on_hit(damage, damager):
@@ -86,8 +88,6 @@ func set_health(new_health):
 	health = max(new_health, 0)
 	if health <= 0:
 		smp.set_trigger('death')
-		yield(get_tree().create_timer(death_time), "timeout")
-		queue_free()
 
 
 var velocity = Vector2(0, 0)

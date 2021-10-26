@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=1]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.203922, 0.0980392, 0.207843, 1 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -10,12 +10,12 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 expand_margin_top = 4.0
 
-[sub_resource type="ImageTexture" id=1]
+[sub_resource type="ImageTexture" id=2]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.501961, 0.121569, 0.443137, 1 )
 
-[sub_resource type="StyleBoxLine" id=3]
+[sub_resource type="StyleBoxLine" id=4]
 color = Color( 0.282353, 0.101961, 0.223529, 1 )
 thickness = 10
 
@@ -34,15 +34,15 @@ Button/fonts/font = null
 Button/styles/disabled = null
 Button/styles/focus = null
 Button/styles/hover = null
-Button/styles/normal = SubResource( 4 )
+Button/styles/normal = SubResource( 1 )
 Button/styles/pressed = null
-HSlider/icons/grabber = SubResource( 1 )
-HSlider/icons/grabber_disabled = SubResource( 1 )
-HSlider/icons/grabber_highlight = SubResource( 1 )
+HSlider/icons/grabber = SubResource( 2 )
+HSlider/icons/grabber_disabled = SubResource( 2 )
+HSlider/icons/grabber_highlight = SubResource( 2 )
 HSlider/icons/tick = null
-HSlider/styles/grabber_area = SubResource( 2 )
-HSlider/styles/grabber_area_highlight = SubResource( 2 )
-HSlider/styles/slider = SubResource( 3 )
+HSlider/styles/grabber_area = SubResource( 3 )
+HSlider/styles/grabber_area_highlight = SubResource( 3 )
+HSlider/styles/slider = SubResource( 4 )
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
 Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )

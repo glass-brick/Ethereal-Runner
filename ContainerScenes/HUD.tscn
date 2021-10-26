@@ -10,7 +10,7 @@ size = 64
 extra_spacing_space = 1
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=12]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.447059, 0.0117647, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=3]
@@ -39,14 +39,14 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=8]
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
 shadow_color = Color( 0.819608, 0, 0, 0.6 )
 
-[sub_resource type="StyleBoxFlat" id=14]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.14915, 0.099, 0.15, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -58,11 +58,11 @@ border_color = Color( 1, 1, 1, 1 )
 bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
 shadow_color = Color( 0.819608, 0, 0, 0.6 )
 
-[sub_resource type="StyleBoxFlat" id=15]
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
 shadow_color = Color( 0.819608, 0, 0, 0.6 )
 
-[sub_resource type="StyleBoxFlat" id=16]
+[sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
 shadow_color = Color( 0.819608, 0, 0, 0.6 )
 
@@ -136,7 +136,7 @@ anchor_bottom = 1.0
 margin_top = -1.88776
 margin_right = -824.0
 margin_bottom = -551.888
-custom_styles/fg = SubResource( 12 )
+custom_styles/fg = SubResource( 2 )
 custom_styles/bg = SubResource( 3 )
 value = 50.0
 percent_visible = false
@@ -221,7 +221,7 @@ text = "Movement: Arrow keys
 Jump / Double jump: Space bar
 Attack: Z
 Shield: X
-Dash: Shift or C"
+Dash: C"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -263,7 +263,7 @@ __meta__ = {
 margin_top = -1.0
 margin_right = 200.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 8 )
 text = "Shield Overload"
 align = 1
 __meta__ = {
@@ -287,8 +287,8 @@ margin_left = 0.66629
 margin_top = 46.0
 margin_right = 50.6663
 margin_bottom = 96.0
-custom_styles/fg = SubResource( 10 )
-custom_styles/bg = SubResource( 14 )
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 10 )
 value = 33.0
 percent_visible = false
 __meta__ = {
@@ -308,7 +308,7 @@ margin_right = 50.75
 margin_bottom = 84.5
 rect_pivot_offset = Vector2( -178.395, 14.3956 )
 custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 14 )
+custom_styles/bg = SubResource( 10 )
 value = 60.0
 percent_visible = false
 __meta__ = {
@@ -326,8 +326,8 @@ margin_left = 0.75
 margin_top = 34.5
 margin_right = 50.75
 margin_bottom = 84.5
-custom_styles/fg = SubResource( 15 )
-custom_styles/bg = SubResource( 14 )
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 10 )
 value = 60.0
 percent_visible = false
 __meta__ = {
@@ -345,8 +345,8 @@ margin_left = 125.25
 margin_top = 25.25
 margin_right = 175.25
 margin_bottom = 75.25
-custom_styles/fg = SubResource( 16 )
-custom_styles/bg = SubResource( 14 )
+custom_styles/fg = SubResource( 13 )
+custom_styles/bg = SubResource( 10 )
 value = 60.0
 percent_visible = false
 __meta__ = {

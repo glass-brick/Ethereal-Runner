@@ -17,7 +17,7 @@ var selectable_option_types = [Range]
 
 
 func _ready():
-	is_root_menu = not get_parent().has_meta('is_cursor_menu')  # Cambiar por type cuando se arme el plugin
+	is_root_menu = not is_cursor_menu(get_parent())
 	if cursor_scene:
 		set_cursor(cursor_scene)
 	if is_active and is_root_menu:
@@ -26,9 +26,13 @@ func _ready():
 		set_options()
 
 
+func is_cursor_menu(node):
+	return get_script().instance_has(node)
+
+
 func set_options():
 	for menu_option in get_children():
-		if menu_option.has_meta('is_cursor_menu'):
+		if is_cursor_menu(menu_option):
 			sub_menus.append(menu_option)
 			menu_option.connect('selected_option', self, '_on_submenu_selected_option')
 			menu_option.connect('option_changed', self, '_on_submenu_option_changed')
