@@ -72,18 +72,21 @@ custom_constants/separation = 50
 [node name="StartGame" type="Button" parent="MarginContainer/MarginContainer/MainMenu"]
 margin_right = 624.0
 margin_bottom = 52.0
+mouse_filter = 2
 text = "Start Game"
 
 [node name="StartTutorial" type="Button" parent="MarginContainer/MarginContainer/MainMenu"]
 margin_top = 102.0
 margin_right = 624.0
 margin_bottom = 154.0
+mouse_filter = 2
 text = "Play Tutorial"
 
 [node name="OpenSettings" type="Button" parent="MarginContainer/MarginContainer/MainMenu"]
 margin_top = 204.0
 margin_right = 624.0
 margin_bottom = 256.0
+mouse_filter = 2
 text = "Settings"
 
 [node name="HighScore" type="Label" parent="MarginContainer/MarginContainer/MainMenu"]
@@ -118,6 +121,7 @@ text = "SFX Volume"
 margin_left = 260.0
 margin_right = 624.0
 margin_bottom = 52.0
+mouse_filter = 2
 size_flags_vertical = 1
 step = 10.0
 value = 50.0
@@ -137,6 +141,7 @@ text = "BGM Volume"
 margin_left = 260.0
 margin_right = 624.0
 margin_bottom = 52.0
+mouse_filter = 2
 size_flags_vertical = 1
 step = 10.0
 value = 50.0
@@ -145,12 +150,14 @@ value = 50.0
 margin_top = 164.0
 margin_right = 624.0
 margin_bottom = 216.0
+mouse_filter = 2
 text = "Controls"
 
 [node name="GoBack" type="Button" parent="MarginContainer/MarginContainer/SettingsMenu"]
 margin_top = 246.0
 margin_right = 624.0
 margin_bottom = 298.0
+mouse_filter = 2
 text = "Go back"
 
 [node name="ControlsMenu" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
@@ -197,6 +204,7 @@ action_name = "jump"
 margin_top = 296.0
 margin_right = 624.0
 margin_bottom = 348.0
+mouse_filter = 2
 text = "Go back"
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/MainMenu/StartGame" to="." method="_on_StartGame_pressed"]

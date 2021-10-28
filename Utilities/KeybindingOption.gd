@@ -53,7 +53,6 @@ func finish_key_change():
 
 
 func _input(event):
-	print(event.is_pressed())
 	if event is InputEventKey and selected_key_idx != null and event.is_pressed():
 		get_tree().set_input_as_handled()
 		if event.scancode == KEY_ESCAPE:
