@@ -1,37 +1,33 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ContainerScenes/HUD.gd" type="Script" id=2]
 [ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Assets/Sprites/time.png" type="Texture" id=4]
+[ext_resource path="res://Assets/theme.tres" type="Theme" id=5]
 
-[sub_resource type="DynamicFont" id=1]
-size = 64
-extra_spacing_space = 1
-font_data = ExtResource( 3 )
-
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.447059, 0.0117647, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.207843, 0.109804, 0.133333, 1 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.152941, 0.105882, 0.105882, 1 )
 border_width_top = 1
 border_color = Color( 0.329412, 0.121569, 0.266667, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.180392, 0.12549, 0.196078, 1 )
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.505882, 0.47451, 0.00784314, 1 )
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 shadow_color = Color( 0.145098, 0, 0.384314, 0.6 )
 shadow_size = 1
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.462745, 0.0588235, 0.470588, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -39,20 +35,24 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
 shadow_color = Color( 0.819608, 0, 0, 0.6 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.14915, 0.099, 0.15, 1 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
+shadow_color = Color( 0.819608, 0, 0, 0.6 )
 
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
@@ -63,72 +63,13 @@ bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
 shadow_color = Color( 0.819608, 0, 0, 0.6 )
 
 [sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
-shadow_color = Color( 0.819608, 0, 0, 0.6 )
+bg_color = Color( 0, 0, 0, 0.384314 )
 
 [node name="HUD" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 2 )
 
-[node name="MainThings" type="VBoxContainer" parent="."]
-visible = false
-margin_right = 153.0
-margin_bottom = 194.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Health" type="Label" parent="MainThings"]
-margin_right = 153.0
-margin_bottom = 31.0
-custom_fonts/font = ExtResource( 1 )
-text = "Health:"
-
-[node name="Mana" type="Label" parent="MainThings"]
-margin_top = 35.0
-margin_right = 153.0
-margin_bottom = 66.0
-custom_fonts/font = ExtResource( 1 )
-text = "Mana"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Time" type="Label" parent="MainThings"]
-margin_top = 70.0
-margin_right = 153.0
-margin_bottom = 101.0
-custom_fonts/font = ExtResource( 1 )
-text = "Time:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Distance" type="Label" parent="MainThings"]
-margin_top = 105.0
-margin_right = 153.0
-margin_bottom = 136.0
-custom_fonts/font = ExtResource( 1 )
-text = "Distance:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DeathMsg" type="Label" parent="."]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -221.0
-margin_top = -40.5
-margin_right = 221.0
-margin_bottom = 40.5
-custom_fonts/font = SubResource( 1 )
-text = "You are Dead."
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 anchor_right = 1.0
@@ -136,8 +77,8 @@ anchor_bottom = 1.0
 margin_top = -1.88776
 margin_right = -824.0
 margin_bottom = -551.888
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
 value = 50.0
 percent_visible = false
 __meta__ = {
@@ -162,7 +103,7 @@ anchor_bottom = 1.0
 margin_left = 864.0
 margin_top = 48.0
 margin_bottom = -472.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -185,7 +126,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 864.0
 margin_bottom = -552.0
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -210,48 +151,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Controls" type="Label" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 7.0
-margin_top = -167.0
-margin_right = 384.0
-custom_fonts/font = ExtResource( 1 )
-text = "Movement: Arrow keys
-Jump / Double jump: Space bar
-Attack: Z
-Shield: X
-Dash: C"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Paused" type="Label" parent="."]
-pause_mode = 2
-anchor_right = 1.0
-margin_top = 20.0
-margin_bottom = 31.0
-custom_fonts/font = ExtResource( 1 )
-text = "Paused
-Press [ESC] to return"
-align = 1
-valign = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_left = 1.18358
-margin_top = 46.4475
-margin_right = 201.184
-margin_bottom = 96.4475
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Digestion" type="ProgressBar" parent="."]
 margin_top = 96.0
 margin_right = 200.0
 margin_bottom = 116.0
-custom_styles/fg = SubResource( 6 )
-custom_styles/bg = SubResource( 7 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
 value = 50.0
 percent_visible = false
 __meta__ = {
@@ -263,7 +168,7 @@ __meta__ = {
 margin_top = -1.0
 margin_right = 200.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 7 )
 text = "Shield Overload"
 align = 1
 __meta__ = {
@@ -275,6 +180,7 @@ margin_top = 48.0
 margin_right = 40.0
 margin_bottom = 88.0
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -287,12 +193,11 @@ margin_left = 0.66629
 margin_top = 46.0
 margin_right = 50.6663
 margin_bottom = 96.0
-custom_styles/fg = SubResource( 9 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 8 )
+custom_styles/bg = SubResource( 9 )
 value = 33.0
 percent_visible = false
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -307,12 +212,11 @@ margin_top = 34.5
 margin_right = 50.75
 margin_bottom = 84.5
 rect_pivot_offset = Vector2( -178.395, 14.3956 )
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 9 )
 value = 60.0
 percent_visible = false
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -326,12 +230,11 @@ margin_left = 0.75
 margin_top = 34.5
 margin_right = 50.75
 margin_bottom = 84.5
-custom_styles/fg = SubResource( 12 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 9 )
 value = 60.0
 percent_visible = false
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -345,12 +248,11 @@ margin_left = 125.25
 margin_top = 25.25
 margin_right = 175.25
 margin_bottom = 75.25
-custom_styles/fg = SubResource( 13 )
-custom_styles/bg = SubResource( 10 )
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 9 )
 value = 60.0
 percent_visible = false
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -371,6 +273,7 @@ __meta__ = {
 }
 
 [node name="NotEnoughMana" type="Label" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -384,3 +287,163 @@ text = "Not Enough Magic"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PauseMenu" type="PanelContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 5 )
+custom_styles/panel = SubResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_constants/margin_right = 150
+custom_constants/margin_top = 50
+custom_constants/margin_left = 150
+custom_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MarginContainer"]
+margin_left = 150.0
+margin_top = 50.0
+margin_right = 874.0
+margin_bottom = 550.0
+custom_constants/separation = 50
+
+[node name="Paused" type="Label" parent="PauseMenu/MarginContainer/VBoxContainer"]
+pause_mode = 2
+margin_top = 122.0
+margin_right = 724.0
+margin_bottom = 174.0
+size_flags_vertical = 6
+text = "Paused"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Return" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+margin_top = 346.0
+margin_right = 724.0
+margin_bottom = 398.0
+text = "Return to game"
+
+[node name="Quit" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+margin_top = 448.0
+margin_right = 724.0
+margin_bottom = 500.0
+text = "Quit to main menu"
+
+[node name="DeathMenu" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SubmittingLabel" type="Label" parent="DeathMenu"]
+visible = false
+margin_left = 260.0
+margin_top = 274.0
+margin_right = 764.0
+margin_bottom = 326.0
+text = "Submitting your score..."
+
+[node name="PreSubmitMenu" type="VBoxContainer" parent="DeathMenu"]
+visible = false
+margin_left = 155.0
+margin_top = 130.0
+margin_right = 869.0
+margin_bottom = 470.0
+custom_constants/separation = 20
+
+[node name="DeathMsg" type="Label" parent="DeathMenu/PreSubmitMenu"]
+margin_right = 714.0
+margin_bottom = 52.0
+text = "You are Dead."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="DeathMenu/PreSubmitMenu"]
+margin_top = 72.0
+margin_right = 714.0
+margin_bottom = 124.0
+text = "Score: 0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InstructionsMsg" type="Label" parent="DeathMenu/PreSubmitMenu"]
+margin_top = 144.0
+margin_right = 714.0
+margin_bottom = 196.0
+text = "Enter your name to post your score"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameInput" type="LineEdit" parent="DeathMenu/PreSubmitMenu"]
+margin_top = 216.0
+margin_right = 714.0
+margin_bottom = 268.0
+text = "Filthy Scum"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeathMenu/PreSubmitMenu"]
+margin_top = 288.0
+margin_right = 714.0
+margin_bottom = 340.0
+custom_constants/separation = 20
+
+[node name="Submit" type="Button" parent="DeathMenu/PreSubmitMenu/HBoxContainer"]
+margin_right = 347.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+text = "Submit"
+
+[node name="Quit" type="Button" parent="DeathMenu/PreSubmitMenu/HBoxContainer"]
+margin_left = 367.0
+margin_right = 714.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+text = "Skip"
+
+[node name="PostSubmitMenu" type="VBoxContainer" parent="DeathMenu"]
+margin_left = 291.0
+margin_top = 233.0
+margin_right = 732.0
+margin_bottom = 367.0
+custom_constants/separation = 30
+
+[node name="Label" type="Label" parent="DeathMenu/PostSubmitMenu"]
+margin_right = 441.0
+margin_bottom = 52.0
+text = "Submitted your score!"
+
+[node name="Quit" type="Button" parent="DeathMenu/PostSubmitMenu"]
+margin_top = 82.0
+margin_right = 441.0
+margin_bottom = 134.0
+text = "Return to main menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Return" to="." method="_on_Return_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="DeathMenu/PreSubmitMenu/HBoxContainer/Submit" to="." method="_on_Submit_pressed"]
+[connection signal="pressed" from="DeathMenu/PreSubmitMenu/HBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="DeathMenu/PostSubmitMenu/Quit" to="." method="_on_Quit_pressed"]

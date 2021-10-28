@@ -3,11 +3,13 @@ extends Control
 export (PackedScene) var cursor_scene = null
 var path = []
 
+var leaderboard_entry = load("res://Utilities/LeaderboardEntry.tscn")
 onready var cursor = cursor_scene.instance()
 onready var main_menu = $MarginContainer/MarginContainer/MainMenu
 onready var settings_menu = $MarginContainer/MarginContainer/SettingsMenu
 onready var controls_menu = $MarginContainer/MarginContainer/ControlsMenu
-onready var menus = [main_menu, settings_menu, controls_menu]
+onready var scores_menu = $MarginContainer/MarginContainer/ScoresMenu
+onready var menus = [main_menu, settings_menu, controls_menu, scores_menu]
 onready var sfx_volume = $MarginContainer/MarginContainer/SettingsMenu/SFXVolume/SFXVolume
 onready var bgm_volume = $MarginContainer/MarginContainer/SettingsMenu/BGMVolume/BGMVolume
 
@@ -18,6 +20,23 @@ func _ready():
 	bgm_volume.set_value(SoundManager.get_bgm_volume_db() + 80)
 	open_menu(main_menu)
 	add_child(cursor)
+	$HTTPRequest.request(
+		"{path}/leaderboard".format({"path": Globals.leaderboards_server}),
+		["User-Agent: EtherealRunner/1.0"]
+	)
+	var seconds = int(Globals.high_time) % 60
+	var minutes = int((Globals.high_time - seconds) / 60)
+	scores_menu.get_node('HighScore').text = (
+		"Your high score: %d in %02d:%02d"
+		% [Globals.high_score, minutes, seconds]
+	)
+	# if Globals.player_name:
+	# 	$Name/NameInput.text = Globals.player_name
+	# else:
+	# 	randomize()
+	# 	var r = randi()
+	# 	var rand_number = r % len(starter_names)
+	# 	$Name/NameInput.text = starter_names[rand_number]
 
 
 var focused_element = null
@@ -71,6 +90,10 @@ func _on_OpenControlRemapping_pressed():
 	open_menu(controls_menu)
 
 
+func _on_OpenLeaderboard_pressed():
+	open_menu(scores_menu)
+
+
 func _on_GoBack_pressed():
 	go_back()
 
@@ -83,6 +106,23 @@ func go_back():
 func open_menu(menu_to_open):
 	path.append(menu_to_open)
 	toggle_menu(menu_to_open)
+
+
+func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
+	if response_code == 200:
+		var json = parse_json(body.get_string_from_utf8())
+		if json:
+			for i in json.keys():
+				if not json[i]:
+					continue
+				var name = json[i].get('name', '')
+				var points = json[i].get('points', '')
+				var score_path = "LeaderboardList/Container/Pos{}".format([i], "{}")
+				print(score_path)
+				scores_menu.get_node(score_path).set_entry(int(i) + 1, points, name)
+
+	else:
+		scores_menu.get_node('ErrorMsg').visible = true
 
 
 func toggle_menu(menu_to_open):

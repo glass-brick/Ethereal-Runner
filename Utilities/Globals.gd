@@ -8,6 +8,8 @@ var high_score = 0
 var high_time = 0
 var player_respawn_position = Vector2(0, 0)
 var tutorial_finished = false
+var player_name = ""
+var leaderboards_server = "https://ethereal-runner-server.gggelo.repl.co"
 
 
 func _ready():

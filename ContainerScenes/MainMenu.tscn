@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://ContainerScenes/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://Utilities/Cursor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Utilities/LeaderboardEntry.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/theme.tres" type="Theme" id=5]
 [ext_resource path="res://Utilities/KeybindingOption.tscn" type="PackedScene" id=6]
 
@@ -19,6 +20,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 cursor_scene = ExtResource( 3 )
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -46,69 +49,69 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_right = 200
+custom_constants/margin_right = 160
 custom_constants/margin_top = 50
-custom_constants/margin_left = 200
+custom_constants/margin_left = 160
 custom_constants/margin_bottom = 50
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
-margin_left = 200.0
+margin_left = 160.0
 margin_top = 50.0
-margin_right = 824.0
-margin_bottom = 528.0
+margin_right = 864.0
+margin_bottom = 478.0
 size_flags_vertical = 0
-custom_constants/margin_top = 120
+custom_constants/margin_top = 100
 custom_constants/margin_bottom = 0
 
 [node name="MainMenu" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
-margin_top = 120.0
-margin_right = 624.0
-margin_bottom = 478.0
-custom_constants/separation = 50
+margin_top = 100.0
+margin_right = 704.0
+margin_bottom = 428.0
+custom_constants/separation = 40
 
 [node name="StartGame" type="Button" parent="MarginContainer/MarginContainer/MainMenu"]
-margin_right = 624.0
+margin_right = 704.0
 margin_bottom = 52.0
 mouse_filter = 2
+size_flags_horizontal = 3
 text = "Start Game"
 
 [node name="StartTutorial" type="Button" parent="MarginContainer/MarginContainer/MainMenu"]
-margin_top = 102.0
-margin_right = 624.0
-margin_bottom = 154.0
+margin_top = 92.0
+margin_right = 704.0
+margin_bottom = 144.0
 mouse_filter = 2
+size_flags_horizontal = 3
 text = "Play Tutorial"
 
-[node name="OpenSettings" type="Button" parent="MarginContainer/MarginContainer/MainMenu"]
-margin_top = 204.0
-margin_right = 624.0
-margin_bottom = 256.0
+[node name="OpenLeaderboard" type="Button" parent="MarginContainer/MarginContainer/MainMenu"]
+margin_top = 184.0
+margin_right = 704.0
+margin_bottom = 236.0
 mouse_filter = 2
-text = "Settings"
+size_flags_horizontal = 3
+text = "Leaderboard"
 
-[node name="HighScore" type="Label" parent="MarginContainer/MarginContainer/MainMenu"]
-margin_top = 306.0
-margin_right = 624.0
-margin_bottom = 358.0
-size_flags_vertical = 8
-text = "High score: 0 in 00:00"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="OpenSettings" type="Button" parent="MarginContainer/MarginContainer/MainMenu"]
+margin_top = 276.0
+margin_right = 704.0
+margin_bottom = 328.0
+mouse_filter = 2
+size_flags_horizontal = 3
+text = "Settings"
 
 [node name="SettingsMenu" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 visible = false
-margin_top = 120.0
-margin_right = 624.0
-margin_bottom = 478.0
+margin_top = 100.0
+margin_right = 704.0
+margin_bottom = 428.0
 custom_constants/separation = 30
 
 [node name="SFXVolume" type="HSplitContainer" parent="MarginContainer/MarginContainer/SettingsMenu"]
-margin_right = 624.0
+margin_right = 704.0
 margin_bottom = 52.0
 custom_constants/separation = 50
 
@@ -119,7 +122,7 @@ text = "SFX Volume"
 
 [node name="SFXVolume" type="HSlider" parent="MarginContainer/MarginContainer/SettingsMenu/SFXVolume"]
 margin_left = 260.0
-margin_right = 624.0
+margin_right = 704.0
 margin_bottom = 52.0
 mouse_filter = 2
 size_flags_vertical = 1
@@ -128,7 +131,7 @@ value = 50.0
 
 [node name="BGMVolume" type="HSplitContainer" parent="MarginContainer/MarginContainer/SettingsMenu"]
 margin_top = 82.0
-margin_right = 624.0
+margin_right = 704.0
 margin_bottom = 134.0
 custom_constants/separation = 50
 
@@ -139,7 +142,7 @@ text = "BGM Volume"
 
 [node name="BGMVolume" type="HSlider" parent="MarginContainer/MarginContainer/SettingsMenu/BGMVolume"]
 margin_left = 260.0
-margin_right = 624.0
+margin_right = 704.0
 margin_bottom = 52.0
 mouse_filter = 2
 size_flags_vertical = 1
@@ -148,23 +151,23 @@ value = 50.0
 
 [node name="OpenControlRemapping" type="Button" parent="MarginContainer/MarginContainer/SettingsMenu"]
 margin_top = 164.0
-margin_right = 624.0
+margin_right = 704.0
 margin_bottom = 216.0
 mouse_filter = 2
 text = "Controls"
 
 [node name="GoBack" type="Button" parent="MarginContainer/MarginContainer/SettingsMenu"]
 margin_top = 246.0
-margin_right = 624.0
+margin_right = 704.0
 margin_bottom = 298.0
 mouse_filter = 2
 text = "Go back"
 
 [node name="ControlsMenu" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 visible = false
-margin_top = 120.0
-margin_right = 624.0
-margin_bottom = 468.0
+margin_top = 100.0
+margin_right = 704.0
+margin_bottom = 448.0
 size_flags_vertical = 0
 custom_constants/separation = 20
 
@@ -207,11 +210,136 @@ margin_bottom = 348.0
 mouse_filter = 2
 text = "Go back"
 
+[node name="ScoresMenu" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+visible = false
+margin_top = 100.0
+margin_right = 704.0
+margin_bottom = 516.0
+custom_constants/separation = 20
+
+[node name="LeaderboardLabel" type="Label" parent="MarginContainer/MarginContainer/ScoresMenu"]
+margin_right = 704.0
+margin_bottom = 52.0
+text = "Leaderboard"
+align = 1
+
+[node name="LeaderboardList" type="ScrollContainer" parent="MarginContainer/MarginContainer/ScoresMenu"]
+margin_top = 72.0
+margin_right = 704.0
+margin_bottom = 272.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+follow_focus = true
+
+[node name="Container" type="VBoxContainer" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList"]
+margin_right = 704.0
+margin_bottom = 376.0
+size_flags_horizontal = 3
+
+[node name="Pos0" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 696.0
+margin_bottom = 34.0
+
+[node name="Pos1" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 38.0
+margin_right = 696.0
+margin_bottom = 72.0
+
+[node name="Pos2" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 76.0
+margin_right = 696.0
+margin_bottom = 110.0
+
+[node name="Pos3" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 114.0
+margin_right = 696.0
+margin_bottom = 148.0
+
+[node name="Pos4" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 152.0
+margin_right = 696.0
+margin_bottom = 186.0
+
+[node name="Pos5" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 190.0
+margin_right = 696.0
+margin_bottom = 224.0
+
+[node name="Pos6" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 228.0
+margin_right = 696.0
+margin_bottom = 262.0
+
+[node name="Pos7" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 266.0
+margin_right = 696.0
+margin_bottom = 300.0
+
+[node name="Pos8" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 304.0
+margin_right = 696.0
+margin_bottom = 338.0
+
+[node name="Pos9" parent="MarginContainer/MarginContainer/ScoresMenu/LeaderboardList/Container" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 342.0
+margin_right = 696.0
+margin_bottom = 376.0
+
+[node name="ErrorMsg" type="Label" parent="MarginContainer/MarginContainer/ScoresMenu"]
+visible = false
+margin_top = 350.0
+margin_right = 704.0
+margin_bottom = 457.0
+text = "Could not retrieve
+leaderboard results"
+align = 1
+
+[node name="HighScore" type="Label" parent="MarginContainer/MarginContainer/ScoresMenu"]
+margin_top = 292.0
+margin_right = 704.0
+margin_bottom = 344.0
+size_flags_vertical = 8
+text = "Your high score: 0 in 00:00"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoBack" type="Button" parent="MarginContainer/MarginContainer/ScoresMenu"]
+margin_top = 364.0
+margin_right = 704.0
+margin_bottom = 416.0
+mouse_filter = 2
+text = "Go back"
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/MainMenu/StartGame" to="." method="_on_StartGame_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/MainMenu/StartTutorial" to="." method="_on_StartTutorial_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/MainMenu/OpenLeaderboard" to="." method="_on_OpenLeaderboard_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/MainMenu/OpenSettings" to="." method="_on_OpenSettings_pressed"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/SettingsMenu/SFXVolume/SFXVolume" to="." method="_on_SFXVolume_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/SettingsMenu/BGMVolume/BGMVolume" to="." method="_on_BGMVolume_value_changed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/SettingsMenu/OpenControlRemapping" to="." method="_on_OpenControlRemapping_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/SettingsMenu/GoBack" to="." method="_on_GoBack_pressed"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/ControlsMenu/GoBack" to="." method="_on_GoBack_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/ScoresMenu/GoBack" to="." method="_on_GoBack_pressed"]

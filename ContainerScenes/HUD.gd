@@ -1,23 +1,51 @@
 extends CanvasLayer
 
 export (int) var message_fade_time = 2
-export (float) var controls_opacity = 0.4
+
+onready var pre_submit_menu = $DeathMenu/PreSubmitMenu
+onready var submitting_label = $DeathMenu/SubmittingLabel
+onready var post_submit_menu = $DeathMenu/PostSubmitMenu
+onready var death_menu_steps = [
+	pre_submit_menu,
+	submitting_label,
+	post_submit_menu,
+]
 
 var message_timer = 0
 var time_passed = 0
 var menu_open = false
+var is_dead = false
+var score = 0
+
+var starter_names = [
+	'Filthy Scum',
+	'Worthless Pawn',
+	'Abominable Human',
+	'Human Garbage',
+	'Hominid Parasite',
+	"Embodiment of Suffering",
+	"Flesh Automaton",
+	"Lowest Common Denominator",
+	"Deaf and Dumbstruck",
+	"Rotting Head",
+	"Cauldron of Hate",
+	"Exhibit A of the Human Condition",
+	"Perpetrator of Unauthorized Exploitation"
+]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Controls.modulate.a = 0 if Globals.tutorial_finished else controls_opacity
-	$Paused.hide()
+	$PauseMenu.hide()
 	$NotEnoughMana.hide()
+	$DeathMenu.hide()
 	$Digestion.value = 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if is_dead:
+		return
 	var paused = get_tree().paused
 	if paused and not menu_open:
 		# pause due to dialogue, dont do anything
@@ -60,7 +88,8 @@ func update_time(time):
 	get_node("TimePanel/Time").text = "%02d:%02d" % [minutes, seconds]
 
 
-func update_score(score):
+func update_score(_score):
+	score = _score
 	get_node("ScorePanel/Score").text = "Score\n%d" % score
 
 
@@ -69,21 +98,71 @@ func update_health(health):
 
 
 func player_is_dead():
-	$DeathMsg.visible = true
+	pre_submit_menu.get_node("Score").text = "Score: %d" % score
+	is_dead = true
+	if Globals.player_name:
+		pre_submit_menu.get_node('NameInput').text = Globals.player_name
+	else:
+		randomize()
+		var r = randi()
+		var rand_number = r % len(starter_names)
+		pre_submit_menu.get_node('NameInput').text = starter_names[rand_number]
+	show_death_menu(pre_submit_menu)
+
+
+func _on_Submit_pressed():
+	Globals.player_name = pre_submit_menu.get_node('NameInput').text
+	var body = to_json({"name": Globals.player_name, "points": score})
+	var error = $HTTPRequest.request(
+		"{path}/submit_score".format({"path": Globals.leaderboards_server}),
+		["Content-Type: application/json", "User-Agent: EtherealRunner/1.0"],
+		true,
+		HTTPClient.METHOD_POST,
+		body
+	)
+	if error != OK:
+		post_submit_menu.get_node('Label').text = "Error submitting score"
+		show_death_menu(post_submit_menu)
+		push_error("An error occurred in the HTTP request.")
+	else:
+		show_death_menu(submitting_label)
+
+
+func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
+	if response_code == 200:
+		var json = parse_json(body.get_string_from_utf8())
+		if json:
+			post_submit_menu.get_node('Label').text = json['msg']
+			show_death_menu(post_submit_menu)
+	else:
+		print("Could not connect to server")
+
+
+func show_death_menu(step):
+	$DeathMenu.show()
+	for _step in death_menu_steps:
+		if _step == step:
+			_step.show()
+			var child = find_focusable_child(_step)
+			if child:
+				child.grab_focus()
+		else:
+			_step.hide()
 
 
 func pause():
-	$Controls.modulate.a = 1
-	$Paused.show()
-	$Controls.show()
+	$PauseMenu.show()
+	var child = find_focusable_child($PauseMenu)
+	print(child)
+	if child:
+		child.grab_focus()
+
 	get_tree().paused = true
 	menu_open = true
 
 
 func unpause():
-	$Controls.modulate.a = 0 if Globals.tutorial_finished else controls_opacity
-	$Paused.hide()
-	$Controls.hide()
+	$PauseMenu.hide()
 	get_tree().paused = false
 	menu_open = false
 
@@ -91,3 +170,26 @@ func unpause():
 func show_not_enough_mana():
 	message_timer = 0
 	$NotEnoughMana.show()
+
+
+func _on_Return_pressed():
+	unpause()
+
+
+func _on_Quit_pressed():
+	SceneManager.change_scene('res://ContainerScenes/MainMenu.tscn')
+	yield(SceneManager, 'fade_complete')
+	unpause()
+
+
+func find_focusable_child(node):
+	if node.focus_mode == 2:
+		return node
+	for child in node.get_children():
+		if child.focus_mode == 2:
+			return child
+		else:
+			var result = find_focusable_child(child)
+			if result:
+				return result
+	return null

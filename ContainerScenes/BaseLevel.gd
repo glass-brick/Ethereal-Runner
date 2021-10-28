@@ -114,7 +114,7 @@ func _ready():
 
 
 func _on_player_died():
-	SceneManager.change_scene('res://ContainerScenes/MainMenu.tscn')
+	pass
 
 
 func choose_platform(biome_props):
