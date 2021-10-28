@@ -7,7 +7,7 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 17.4839, -13.0494, 0, 0, 0, 0, 970.402, -13.6697 )
+"points": PoolVector2Array( 0, 0, 0, 0, 17.4839, -13.0494, 0, 0, 0, 0, 1406.23, -13.4439 )
 }
 
 [sub_resource type="AtlasTexture" id=2]
@@ -19,32 +19,32 @@ atlas = ExtResource( 2 )
 region = Rect2( 800, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 200, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 1 )
 region = Rect2( 400, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 200, 200 )
+region = Rect2( 600, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 200, 0, 200, 200 )
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 400, 0, 200, 200 )
+atlas = ExtResource( 2 )
+region = Rect2( 200, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 1 )
-region = Rect2( 600, 0, 200, 200 )
+atlas = ExtResource( 2 )
+region = Rect2( 400, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 3 )
@@ -77,15 +77,15 @@ animations = [ {
 "name": "Fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
-"loop": false,
-"name": "Jump",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": false,
+"name": "Jump",
+"speed": 10.0
 }, {
 "frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
@@ -93,20 +93,27 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[node name="Cursor" type="Path2D"]
+[node name="Cursor" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Path2D" type="Path2D" parent="."]
 scale = Vector2( 0.743833, 0.743833 )
 curve = SubResource( 1 )
-script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="PathFollow2D" type="PathFollow2D" parent="."]
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2( 17.4839, -13.0494 )
-rotation = -0.000651232
+rotation = -0.000283713
 loop = false
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="PathFollow2D"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Path2D/PathFollow2D"]
 position = Vector2( -17.4839, 13.0494 )
 frames = SubResource( 17 )
 animation = "Idle"

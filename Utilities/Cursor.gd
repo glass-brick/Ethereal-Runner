@@ -1,17 +1,17 @@
-extends Path2D
+extends Control
 
 var started = false
 
 
 func _ready():
-	$PathFollow2D/AnimatedSprite.play('Idle')
+	$Path2D/PathFollow2D/AnimatedSprite.play('Idle')
 
 
 func run_animation():
 	started = true
-	$PathFollow2D/AnimatedSprite.play('Run')
+	$Path2D/PathFollow2D/AnimatedSprite.play('Run')
 
 
 func _process(delta):
 	if started:
-		$PathFollow2D.unit_offset += delta
+		$Path2D/PathFollow2D.unit_offset += delta

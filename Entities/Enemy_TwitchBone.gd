@@ -35,6 +35,8 @@ func _on_StateMachinePlayer_transited(from, to):
 			death_dissolution = 0.1  # for good measure
 			$AnimatedSprite.play("Attack")
 			$AnimatedSprite.set_material(load("res://Assets/Shader/EnemyDeathMaterial.tres"))
+			yield(get_tree().create_timer(death_time), "timeout")
+			queue_free()
 
 
 func shoot_projectile():
@@ -70,8 +72,6 @@ func _on_StateMachinePlayer_updated(state, delta):
 			SoundManager.play_se('TwitchBoneDeath')
 			death_dissolution += delta / death_time
 			$AnimatedSprite.material.set_shader_param("effect_percentage", 1 - death_dissolution)
-			yield(get_tree().create_timer(death_time), "timeout")
-			queue_free()
 
 
 func _on_hit(damage, damager):
