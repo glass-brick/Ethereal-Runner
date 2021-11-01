@@ -50,11 +50,8 @@ func change_background_colors(delta):
 	var sat = abs(cos(time_passed) / 2)
 	var parallaxLayers = get_node('ParallaxBackground')
 	var parallaxLayer1 = parallaxLayers.get_node('ParallaxLayer')
-	var parallaxLayer2 = parallaxLayers.get_node('ParallaxLayer2')
 	parallaxLayer1.modulate.h = hue_value
 	parallaxLayer1.modulate.s = sat
-	parallaxLayer2.modulate.h = hue_value
-	parallaxLayer2.modulate.s = sat
 
 
 func _exit_tree():

@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Sprites/background.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/background_tiled.png" type="Texture" id=2]
 [ext_resource path="res://ContainerScenes/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ContainerScenes/BaseLevel.gd" type="Script" id=5]
-[ext_resource path="res://Assets/Sprites/background_low.png" type="Texture" id=6]
 
 [node name="Node2D" type="Node2D" groups=[
 "scene_manager_entity_nodes",
@@ -22,23 +21,12 @@ hud_path = NodePath("../HUD")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 3, 0 )
-motion_scale = Vector2( 0.3, 1 )
-motion_offset = Vector2( 1800, 0 )
-motion_mirroring = Vector2( 8190, 2970 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
-scale = Vector2( 8, 8 )
-texture = ExtResource( 6 )
-centered = false
-
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.3, 1 )
-motion_mirroring = Vector2( 8190, 0 )
+motion_mirroring = Vector2( 4096, 4800 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( -1, -1799 )
+position = Vector2( 0, -1800 )
 scale = Vector2( 8, 8 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 centered = false
