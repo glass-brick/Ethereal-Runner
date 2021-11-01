@@ -2,6 +2,7 @@ extends Node2D
 
 var time_passed = 0
 var hue_value = 0
+var is_tutorial = true
 
 
 func _ready():
@@ -13,17 +14,11 @@ func _ready():
 
 var current_dialog
 var current_timeline
-var last_dialogue_position
-
-
-func _on_player_died():
-	Globals.player_respawn_position = last_dialogue_position
-	SceneManager.reload_scene()
 
 
 func start_dialogue(timeline_name):
 	current_timeline = timeline_name
-	last_dialogue_position = SceneManager.get_entity("Player").global_position
+	Globals.player_respawn_position = SceneManager.get_entity("Player").global_position
 	get_tree().paused = true
 	current_dialog = Dialogic.start(timeline_name)
 	current_dialog.connect('timeline_end', self, '_on_dialogue_end')
@@ -63,4 +58,5 @@ func change_background_colors(delta):
 
 
 func _exit_tree():
+	Globals.player_respawn_position = Vector2(0, 0)
 	SoundManager.stop('Wind')

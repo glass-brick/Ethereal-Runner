@@ -339,6 +339,7 @@ margin_bottom = 500.0
 text = "Quit to main menu"
 
 [node name="DeathMenu" type="CenterContainer" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 5 )
@@ -357,9 +358,9 @@ text = "Submitting your score..."
 [node name="PreSubmitMenu" type="VBoxContainer" parent="DeathMenu"]
 visible = false
 margin_left = 155.0
-margin_top = 130.0
+margin_top = 128.0
 margin_right = 869.0
-margin_bottom = 470.0
+margin_bottom = 472.0
 custom_constants/separation = 20
 
 [node name="DeathMsg" type="Label" parent="DeathMenu/PreSubmitMenu"]
@@ -421,10 +422,11 @@ size_flags_horizontal = 3
 text = "Skip"
 
 [node name="PostSubmitMenu" type="VBoxContainer" parent="DeathMenu"]
-margin_left = 291.0
-margin_top = 233.0
-margin_right = 732.0
-margin_bottom = 367.0
+visible = false
+margin_left = 288.0
+margin_top = 231.0
+margin_right = 735.0
+margin_bottom = 369.0
 custom_constants/separation = 30
 
 [node name="Label" type="Label" parent="DeathMenu/PostSubmitMenu"]
@@ -441,9 +443,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TutorialDeathMenu" type="VBoxContainer" parent="DeathMenu"]
+visible = false
+margin_left = 246.0
+margin_top = 226.0
+margin_right = 777.0
+margin_bottom = 374.0
+custom_constants/separation = 40
+
+[node name="Label" type="Label" parent="DeathMenu/TutorialDeathMenu"]
+margin_right = 531.0
+margin_bottom = 52.0
+text = "You are dead."
+align = 1
+
+[node name="RestartFromCheckpoint" type="Button" parent="DeathMenu/TutorialDeathMenu"]
+margin_top = 92.0
+margin_right = 531.0
+margin_bottom = 144.0
+mouse_filter = 2
+text = "Restart from checkpoint"
+
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Return" to="." method="_on_Return_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="DeathMenu/PreSubmitMenu/HBoxContainer/Submit" to="." method="_on_Submit_pressed"]
 [connection signal="pressed" from="DeathMenu/PreSubmitMenu/HBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="DeathMenu/PostSubmitMenu/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="DeathMenu/TutorialDeathMenu/RestartFromCheckpoint" to="." method="_on_RestartFromCheckpoint_pressed"]

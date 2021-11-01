@@ -5,10 +5,12 @@ export (int) var message_fade_time = 2
 onready var pre_submit_menu = $DeathMenu/PreSubmitMenu
 onready var submitting_label = $DeathMenu/SubmittingLabel
 onready var post_submit_menu = $DeathMenu/PostSubmitMenu
+onready var tutorial_death_menu = $DeathMenu/TutorialDeathMenu
 onready var death_menu_steps = [
 	pre_submit_menu,
 	submitting_label,
 	post_submit_menu,
+	tutorial_death_menu,
 ]
 
 var message_timer = 0
@@ -98,6 +100,9 @@ func update_health(health):
 
 
 func player_is_dead():
+	if SceneManager.get_entity("Level").is_tutorial:
+		show_death_menu(tutorial_death_menu)
+		return
 	pre_submit_menu.get_node("Score").text = "Score: %d" % score
 	is_dead = true
 	if Globals.player_name:
@@ -126,6 +131,10 @@ func _on_Submit_pressed():
 		push_error("An error occurred in the HTTP request.")
 	else:
 		show_death_menu(submitting_label)
+
+
+func _on_RestartFromCheckpoint_pressed():
+	SceneManager.reload_scene()
 
 
 func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):

@@ -22,6 +22,7 @@ var new_path_frequency = 10
 var new_path_height_diff = 400
 var songs = ['Vals', 'Inferno', 'NuevoMundo']
 var current_music = null
+var is_tutorial = false
 
 var current_instability_level = 0
 
@@ -111,10 +112,6 @@ func _ready():
 
 	while render_paths[0]["position"].x < render_limit[1].x:
 		render_platform(false)
-
-
-func _on_player_died():
-	pass
 
 
 func choose_platform(biome_props):
