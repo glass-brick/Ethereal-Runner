@@ -8,6 +8,7 @@ var PlatformSmall = preload('res://Entities/FloorSegmentSmall.tscn')
 var PlatformMedium = preload('res://Entities/FloorSegmentMedium.tscn')
 var PlatformXL = preload('res://Entities/FloorSegmentXL.tscn')
 var PlatformIndestructible = preload('res://Entities/FloorSegmentIndestructible.tscn')
+var TilePlatform = preload('res://Entities/TilePlatform.tscn')
 var TwitchBone = preload('res://Entities/Enemy_TwitchBone.tscn')
 var FleshStump = preload('res://Entities/Enemy_FleshStump.tscn')
 var TreapanoGargoyle = preload('res://Entities/Enemy_TreapanoGargoyle.tscn')
@@ -32,8 +33,39 @@ var biomes = {
 		"color": Color.white,
 		"monsters": [TwitchBone],
 		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)],
-		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL, PlatformIndestructible],
-		"platforms_prob": [0.05, 0.7, 0.1, 0.05, 0.1],
+		"platform_params":
+		[
+			{
+				"type": "cloud",
+				"size": 2,
+				"max_monsters": 1,
+				"chance": 0.05,
+			},
+			{
+				"type": "cloud",
+				"size": 12,
+				"max_monsters": 2,
+				"chance": 0.7,
+			},
+			{
+				"type": "cloud",
+				"size": 4,
+				"max_monsters": 2,
+				"chance": 0.1,
+			},
+			{
+				"type": "cloud",
+				"size": 8,
+				"max_monsters": 3,
+				"chance": 0.05,
+			},
+			{
+				"type": "solid",
+				"size": 4,
+				"max_monsters": 0,
+				"chance": 0.1,
+			}
+		],
 		"weight": 9,
 	},
 	"falling":
@@ -41,8 +73,39 @@ var biomes = {
 		"color": Color.lightpink,
 		"monsters": [FleshStump, TreapanoGargoyle],
 		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)],
-		"platforms": [PlatformSmall, Platform, PlatformMedium, PlatformXL, PlatformIndestructible],
-		"platforms_prob": [0.3, 0.47, 0.2, 0.02, 0.01],
+		"platform_params":
+		[
+			{
+				"type": "cloud",
+				"size": 2,
+				"max_monsters": 1,
+				"chance": 0.3,
+			},
+			{
+				"type": "cloud",
+				"size": 6,
+				"max_monsters": 2,
+				"chance": 0.47,
+			},
+			{
+				"type": "cloud",
+				"size": 4,
+				"max_monsters": 2,
+				"chance": 0.2,
+			},
+			{
+				"type": "cloud",
+				"size": 8,
+				"max_monsters": 3,
+				"chance": 0.02,
+			},
+			{
+				"type": "solid",
+				"size": 4,
+				"max_monsters": 0,
+				"chance": 0.01,
+			}
+		],
 		"weight": 6,
 	},
 	"rising":
@@ -50,8 +113,27 @@ var biomes = {
 		"color": Color.lightblue,
 		"monsters": [TwitchBone, FleshStump],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
-		"platforms": [Platform, PlatformMedium, PlatformXL],
-		"platforms_prob": [0.80, 0.1, 0.1],
+		"platform_params":
+		[
+			{
+				"type": "cloud",
+				"size": 6,
+				"max_monsters": 2,
+				"chance": 0.8,
+			},
+			{
+				"type": "cloud",
+				"size": 4,
+				"max_monsters": 2,
+				"chance": 0.1,
+			},
+			{
+				"type": "cloud",
+				"size": 8,
+				"max_monsters": 3,
+				"chance": 0.1,
+			}
+		],
 		"weight": 6,
 	},
 	"bad_boy":
@@ -59,8 +141,27 @@ var biomes = {
 		"color": Color(0.3, 0.3, 0.3, 1),
 		"monsters": [TreapanoGargoyle],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
-		"platforms": [Platform, PlatformMedium, PlatformSmall],
-		"platforms_prob": [0.4, 0.1, 0.5],
+		"platform_params":
+		[
+			{
+				"type": "cloud",
+				"size": 6,
+				"max_monsters": 2,
+				"chance": 0.4,
+			},
+			{
+				"type": "cloud",
+				"size": 4,
+				"max_monsters": 2,
+				"chance": 0.1,
+			},
+			{
+				"type": "cloud",
+				"size": 8,
+				"max_monsters": 3,
+				"chance": 0.5,
+			}
+		],
 		"weight": 1
 	}
 }
@@ -114,19 +215,22 @@ func _ready():
 		render_platform(false)
 
 
-func choose_platform(biome_props):
-	if not "platforms" in biome_props:
-		return Platform
-	if not "platforms_prob" in biome_props:
-		return biome_props['platforms'][randi() % biome_props['platforms'].size()]
+func set_platform(biome_props):
+	var tile_platform = TilePlatform.instance()
+	var platform_params = null
 
 	var rand_num = randf()
 	var passed_prob = 0.0
-	for i in range(biome_props['platforms_prob'].size()):
-		passed_prob += biome_props['platforms_prob'][i]
+	for i in range(biome_props['platform_params'].size()):
+		passed_prob += biome_props['platform_params'][i]['chance']
 		if rand_num < passed_prob:
-			return biome_props['platforms'][i]
-	return Platform
+			platform_params = biome_props['platform_params'][i]
+			break
+
+	tile_platform.size = platform_params['size']
+	tile_platform.type = platform_params['type']
+	tile_platform.max_monsters = platform_params['max_monsters']
+	return tile_platform
 
 
 func render_platform(spawn_monsters):
@@ -136,8 +240,7 @@ func render_platform(spawn_monsters):
 		var biome_spawn_area = biome_props["spawn_area"]
 		var instability_props = instability_levels[current_instability_level]
 
-		var chosen_platform = choose_platform(biome_props)
-		var platform = chosen_platform.instance()
+		var platform = set_platform(biome_props)
 		platform.position = render_paths[i]["position"]
 		platform.path_id = render_paths[i]["id"]
 		platform.platform_number = platforms_rendered
@@ -157,21 +260,9 @@ func render_platform(spawn_monsters):
 			for j in range(num_monsters):
 				var monster_kind = biome_props["monsters"][randi() % biome_props["monsters"].size()]
 				var monster = monster_kind.instance()
-				var width = platform.get_node("CollisionShape2D2").shape.extents.x
+				var width = platform.width
 				monster.position = render_paths[i]["position"]
-				if num_monsters > 1:
-					if num_monsters == 2:
-						if j == 0:
-							monster.position.x -= width / 2
-						else:
-							monster.position.x += width / 2
-					elif num_monsters == 3:
-						if j == 0:
-							monster.position.x -= width / 2
-						elif j == 2:
-							monster.position.x += width / 2
-					else:
-						monster.position.x -= (width * ((j + 1) / (num_monsters + 1) - 1 / 2))
+				monster.position.x += (float(j + 1) / (num_monsters + 1) * width) - width / 2
 				monster.position.y -= 300
 				if monster.name == "TrepanoGargoyle":
 					monster.position.y += monster.altitude

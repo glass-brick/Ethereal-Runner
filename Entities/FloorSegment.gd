@@ -11,6 +11,7 @@ var expiration_time = expiration_time_base
 var path_id
 var platform_number
 var color = Color.white
+onready var width = get_node("CollisionShape2D2").shape.extents.x
 
 
 func _ready():
