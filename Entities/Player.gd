@@ -40,11 +40,57 @@ var Pierna2 = preload('res://Entities/BodyParts/Pierna2.tscn')
 onready var hud = get_node(hud_path)
 onready var smp = $StateMachinePlayer
 
-var initial_jump_time = 10
-var max_speed = max_speed_base
-var acceleration = acceleration_base
-var jump_speed = jump_speed_base / initial_jump_time
-var dash_speed = dash_speed_base
+var mana_level_stats = [
+	{  # este no deberia salir nunca, pero necesitamos el index 0 y si lo mando vacio explota
+		"max_speed": 600,
+		"acceleration": 100,
+		"jump_speed": -900,
+		"dash_speed": 1500,
+		"mana_gather_speed_multiplier": 7
+	},
+	{
+		"max_speed": 600,
+		"acceleration": 100,
+		"jump_speed": -900,
+		"dash_speed": 1500,
+		"mana_gather_speed_multiplier": 7
+	},
+	{
+		"max_speed": 700,
+		"acceleration": 200,
+		"jump_speed": -1000,
+		"dash_speed": 1600,
+		"mana_gather_speed_multiplier": 4
+	},
+	{
+		"max_speed": 800,
+		"acceleration": 300,
+		"jump_speed": -1100,
+		"dash_speed": 1900,
+		"mana_gather_speed_multiplier": 3
+	},
+	{
+		"max_speed": 900,
+		"acceleration": 400,
+		"jump_speed": -1300,
+		"dash_speed": 2200,
+		"mana_gather_speed_multiplier": 2
+	},
+	{
+		"max_speed": 1000,
+		"acceleration": 500,
+		"jump_speed": -1500,
+		"dash_speed": 2500,
+		"mana_gather_speed_multiplier": 1
+	}
+]
+
+var jump_regulation_frames = 10
+var max_speed = mana_level_stats[0]["max_speed"]
+var acceleration = mana_level_stats[0]["acceleration"]
+var jump_speed = mana_level_stats[0]["jump_speed"]
+var dash_speed = mana_level_stats[0]["dash_speed"]
+
 var can_double_jump = false
 var invincibility = false
 var invincibility_counter = 0.0
@@ -77,8 +123,6 @@ var camera_limit = 2000
 onready var jump_sounds = ['Jump1', 'Jump2', 'Jump3']
 onready var double_jump_sounds = ['DoubleJump1', 'DoubleJump2']
 onready var damage_sounds = ['Damage1', 'Damage2', 'Damage3']
-onready var dash_texture = "res://Assets/Sprites/Runner_dash.png"
-onready var dash_texture_flipped = "res://Assets/Sprites/Runner_dash_flipped.png"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -169,14 +213,14 @@ func get_input():
 	if jump_just_pressed and (is_on_floor() or can_double_jump):
 		smp.set_trigger('jump')
 		jumping = true
-		jump_time = initial_jump_time
-		velocity.y = jump_speed * initial_jump_time
+		jump_time = jump_regulation_frames
+		velocity.y = jump_speed
 		if not is_on_floor():
 			can_double_jump = false
 
 	if jump_time > 0:
 		if not jump:
-			velocity.y -= jump_time * jump_speed
+			velocity.y -= jump_speed * jump_time / jump_regulation_frames
 			jump_time = 0
 			jumping = false
 		else:
@@ -355,9 +399,8 @@ func mana_digestion(delta):
 
 
 func affect_mana(delta):
-	var factor_affectation = mana_steps - mana_level
-	factor_affectation = max(factor_affectation, 0.5)
-	self.mana += delta * mana_gather_factor * factor_affectation
+	var gather_multiplier = mana_level_stats[mana_level]['mana_gather_speed_multiplier']
+	self.mana += delta * mana_gather_factor * gather_multiplier
 
 	self.mana_digestion(delta)
 	self.mana = min(max_mana, self.mana)
@@ -369,10 +412,10 @@ func affect_mana(delta):
 	if mana_level_before < mana_level:
 		SoundManager.play_se('InstabilityUp')
 
-	max_speed = max_speed_base + pow(mana_level * mana_factor, 2)
-	acceleration = acceleration_base + pow(mana_level * mana_factor, 2)
-	jump_speed = (jump_speed_base - (mana_level * mana_factor)) / initial_jump_time
-	dash_speed = dash_speed_base + pow(mana_level * mana_factor, 2)
+	max_speed = mana_level_stats[mana_level]['max_speed']
+	acceleration = mana_level_stats[mana_level]['acceleration']
+	jump_speed = mana_level_stats[mana_level]['jump_speed']
+	dash_speed = mana_level_stats[mana_level]['dash_speed']
 
 	hud.update_mana(mana / max_mana)
 
