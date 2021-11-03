@@ -3,11 +3,6 @@ extends Node2D
 export (float) var timer_expiration_non_taken_path = 1
 export (float) var change_music_prob = 0.2
 
-var Platform = preload('res://Entities/FloorSegment.tscn')
-var PlatformSmall = preload('res://Entities/FloorSegmentSmall.tscn')
-var PlatformMedium = preload('res://Entities/FloorSegmentMedium.tscn')
-var PlatformXL = preload('res://Entities/FloorSegmentXL.tscn')
-var PlatformIndestructible = preload('res://Entities/FloorSegmentIndestructible.tscn')
 var TilePlatform = preload('res://Entities/TilePlatform.tscn')
 var TwitchBone = preload('res://Entities/Enemy_TwitchBone.tscn')
 var FleshStump = preload('res://Entities/Enemy_FleshStump.tscn')
@@ -37,33 +32,21 @@ var biomes = {
 		[
 			{
 				"type": "cloud",
-				"size": 2,
-				"max_monsters": 1,
-				"chance": 0.05,
-			},
-			{
-				"type": "cloud",
-				"size": 12,
-				"max_monsters": 2,
-				"chance": 0.7,
-			},
-			{
-				"type": "cloud",
-				"size": 4,
-				"max_monsters": 2,
-				"chance": 0.1,
-			},
-			{
-				"type": "cloud",
 				"size": 8,
-				"max_monsters": 3,
-				"chance": 0.05,
+				"max_monsters": 2,
+				"weight": 10,
+			},
+			{
+				"type": "cloud",
+				"size": 5,
+				"max_monsters": 1,
+				"weight": 5,
 			},
 			{
 				"type": "solid",
-				"size": 4,
+				"size": 5,
 				"max_monsters": 0,
-				"chance": 0.1,
+				"weight": 4,
 			}
 		],
 		"weight": 9,
@@ -77,34 +60,22 @@ var biomes = {
 		[
 			{
 				"type": "cloud",
-				"size": 2,
+				"size": 3,
 				"max_monsters": 1,
-				"chance": 0.3,
+				"weight": 6,
 			},
 			{
 				"type": "cloud",
 				"size": 6,
 				"max_monsters": 2,
-				"chance": 0.47,
+				"weight": 10,
 			},
 			{
 				"type": "cloud",
-				"size": 4,
-				"max_monsters": 2,
-				"chance": 0.2,
-			},
-			{
-				"type": "cloud",
-				"size": 8,
+				"size": 9,
 				"max_monsters": 3,
-				"chance": 0.02,
+				"weight": 3,
 			},
-			{
-				"type": "solid",
-				"size": 4,
-				"max_monsters": 0,
-				"chance": 0.01,
-			}
 		],
 		"weight": 6,
 	},
@@ -117,21 +88,21 @@ var biomes = {
 		[
 			{
 				"type": "cloud",
-				"size": 6,
+				"size": 7,
 				"max_monsters": 2,
-				"chance": 0.8,
+				"weight": 8,
 			},
 			{
 				"type": "cloud",
 				"size": 4,
-				"max_monsters": 2,
-				"chance": 0.1,
+				"max_monsters": 1,
+				"weight": 1,
 			},
 			{
 				"type": "cloud",
-				"size": 8,
+				"size": 9,
 				"max_monsters": 3,
-				"chance": 0.1,
+				"weight": 1,
 			}
 		],
 		"weight": 6,
@@ -147,19 +118,19 @@ var biomes = {
 				"type": "cloud",
 				"size": 6,
 				"max_monsters": 2,
-				"chance": 0.4,
+				"weight": 4,
 			},
 			{
 				"type": "cloud",
 				"size": 4,
-				"max_monsters": 2,
-				"chance": 0.1,
+				"max_monsters": 1,
+				"weight": 1,
 			},
 			{
 				"type": "cloud",
 				"size": 8,
 				"max_monsters": 3,
-				"chance": 0.5,
+				"weight": 5,
 			}
 		],
 		"weight": 1
@@ -212,74 +183,86 @@ func _ready():
 	change_music("Vals")
 
 	while render_paths[0]["position"].x < render_limit[1].x:
-		render_platform(false)
+		render_platform(true)
 
 
-func set_platform(biome_props):
-	var tile_platform = TilePlatform.instance()
-	var platform_params = null
+func set_platform(biome_props, path):
+	var platform = TilePlatform.instance()
+	var platform_key = choose_weighted_key(biome_props["platform_params"])
+	var platform_params = biome_props["platform_params"][platform_key]
 
-	var rand_num = randf()
-	var passed_prob = 0.0
-	for i in range(biome_props['platform_params'].size()):
-		passed_prob += biome_props['platform_params'][i]['chance']
-		if rand_num < passed_prob:
-			platform_params = biome_props['platform_params'][i]
-			break
+	platform.size = platform_params['size']
+	platform.type = 'solid' if platforms_rendered == 1 else platform_params['type']
+	platform.max_monsters = platform_params['max_monsters']
 
-	tile_platform.size = platform_params['size']
-	tile_platform.type = platform_params['type']
-	tile_platform.max_monsters = platform_params['max_monsters']
-	return tile_platform
+	platform.position = path["position"]
+	platform.path_id = path["id"]
+	platform.platform_number = platforms_rendered
+	platform.color = biome_props["color"]
+	platform.connect("platform_stepped", self, "_on_platform_stepped")
+	add_child(platform)
+	platforms.push_back(platform)
+	return platform
 
 
-func render_platform(spawn_monsters):
+func set_monsters(platform, biome_props, path, is_first_render):
+	var instability_props = instability_levels[current_instability_level]
+	var spawn_monster = (
+		(not is_first_render)
+		and randi() % 100 <= instability_props["monster_chance"]
+	)
+	if spawn_monster:
+		var num_monsters
+		if not "max_monsters_per_platform" in instability_props:
+			num_monsters = 1
+		else:
+			num_monsters = (randi() % instability_props['max_monsters_per_platform']) + 1
+			num_monsters = min(num_monsters, platform.max_monsters)
+
+		for j in range(num_monsters):
+			var monster_kind = biome_props["monsters"][randi() % biome_props["monsters"].size()]
+			var monster = monster_kind.instance()
+			var width = platform.width
+			monster.position = path["position"]
+			monster.position.x += (float(j + 1) / (num_monsters + 1) * width) - width / 2
+			monster.position.y -= 300
+			if monster.name == "TrepanoGargoyle":
+				monster.position.y += monster.altitude
+			monster.path_id = path["id"]
+			add_child(monster)
+			monsters.push_back(monster)
+
+
+func advance_path_cursor(idx):
+	var biome_spawn_area = biomes[render_paths[idx]["biome"]]["spawn_area"]
+	var instability_props = instability_levels[current_instability_level]
+	render_paths[idx]["position"].x += (
+		rand_range(biome_spawn_area[0].x, biome_spawn_area[1].x)
+		* instability_props["distance_modifier"]
+	)
+	render_paths[idx]["position"].y += (
+		rand_range(biome_spawn_area[0].y, biome_spawn_area[1].y)
+		* instability_props["distance_modifier"]
+	)
+
+
+func set_player_death_height(path_idx):
+	if (
+		Globals.last_y_platform < render_paths[path_idx]["position"].y
+		or path_idx == render_paths.size() - 1
+	):
+		Globals.last_y_platform = render_paths[path_idx]["position"].y
+
+
+func render_platform(is_first_render):
 	platforms_rendered += 1
 	for i in range(0, render_paths.size()):
 		var biome_props = biomes[render_paths[i]["biome"]]
-		var biome_spawn_area = biome_props["spawn_area"]
-		var instability_props = instability_levels[current_instability_level]
-
-		var platform = set_platform(biome_props)
-		platform.position = render_paths[i]["position"]
-		platform.path_id = render_paths[i]["id"]
-		platform.platform_number = platforms_rendered
-		platform.color = biome_props["color"]
-		platform.connect("platform_stepped", self, "_on_platform_stepped")
-		add_child(platform)
-		platforms.push_back(platform)
-		var spawn_monster = spawn_monsters and randi() % 100 <= instability_props["monster_chance"]
-		if spawn_monster:
-			var num_monsters
-			if not "max_monsters_per_platform" in instability_props:
-				num_monsters = 1
-			else:
-				num_monsters = (randi() % instability_props['max_monsters_per_platform']) + 1
-				num_monsters = min(num_monsters, platform.max_monsters)
-
-			for j in range(num_monsters):
-				var monster_kind = biome_props["monsters"][randi() % biome_props["monsters"].size()]
-				var monster = monster_kind.instance()
-				var width = platform.width
-				monster.position = render_paths[i]["position"]
-				monster.position.x += (float(j + 1) / (num_monsters + 1) * width) - width / 2
-				monster.position.y -= 300
-				if monster.name == "TrepanoGargoyle":
-					monster.position.y += monster.altitude
-				monster.path_id = render_paths[i]["id"]
-				add_child(monster)
-				monsters.push_back(monster)
-
-		render_paths[i]["position"].x += (
-			rand_range(biome_spawn_area[0].x, biome_spawn_area[1].x)
-			* instability_props["distance_modifier"]
-		)
-		render_paths[i]["position"].y += (
-			rand_range(biome_spawn_area[0].y, biome_spawn_area[1].y)
-			* instability_props["distance_modifier"]
-		)
-		if Globals.last_y_platform < render_paths[i]["position"].y or i == render_paths.size() - 1:
-			Globals.last_y_platform = render_paths[i]["position"].y
+		var path = render_paths[i]
+		var platform = set_platform(biome_props, path)
+		set_monsters(platform, biome_props, path, is_first_render)
+		advance_path_cursor(i)
+		set_player_death_height(i)
 
 
 func _on_platform_stepped(path_id, platform_number):
@@ -318,17 +301,18 @@ func _process(delta):
 	change_background_colors(delta)
 
 
-func choose_biome_key():
+func choose_weighted_key(dict):
+	var is_array = dict is Array
 	var total_weight = 0
-	for value in biomes.values():
+	for value in dict if is_array else dict.values():
 		total_weight += value['weight']
 	var weight_passed = 0
 	var random_num = randf() * total_weight
-	for key in biomes.keys():
-		weight_passed += biomes[key]['weight']
+	for key in range(dict.size()) if is_array else dict.keys():
+		weight_passed += dict[key]['weight']
 		if random_num < weight_passed:
 			return key
-	return biomes.keys()[randi() % biomes.keys().size()]
+	return randi() % dict.size if is_array else dict.keys()[randi() % dict.keys().size()]
 
 
 func process_platforms():
@@ -349,7 +333,7 @@ func process_platforms():
 			if platforms_rendered % new_path_frequency == 0:
 				render_paths[0]["position"].y += new_path_height_diff
 				render_paths[0]["branch_on"] = platforms_rendered + 1
-				render_paths[0]["biome"] = choose_biome_key()
+				render_paths[0]["biome"] = choose_weighted_key(biomes)
 				render_paths.push_back(
 					{
 						"position":
@@ -362,7 +346,7 @@ func process_platforms():
 						"branch_on": platforms_rendered + 1
 					}
 				)
-			render_platform(true)
+			render_platform(false)
 		if platforms[0].position.x < render_limit[0].x:
 			platforms[0].queue_free()
 			platforms.pop_front()
