@@ -152,14 +152,14 @@ value = 50.0
 [node name="OpenControlRemapping" type="Button" parent="MarginContainer/MarginContainer/SettingsMenu"]
 margin_top = 164.0
 margin_right = 704.0
-margin_bottom = 216.0
+margin_bottom = 220.0
 mouse_filter = 2
 text = "Controls"
 
 [node name="GoBack" type="Button" parent="MarginContainer/MarginContainer/SettingsMenu"]
-margin_top = 246.0
+margin_top = 250.0
 margin_right = 704.0
-margin_bottom = 298.0
+margin_bottom = 306.0
 mouse_filter = 2
 text = "Go back"
 

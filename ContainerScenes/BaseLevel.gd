@@ -412,14 +412,37 @@ func process_instability_effects():
 					)
 				add_child(lightning)
 
+export (int) var fade_in_time = 15
+export (int) var fade_out_time = 15
 
 func change_music(name):
-	if current_music == name:
+	if self.current_music == name:
 		return
-	if current_music:
-		SoundManager.stop(current_music)
+	if self.current_music:
+		fade_out(self.current_music)
+	self.current_music = name
+	fade_in(self.current_music)
+
+func fade_out(name):
+	var tween = Tween.new()
+	self.add_child(tween)
+	tween.interpolate_property(SoundManager.get_audiostream(name), "volume_db", Globals.bgm_volume, Globals.bgm_volume - 80, fade_out_time, Tween.TRANS_CIRC, Tween.EASE_OUT_IN, 0)
+	tween.connect("tween_completed", self, "_on_TweenOut_tween_completed")
+	tween.start()
+
+func fade_in(name):
+	var tween = Tween.new()
+	self.add_child(tween)
 	SoundManager.play_bgm(name)
-	current_music = name
+	tween.interpolate_property(SoundManager.get_audiostream(name), "volume_db", Globals.bgm_volume - 80, Globals.bgm_volume, fade_in_time, Tween.TRANS_EXPO, Tween.EASE_OUT, 0)
+	tween.connect("tween_completed", self, "_on_TweenIn_tween_completed")
+	tween.start()
+
+func _on_TweenIn_tween_completed(object, key):
+	print("tween completed")
+
+func _on_TweenOut_tween_completed(object, key):
+	object.stop()
 
 
 func _exit_tree():

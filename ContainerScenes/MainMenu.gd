@@ -1,6 +1,8 @@
 extends Control
 
 export (PackedScene) var cursor_scene = null
+export (int) var max_volume = 20
+export (int) var min_volume = -60
 var path = []
 
 var leaderboard_entry = load("res://Utilities/LeaderboardEntry.tscn")
@@ -77,13 +79,19 @@ func _on_StartTutorial_pressed():
 func _on_OpenSettings_pressed():
 	open_menu(settings_menu)
 
+func get_volume_from_slider(value: float) -> float:
+	# this assumes that value goes between 0 and 100
+	return min_volume + value * (max_volume - min_volume) / 100.0
 
 func _on_SFXVolume_value_changed(value: float):
-	SoundManager.set_se_volume_db(value - 80)
-
+	var vol = get_volume_from_slider(value)
+	Globals.se_volume = vol
+	SoundManager.set_se_volume_db(vol)
 
 func _on_BGMVolume_value_changed(value: float):
-	SoundManager.set_bgm_volume_db(value - 80)
+	var vol = get_volume_from_slider(value)
+	Globals.bgm_volume = vol
+	SoundManager.set_bgm_volume_db(vol)
 
 
 func _on_OpenControlRemapping_pressed():
