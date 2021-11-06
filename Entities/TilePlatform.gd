@@ -18,6 +18,7 @@ var expiration_started = false
 var expiration_time = expiration_time_base
 var color = Color.white
 var width = 0
+var area_padding = 50
 onready var tileset = $Tileset
 
 
@@ -68,7 +69,7 @@ func make_platform(_type: int, _size_x: int, _size_y: int):
 	width = end_position.x
 
 	var player_grab_shape = RectangleShape2D.new()
-	player_grab_shape.extents = Vector2(end_position.x / 2, 10)
+	player_grab_shape.extents = Vector2(end_position.x / 2 - area_padding, 10)
 	var player_grab_collision_shape = CollisionShape2D.new()
 	player_grab_collision_shape.shape = player_grab_shape
 	var player_grab_area = Area2D.new()
