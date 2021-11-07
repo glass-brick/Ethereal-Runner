@@ -404,7 +404,6 @@ margin_bottom = 500.0
 text = "Quit to main menu"
 
 [node name="DeathMenu" type="CenterContainer" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 5 )
@@ -421,11 +420,10 @@ margin_bottom = 326.0
 text = "Submitting your score..."
 
 [node name="PreSubmitMenu" type="VBoxContainer" parent="DeathMenu"]
-visible = false
 margin_left = 155.0
-margin_top = 128.0
+margin_top = 130.0
 margin_right = 869.0
-margin_bottom = 472.0
+margin_bottom = 470.0
 custom_constants/separation = 20
 
 [node name="DeathMsg" type="Label" parent="DeathMenu/PreSubmitMenu"]
@@ -474,13 +472,13 @@ margin_bottom = 340.0
 custom_constants/separation = 20
 
 [node name="Submit" type="Button" parent="DeathMenu/PreSubmitMenu/HBoxContainer"]
-margin_right = 347.0
+margin_right = 366.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 text = "Submit"
 
 [node name="Quit" type="Button" parent="DeathMenu/PreSubmitMenu/HBoxContainer"]
-margin_left = 367.0
+margin_left = 386.0
 margin_right = 714.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
@@ -488,20 +486,20 @@ text = "Skip"
 
 [node name="PostSubmitMenu" type="VBoxContainer" parent="DeathMenu"]
 visible = false
-margin_left = 288.0
-margin_top = 231.0
-margin_right = 735.0
-margin_bottom = 369.0
+margin_left = 192.0
+margin_top = 233.0
+margin_right = 831.0
+margin_bottom = 367.0
 custom_constants/separation = 30
 
 [node name="Label" type="Label" parent="DeathMenu/PostSubmitMenu"]
-margin_right = 441.0
+margin_right = 639.0
 margin_bottom = 52.0
 text = "Submitted your score!"
 
 [node name="Quit" type="Button" parent="DeathMenu/PostSubmitMenu"]
 margin_top = 82.0
-margin_right = 441.0
+margin_right = 639.0
 margin_bottom = 134.0
 text = "Return to main menu"
 __meta__ = {
@@ -510,10 +508,10 @@ __meta__ = {
 
 [node name="TutorialDeathMenu" type="VBoxContainer" parent="DeathMenu"]
 visible = false
-margin_left = 246.0
-margin_top = 226.0
-margin_right = 777.0
-margin_bottom = 374.0
+margin_left = 150.0
+margin_top = 228.0
+margin_right = 873.0
+margin_bottom = 372.0
 custom_constants/separation = 40
 
 [node name="Label" type="Label" parent="DeathMenu/TutorialDeathMenu"]

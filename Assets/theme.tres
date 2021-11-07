@@ -19,7 +19,7 @@ thickness = 10
 [sub_resource type="StyleBoxEmpty" id=7]
 
 [sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.262745, 0.113725, 0.219608, 1 )
+bg_color = Color( 0.0901961, 0.345098, 0.152941, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=15]
 

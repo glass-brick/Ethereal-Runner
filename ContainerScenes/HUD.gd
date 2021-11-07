@@ -25,14 +25,14 @@ var starter_names = [
 	'Abominable Human',
 	'Human Garbage',
 	'Hominid Parasite',
-	"Embodiment of Suffering",
+	# "Embodiment of Suffering",
 	"Flesh Automaton",
-	"Lowest Common Denominator",
+	# "Lowest Common Denominator",
 	"Deaf and Dumbstruck",
 	"Rotting Head",
-	"Cauldron of Hate",
-	"Exhibit A of the Human Condition",
-	"Perpetrator of Unauthorized Exploitation"
+	"Cauldron of Hate"
+	# "Exhibit A of the Human Condition",
+	# "Perpetrator of Unauthorized Exploitation"
 ]
 
 
