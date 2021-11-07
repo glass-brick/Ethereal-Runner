@@ -5,8 +5,8 @@ var Bullet = preload('res://Entities/GargBullet.tscn')
 onready var smp = $StateMachinePlayer
 
 export (float) var death_time = 3
-export (float) var max_length_shoot = 3200
-export (int) var projectile_speed = 1000
+export (float) var max_length_shoot = 2600
+export (int) var projectile_speed = 2600
 export (int) var projectile_damage = 10
 export (int) var projectile_range = 5000
 export (float) var initial_attack_time = 2
