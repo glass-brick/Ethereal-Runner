@@ -10,7 +10,7 @@
 			"character": "",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "[wave amp=50 freq=2]Hold[/wave] the space bar to jump even higher[/i]\n[i]Double tap [wave amp=50 freq=2]spacebar[/wave] to double jump."
+			"text": "[i][wave amp=50 freq=2]Hold[/wave] the space bar to jump even higher\nDouble tap [wave amp=50 freq=2]spacebar[/wave] to double jump.[/i]"
 		}
 	],
 	"metadata": {

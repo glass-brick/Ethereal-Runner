@@ -95,7 +95,7 @@ __meta__ = {
 }
 
 [node name="Trigger5" parent="." instance=ExtResource( 12 )]
-position = Vector2( 90027.1, -418.271 )
+position = Vector2( 88199.8, -750.515 )
 timeline_name = "Objective"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger5"]
@@ -135,7 +135,7 @@ __meta__ = {
 }
 
 [node name="Trigger9" parent="." instance=ExtResource( 12 )]
-position = Vector2( 68513.8, -552.625 )
+position = Vector2( 66686.5, -884.869 )
 timeline_name = "Instability Spawn Rate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger9"]
@@ -295,9 +295,9 @@ type = "solid"
 size = 23
 
 [node name="TilePlatform44" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 56854.1, 705.397 )
+position = Vector2( 56371.5, 883.186 )
 type = "solid"
-size = 65
+size = 40
 
 [node name="TilePlatform32" parent="LevelEntities" instance=ExtResource( 3 )]
 position = Vector2( 36895.1, 686.097 )
@@ -355,35 +355,35 @@ position = Vector2( 20072.2, 663.553 )
 size = 16
 
 [node name="TilePlatform45" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 60700.2, 920.833 )
+position = Vector2( 58872.9, 588.589 )
 type = "solid"
 size = 14
 
 [node name="TilePlatform52" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 68207.3, -48.9746 )
+position = Vector2( 66380, -381.219 )
 type = "solid"
 size = 35
 
 [node name="TilePlatform46" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 89747.4, 64.4297 )
+position = Vector2( 87920, -267.814 )
 type = "solid"
 size = 100
 
 [node name="TilePlatform53" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 80117.8, 361.647 )
+position = Vector2( 78290.5, 29.4029 )
 type = "solid"
 size = 100
 
 [node name="TilePlatform47" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 62123.1, 513.766 )
+position = Vector2( 60295.8, 181.522 )
 size = 10
 
 [node name="TilePlatform48" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 63447.3, 118.654 )
+position = Vector2( 61620, -213.59 )
 size = 10
 
 [node name="TilePlatform49" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 65993.5, 285.986 )
+position = Vector2( 64166.2, -46.2581 )
 size = 16
 
 [node name="TilePlatform20" parent="LevelEntities" instance=ExtResource( 3 )]
@@ -403,49 +403,49 @@ position = Vector2( 6817.2, 1039.89 )
 size = 15
 
 [node name="TilePlatform13" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 71875.8, -323.593 )
+position = Vector2( 70048.5, -655.837 )
 size = 7
 
 [node name="TilePlatform21" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 72851.6, -531.874 )
+position = Vector2( 71024.3, -864.118 )
 size = 6
 
 [node name="TilePlatform50" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 74058.6, -282.342 )
+position = Vector2( 72231.3, -614.586 )
 size = 14
 
 [node name="TilePlatform51" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 75521.5, 15.0488 )
+position = Vector2( 73694.2, -317.195 )
 size = 13
 
 [node name="TilePlatform54" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 84485.4, 126.95 )
+position = Vector2( 82658, -205.294 )
 size = 7
 
 [node name="TilePlatform55" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 85352.2, 298.3 )
+position = Vector2( 83524.9, -33.9441 )
 
 [node name="TilePlatform7" parent="LevelEntities" instance=ExtResource( 3 )]
-position = Vector2( 70553.9, -200.796 )
+position = Vector2( 68726.6, -533.04 )
 size = 15
 
 [node name="FleshStump" parent="LevelEntities" instance=ExtResource( 14 )]
 position = Vector2( 34048.7, -18.2376 )
 
 [node name="FleshStump3" parent="LevelEntities" instance=ExtResource( 14 )]
-position = Vector2( 77488.5, -40.6729 )
+position = Vector2( 75661.2, -372.917 )
 
 [node name="FleshStump4" parent="LevelEntities" instance=ExtResource( 14 )]
-position = Vector2( 78956.7, -97.6904 )
+position = Vector2( 77129.4, -429.935 )
 
 [node name="FleshStump5" parent="LevelEntities" instance=ExtResource( 14 )]
-position = Vector2( 80681.5, -83.436 )
+position = Vector2( 78854.2, -415.68 )
 
 [node name="FleshStump6" parent="LevelEntities" instance=ExtResource( 14 )]
-position = Vector2( 82406.2, -97.6904 )
+position = Vector2( 80578.9, -429.935 )
 
 [node name="FleshStump2" parent="LevelEntities" instance=ExtResource( 14 )]
-position = Vector2( 58930.7, 465.995 )
+position = Vector2( 55690.8, 667.797 )
 
 [node name="Player" parent="LevelEntities" instance=ExtResource( 1 )]
 position = Vector2( 29.8864, -1182.47 )
@@ -458,22 +458,22 @@ max_length_shoot = 2600.0
 projectile_speed = 2500
 
 [node name="TrepanoGargoyle2" parent="LevelEntities" instance=ExtResource( 13 )]
-position = Vector2( 80346.6, -883.284 )
+position = Vector2( 78519.3, -1215.53 )
 max_length_shoot = 2600.0
 projectile_speed = 2500
 
 [node name="TrepanoGargoyle4" parent="LevelEntities" instance=ExtResource( 13 )]
-position = Vector2( 79591.1, -883.284 )
+position = Vector2( 77763.8, -1215.53 )
 max_length_shoot = 2600.0
 projectile_speed = 2500
 
 [node name="TrepanoGargoyle5" parent="LevelEntities" instance=ExtResource( 13 )]
-position = Vector2( 78336.8, -883.284 )
+position = Vector2( 76509.5, -1215.53 )
 max_length_shoot = 2600.0
 projectile_speed = 2500
 
 [node name="TrepanoGargoyle3" parent="LevelEntities" instance=ExtResource( 13 )]
-position = Vector2( 81643.8, -826.267 )
+position = Vector2( 79816.5, -1158.51 )
 max_length_shoot = 2600.0
 projectile_speed = 2500
 
