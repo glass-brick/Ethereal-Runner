@@ -7,13 +7,19 @@ var path = []
 
 var leaderboard_entry = load("res://Utilities/LeaderboardEntry.tscn")
 onready var cursor = cursor_scene.instance()
-onready var main_menu = $MarginContainer/MarginContainer/MainMenu
-onready var settings_menu = $MarginContainer/MarginContainer/SettingsMenu
-onready var controls_menu = $MarginContainer/MarginContainer/ControlsMenu
-onready var scores_menu = $MarginContainer/MarginContainer/ScoresMenu
-onready var menus = [main_menu, settings_menu, controls_menu, scores_menu]
-onready var sfx_volume = $MarginContainer/MarginContainer/SettingsMenu/SFXVolume/SFXVolume
-onready var bgm_volume = $MarginContainer/MarginContainer/SettingsMenu/BGMVolume/BGMVolume
+onready var main_menu = $MarginContainer/MainMenu
+onready var main_menu_options = $MarginContainer/MainMenu/Options
+onready var scores_menu = $MarginContainer/MainMenu/Scores
+onready var settings_menu = $MarginContainer/SettingsMenu
+onready var controls_menu = $MarginContainer/ControlsMenu
+onready var menus = [main_menu, settings_menu, controls_menu]
+onready var cursor_align_menus = [main_menu_options]
+onready var sfx_volume = $MarginContainer/SettingsMenu/SFXVolume/SFXVolume
+onready var bgm_volume = $MarginContainer/SettingsMenu/BGMVolume/BGMVolume
+
+var time_between_scroll = 10
+var scroll_timer = time_between_scroll
+var scroll_direction = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,7 +35,7 @@ func _ready():
 	var seconds = int(Globals.high_time) % 60
 	var minutes = int((Globals.high_time - seconds) / 60)
 	scores_menu.get_node('HighScore').text = (
-		"Your high score: %d in %02d:%02d"
+		"Your high score:\n%d in %02d:%02d"
 		% [Globals.high_score, minutes, seconds]
 	)
 	# if Globals.player_name:
@@ -45,12 +51,25 @@ var focused_element = null
 
 
 func _process(delta):
+	if scores_menu.visible and scroll_timer == 0:
+		var prev_scroll_vertical = scores_menu.get_node('LeaderboardList').scroll_vertical
+		scores_menu.get_node('LeaderboardList').scroll_vertical += 1 * scroll_direction
+		var new_scroll_vertical = scores_menu.get_node('LeaderboardList').scroll_vertical
+		if prev_scroll_vertical == new_scroll_vertical:
+			scroll_direction *= -1
+		scroll_timer = time_between_scroll
+	else:
+		scroll_timer -= 1
+
 	if focused_element == get_focus_owner():
 		return
 	focused_element = get_focus_owner()
 	if focused_element:
 		var cursor_node = focused_element
-		while menus.find(cursor_node.get_parent()) == -1:
+		while (
+			menus.find(cursor_node.get_parent()) == -1
+			and cursor_align_menus.find(cursor_node.get_parent()) == -1
+		):
 			cursor_node = cursor_node.get_parent()
 		cursor.visible = true
 		cursor.rect_global_position = (
@@ -79,14 +98,17 @@ func _on_StartTutorial_pressed():
 func _on_OpenSettings_pressed():
 	open_menu(settings_menu)
 
+
 func get_volume_from_slider(value: float) -> float:
 	# this assumes that value goes between 0 and 100
 	return min_volume + value * (max_volume - min_volume) / 100.0
+
 
 func _on_SFXVolume_value_changed(value: float):
 	var vol = get_volume_from_slider(value)
 	Globals.se_volume = vol
 	SoundManager.set_se_volume_db(vol)
+
 
 func _on_BGMVolume_value_changed(value: float):
 	var vol = get_volume_from_slider(value)
@@ -96,10 +118,6 @@ func _on_BGMVolume_value_changed(value: float):
 
 func _on_OpenControlRemapping_pressed():
 	open_menu(controls_menu)
-
-
-func _on_OpenLeaderboard_pressed():
-	open_menu(scores_menu)
 
 
 func _on_GoBack_pressed():
