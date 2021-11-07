@@ -778,3 +778,10 @@ func is_audio_file(file_name : String) -> bool:
 func is_import_file(file_name : String) -> bool:
 	return (file_name.get_extension() == "import" and
 			self.is_audio_file(file_name.get_basename()))
+
+func get_audiostream(name : String):
+	var sound_index = self.find_sound(name)
+	if sound_index >= 0:
+		return Audiostreams[sound_index]
+	elif debug:
+		print_debug("Sound not found: " + name)
