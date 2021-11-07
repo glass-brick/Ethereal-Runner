@@ -24,6 +24,7 @@ var scroll_direction = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SoundManager.play_bgm('MainMenu')
 	sfx_volume.set_value(SoundManager.get_se_volume_db() + 80)
 	bgm_volume.set_value(SoundManager.get_bgm_volume_db() + 80)
 	open_menu(main_menu)
@@ -173,3 +174,7 @@ func find_focusable_child(node):
 			if result:
 				return result
 	return null
+
+
+func _exit_tree():
+	SoundManager.stop('MainMenu')
