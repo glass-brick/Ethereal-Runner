@@ -4,7 +4,7 @@
 			"character": "character-1633358948.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "Runner, one last thing. The more magic your puny body retains, the more likely you are to see... unstable phenomena happening around you. "
+			"text": "Runner, the more magic your puny body retains, the more likely you are to see... unstable phenomena happening around you. "
 		},
 		{
 			"character": "character-1633358948.json",
@@ -23,12 +23,6 @@
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Speaking of lost souls, you may notice that the more magic you collect, the more of them will appear. "
-		},
-		{
-			"character": "character-1633358948.json",
-			"event_id": "dialogic_001",
-			"portrait": "",
-			"text": "Leave now, let us enjoy the show!"
 		},
 		{
 			"character": "",

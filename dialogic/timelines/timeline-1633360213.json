@@ -4,13 +4,7 @@
 			"character": "character-1633358948.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "Runner, we understand the inherent limitations of your kind, thus we have provided you with a shield to defend yourself."
-		},
-		{
-			"character": "character-1633358948.json",
-			"event_id": "dialogic_001",
-			"portrait": "",
-			"text": "But don’t trust [s]us[/s] it too much, if it takes enough of a beating your feeble body will not be able to handle the aftershock.  "
+			"text": "Runner, we have provided you with a shield to defend yourself. But beware! If it takes enough damage your feeble body will not be able to handle the aftershock.  "
 		},
 		{
 			"character": "",

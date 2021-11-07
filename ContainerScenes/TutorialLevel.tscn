@@ -1,18 +1,16 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/background_tiled.png" type="Texture" id=2]
+[ext_resource path="res://ContainerScenes/TilePlatform.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ContainerScenes/HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Entities/FloorSegment.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Entities/FloorSegmentIndestructible.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Entities/FloorSegmentMedium.tscn" type="PackedScene" id=10]
 [ext_resource path="res://ContainerScenes/TutorialLevel.gd" type="Script" id=11]
 [ext_resource path="res://Utilities/DialogueTrigger.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Entities/Enemy_TreapanoGargoyle.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Entities/Enemy_FleshStump.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 128, 32 )
+extents = Vector2( 183.491, 36.9551 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1464, 88 )
@@ -45,169 +43,387 @@ position = Vector2( 0, -1800 )
 scale = Vector2( 8, 8 )
 texture = ExtResource( 2 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger" parent="." instance=ExtResource( 12 )]
-position = Vector2( 0, 192 )
+position = Vector2( 1.38062, 210.449 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+position = Vector2( 0.405823, -2.29144 )
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger2" parent="." instance=ExtResource( 12 )]
-position = Vector2( 360, 880 )
+position = Vector2( 318.053, 2774.65 )
 timeline_name = "Left Right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger2"]
 shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger3" parent="." instance=ExtResource( 12 )]
-position = Vector2( 2624, 280 )
+position = Vector2( 5100.58, 1064.57 )
 timeline_name = "Jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger3"]
 shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger4" parent="." instance=ExtResource( 12 )]
-position = Vector2( 5328, 184 )
+position = Vector2( 12266.3, 638.053 )
 timeline_name = "Dash Crouch"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger4"]
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger5" parent="." instance=ExtResource( 12 )]
-position = Vector2( 8464, 152 )
+position = Vector2( 90027.1, -418.271 )
 timeline_name = "Objective"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger5"]
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger6" parent="." instance=ExtResource( 12 )]
-position = Vector2( 10184, 568 )
+position = Vector2( 25541.1, -207.353 )
 timeline_name = "Shield Death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger6"]
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger7" parent="." instance=ExtResource( 12 )]
-position = Vector2( 14992, 448 )
+position = Vector2( 39924.4, -273.114 )
 timeline_name = "Magic"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger7"]
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger8" parent="." instance=ExtResource( 12 )]
-position = Vector2( 17072, 176 )
+position = Vector2( 53747.1, -57.1445 )
 timeline_name = "Attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger8"]
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Trigger9" parent="." instance=ExtResource( 12 )]
-position = Vector2( 24408, 304 )
+position = Vector2( 68513.8, -552.625 )
 timeline_name = "Instability Spawn Rate"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger9"]
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="LevelEntities" type="Node2D" parent="."]
 pause_mode = 1
 
-[node name="FloorSegment" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 24, 224 )
-expiration_speed = 4
+[node name="TilePlatform" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 397.974, 2083.91 )
+type = "solid"
+size = 75
 
-[node name="FloorSegmentIndestructible13" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 1344, 1000 )
+[node name="TilePlatform3" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 3681.51, 1900.84 )
+type = "solid"
+size = 10
 
-[node name="FloorSegmentIndestructible15" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 592, 1000 )
+[node name="TilePlatform4" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 4874.94, 1721.95 )
+type = "solid"
+size = 15
 
-[node name="FloorSegmentIndestructible16" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( -168, 1000 )
+[node name="TilePlatform5" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 5579.03, 1351.75 )
+type = "solid"
+size = 7
 
-[node name="FloorSegmentIndestructible17" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( -928, 1000 )
+[node name="TilePlatform8" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 7755.16, 845.093 )
+size = 7
 
-[node name="FloorSegmentIndestructible" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 2096, 1000 )
+[node name="TilePlatform9" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 8566.74, 482.016 )
+size = 7
 
-[node name="FloorSegmentIndestructible2" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 2840, 1000 )
+[node name="TilePlatform10" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 9442, 710.344 )
+size = 7
 
-[node name="FloorSegmentMedium" parent="LevelEntities" instance=ExtResource( 10 )]
-position = Vector2( 3608, 720 )
+[node name="TilePlatform11" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 10031.8, 1309.7 )
+size = 7
 
-[node name="FloorSegmentMedium2" parent="LevelEntities" instance=ExtResource( 10 )]
-position = Vector2( 4216, 200 )
+[node name="TilePlatform12" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 11891.8, 1142.57 )
+type = "solid"
+size = 20
 
-[node name="FloorSegmentIndestructible3" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 5336, 680 )
+[node name="TilePlatform14" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 14778.9, 1298.4 )
+type = "solid"
+size = 14
 
-[node name="FloorSegment2" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 7608, 672 )
+[node name="TilePlatform18" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 22427.2, 304.36 )
+type = "solid"
+size = 14
 
-[node name="FloorSegmentIndestructible4" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 8464, 672 )
+[node name="TilePlatform19" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 25258.5, 312.863 )
+type = "solid"
+size = 22
 
-[node name="FloorSegmentIndestructible5" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 9360, 488 )
+[node name="TilePlatform23" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 28969.1, 954.678 )
+type = "solid"
+size = 6
 
-[node name="FloorSegmentIndestructible7" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 10168, 1104 )
+[node name="TilePlatform24" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 29201.1, 558.59 )
+type = "solid"
+size = 6
 
-[node name="FloorSegmentIndestructible8" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 12184, 1480 )
+[node name="TilePlatform25" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 29419.8, 207.702 )
+type = "solid"
+size = 6
 
-[node name="FloorSegment3" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 14096, 1168 )
+[node name="TilePlatform26" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 29663.1, -110.182 )
+type = "solid"
+size = 6
 
-[node name="FloorSegmentIndestructible9" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 15024, 952 )
+[node name="TilePlatform28" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 34029.3, 202.284 )
+type = "solid"
+size = 6
 
-[node name="FloorSegment4" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 15968, 680 )
+[node name="TilePlatform29" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 32784.7, 210.932 )
+type = "solid"
+size = 6
 
-[node name="FloorSegment5" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 17064, 680 )
+[node name="TilePlatform22" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 27380.3, 1181.55 )
+type = "solid"
+size = 30
 
-[node name="FloorSegmentIndestructible10" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 18032, 1080 )
+[node name="TilePlatform31" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 39586.2, 205.947 )
+type = "solid"
+size = 17
 
-[node name="FloorSegmentIndestructible18" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 18792, 1080 )
+[node name="TilePlatform43" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 53411.9, 384.073 )
+type = "solid"
+size = 23
 
-[node name="FloorSegmentIndestructible19" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 19544, 1072 )
+[node name="TilePlatform44" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 56854.1, 705.397 )
+type = "solid"
+size = 65
 
-[node name="FloorSegmentIndestructible20" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 20304, 1072 )
+[node name="TilePlatform32" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 36895.1, 686.097 )
+size = 10
 
-[node name="FloorSegmentIndestructible11" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 21392, 840 )
+[node name="TilePlatform33" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 38217.5, 429.228 )
+size = 6
 
-[node name="FloorSegmentIndestructible12" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 22424, 848 )
+[node name="TilePlatform34" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 40918.8, 66.3708 )
+size = 4
 
-[node name="FloorSegmentIndestructible6" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 11072, 1400 )
+[node name="TilePlatform35" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 42289.6, 26.0532 )
+size = 9
 
-[node name="FloorSegmentIndestructible21" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 13344, 1472 )
+[node name="TilePlatform41" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 50175.9, 268.378 )
+size = 9
 
-[node name="FloorSegmentIndestructible14" parent="LevelEntities" instance=ExtResource( 9 )]
-position = Vector2( 24440, 848 )
+[node name="TilePlatform42" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 51457.4, 97.5183 )
+size = 14
+
+[node name="TilePlatform36" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 43297.5, 620.736 )
+size = 7
+
+[node name="TilePlatform37" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 44718.7, 217.561 )
+size = 11
+
+[node name="TilePlatform38" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 45948.4, -74.7405 )
+size = 13
+
+[node name="TilePlatform39" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 47551, 207.482 )
+size = 9
+
+[node name="TilePlatform40" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 49153.6, 469.545 )
+size = 6
+
+[node name="TilePlatform15" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 16201.8, 891.333 )
+size = 10
+
+[node name="TilePlatform16" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 17526, 496.221 )
+size = 10
+
+[node name="TilePlatform17" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 20072.2, 663.553 )
+size = 16
+
+[node name="TilePlatform45" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 60700.2, 920.833 )
+type = "solid"
+size = 14
+
+[node name="TilePlatform52" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 68207.3, -48.9746 )
+type = "solid"
+size = 35
+
+[node name="TilePlatform46" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 89747.4, 64.4297 )
+type = "solid"
+size = 100
+
+[node name="TilePlatform53" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 80117.8, 361.647 )
+type = "solid"
+size = 100
+
+[node name="TilePlatform47" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 62123.1, 513.766 )
+size = 10
+
+[node name="TilePlatform48" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 63447.3, 118.654 )
+size = 10
+
+[node name="TilePlatform49" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 65993.5, 285.986 )
+size = 16
+
+[node name="TilePlatform20" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 23660.3, 297.946 )
+size = 6
+
+[node name="TilePlatform27" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 31048.7, 149.716 )
+size = 14
+
+[node name="TilePlatform30" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 35569.7, 454.497 )
+size = 14
+
+[node name="TilePlatform6" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 6817.2, 1039.89 )
+size = 15
+
+[node name="TilePlatform13" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 71875.8, -323.593 )
+size = 7
+
+[node name="TilePlatform21" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 72851.6, -531.874 )
+size = 6
+
+[node name="TilePlatform50" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 74058.6, -282.342 )
+size = 14
+
+[node name="TilePlatform51" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 75521.5, 15.0488 )
+size = 13
+
+[node name="TilePlatform54" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 84485.4, 126.95 )
+size = 7
+
+[node name="TilePlatform55" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 85352.2, 298.3 )
+
+[node name="TilePlatform7" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( 70553.9, -200.796 )
+size = 15
 
 [node name="FleshStump" parent="LevelEntities" instance=ExtResource( 14 )]
-position = Vector2( 19784, 896 )
+position = Vector2( 34048.7, -18.2376 )
 
-[node name="FloorSegment6" parent="LevelEntities" instance=ExtResource( 5 )]
-position = Vector2( 23440, 856 )
+[node name="FleshStump3" parent="LevelEntities" instance=ExtResource( 14 )]
+position = Vector2( 77488.5, -40.6729 )
+
+[node name="FleshStump4" parent="LevelEntities" instance=ExtResource( 14 )]
+position = Vector2( 78956.7, -97.6904 )
+
+[node name="FleshStump5" parent="LevelEntities" instance=ExtResource( 14 )]
+position = Vector2( 80681.5, -83.436 )
+
+[node name="FleshStump6" parent="LevelEntities" instance=ExtResource( 14 )]
+position = Vector2( 82406.2, -97.6904 )
+
+[node name="FleshStump2" parent="LevelEntities" instance=ExtResource( 14 )]
+position = Vector2( 58930.7, 465.995 )
 
 [node name="Player" parent="LevelEntities" instance=ExtResource( 1 )]
+position = Vector2( 29.8864, -1182.47 )
 hud_path = NodePath("../../HUD")
 mana_gather_factor = 0.0
 
 [node name="TrepanoGargoyle" parent="LevelEntities" instance=ExtResource( 13 )]
-position = Vector2( 13000, 48 )
+position = Vector2( 28300.6, 180.53 )
+max_length_shoot = 2600.0
+projectile_speed = 2500
 
 [node name="TrepanoGargoyle2" parent="LevelEntities" instance=ExtResource( 13 )]
-position = Vector2( 11976, 80 )
+position = Vector2( 80346.6, -883.284 )
+max_length_shoot = 2600.0
+projectile_speed = 2500
+
+[node name="TrepanoGargoyle4" parent="LevelEntities" instance=ExtResource( 13 )]
+position = Vector2( 79591.1, -883.284 )
+max_length_shoot = 2600.0
+projectile_speed = 2500
+
+[node name="TrepanoGargoyle5" parent="LevelEntities" instance=ExtResource( 13 )]
+position = Vector2( 78336.8, -883.284 )
+max_length_shoot = 2600.0
+projectile_speed = 2500
+
+[node name="TrepanoGargoyle3" parent="LevelEntities" instance=ExtResource( 13 )]
+position = Vector2( 81643.8, -826.267 )
+max_length_shoot = 2600.0
+projectile_speed = 2500
+
+[node name="TilePlatform2" parent="LevelEntities" instance=ExtResource( 3 )]
+position = Vector2( -2.83405, 204.561 )
