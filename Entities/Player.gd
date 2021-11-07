@@ -385,10 +385,12 @@ func mana_digestion(delta):
 			if not digestion_danger:
 				digestion_danger = true
 				SoundManager.play_se('DigestionDanger')
+				hud.shield_overloading()
 				# SceneManager.get_entity('Level').change_music_volume(-6)
 		else:
 			digestion_danger = false
 			SoundManager.stop('DigestionDanger')
+			hud.stop_shield_overloading()
 			# SceneManager.get_entity('Level').reset_music_volume()
 		if digestion > 100:
 			self.die()

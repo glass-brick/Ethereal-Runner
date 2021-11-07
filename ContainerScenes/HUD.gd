@@ -64,7 +64,11 @@ func _process(delta):
 	message_timer += delta
 	$NotEnoughMana.modulate.a = 1.0 - message_timer / message_fade_time
 
-
+func shield_overloading():
+	$ShieldOverloading.show()
+func stop_shield_overloading():
+	$ShieldOverloading.hide()
+			
 func update_mana(mana):
 	var manaBar = get_node("ManaBars")
 	var bars = manaBar.get_children()

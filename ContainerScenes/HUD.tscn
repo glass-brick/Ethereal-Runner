@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ContainerScenes/HUD.gd" type="Script" id=2]
@@ -61,6 +61,30 @@ shadow_color = Color( 0.819608, 0, 0, 0.6 )
 [sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.278431, 0.0431373, 0.211765, 1 )
 shadow_color = Color( 0.819608, 0, 0, 0.6 )
+
+[sub_resource type="Shader" id=14]
+code = "shader_type canvas_item;
+
+render_mode blend_mix;
+uniform vec4 modulate: hint_color;
+uniform bool active;
+uniform float time_scale = 20;
+
+
+void fragment() {
+	if (cos(TIME * time_scale) > 0.0) {
+		COLOR = vec4(modulate.rgb,  texture(TEXTURE, UV).a * modulate.a);
+	} else {
+		COLOR = vec4(COLOR.rgb, texture(TEXTURE, UV).a * modulate.a);
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 14 )
+shader_param/modulate = Color( 1, 1, 1, 1 )
+shader_param/active = null
+shader_param/time_scale = 10.0
 
 [sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0, 0, 0, 0.384314 )
@@ -284,6 +308,24 @@ margin_right = 104.0
 margin_bottom = -141.5
 custom_fonts/font = ExtResource( 1 )
 text = "Not Enough Magic"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShieldOverloading" type="Label" parent="."]
+visible = false
+material = SubResource( 15 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -117.0
+margin_top = -200.5
+margin_right = 117.0
+margin_bottom = -169.5
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Shield Overloading"
 __meta__ = {
 "_edit_use_anchors_": false
 }
