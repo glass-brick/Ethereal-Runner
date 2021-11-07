@@ -23,6 +23,11 @@ func start_dialogue(timeline_name):
 	current_dialog = Dialogic.start(timeline_name)
 	current_dialog.connect('timeline_end', self, '_on_dialogue_end')
 	add_child(current_dialog)
+	SceneManager.get_entity('HUD').hide_tutorial_message()
+
+
+func show_overhead_message(text_to_show):
+	SceneManager.get_entity('HUD').show_tutorial_message(text_to_show)
 
 
 func _on_dialogue_end(_timeline_file_name):

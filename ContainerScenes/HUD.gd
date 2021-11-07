@@ -41,6 +41,7 @@ func _ready():
 	$PauseMenu.hide()
 	$NotEnoughMana.hide()
 	$DeathMenu.hide()
+	$TutorialMessage.hide()
 	$Digestion.value = 0
 
 
@@ -86,6 +87,15 @@ func update_mana(mana):
 
 func update_digestion(digestion):
 	$Digestion.value = digestion
+
+
+func show_tutorial_message(message):
+	$TutorialMessage.text = message
+	$TutorialMessage.show()
+
+
+func hide_tutorial_message():
+	$TutorialMessage.hide()
 
 
 func update_time(time):

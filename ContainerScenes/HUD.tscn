@@ -89,9 +89,14 @@ shader_param/time_scale = 10.0
 [sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0, 0, 0, 0.384314 )
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" groups=[
+"scene_manager_entity_nodes",
+]]
 pause_mode = 2
 script = ExtResource( 2 )
+__meta__ = {
+"entity_name": "HUD"
+}
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
@@ -326,6 +331,24 @@ margin_bottom = -169.5
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Shield Overloading"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TutorialMessage" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -250.0
+margin_right = 512.0
+margin_bottom = -219.0
+custom_fonts/font = ExtResource( 1 )
+text = "Press [Space] to jump"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

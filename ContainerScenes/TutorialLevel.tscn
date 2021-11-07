@@ -1,14 +1,14 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/background_tiled.png" type="Texture" id=2]
 [ext_resource path="res://Entities/TilePlatform.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ContainerScenes/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Utilities/MessageTrigger.gd" type="Script" id=5]
 [ext_resource path="res://ContainerScenes/TutorialLevel.gd" type="Script" id=11]
 [ext_resource path="res://Utilities/DialogueTrigger.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Entities/Enemy_TreapanoGargoyle.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Entities/Enemy_FleshStump.tscn" type="PackedScene" id=14]
-
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 183.491, 36.9551 )
@@ -21,6 +21,12 @@ extents = Vector2( 224, 680 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 344, 504 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 3086.01, 98.5566 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 226.871, 552.094 )
 
 [node name="Node2D" type="Node2D" groups=[
 "scene_manager_entity_nodes",
@@ -137,6 +143,52 @@ shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="MessageTrigger" type="Area2D" parent="."]
+position = Vector2( 1.65594, 2049 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MessageTrigger"]
+shape = SubResource( 5 )
+
+[node name="MessageTrigger2" type="Area2D" parent="."]
+position = Vector2( 12248.1, 637.889 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+action = "Dash"
+action_name = "dash"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MessageTrigger2"]
+shape = SubResource( 6 )
+
+[node name="MessageTrigger3" type="Area2D" parent="."]
+position = Vector2( 25553.1, -237.123 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+action = "Shield"
+action_name = "shield"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MessageTrigger3"]
+shape = SubResource( 6 )
+
+[node name="MessageTrigger4" type="Area2D" parent="."]
+position = Vector2( 53748.5, -176.714 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+action = "Attack"
+action_name = "fire"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MessageTrigger4"]
+shape = SubResource( 6 )
 
 [node name="LevelEntities" type="Node2D" parent="."]
 pause_mode = 1
@@ -257,7 +309,6 @@ size = 6
 
 [node name="TilePlatform34" parent="LevelEntities" instance=ExtResource( 3 )]
 position = Vector2( 40918.8, 66.3708 )
-size = 4
 
 [node name="TilePlatform35" parent="LevelEntities" instance=ExtResource( 3 )]
 position = Vector2( 42289.6, 26.0532 )
@@ -428,3 +479,8 @@ projectile_speed = 2500
 
 [node name="TilePlatform2" parent="LevelEntities" instance=ExtResource( 3 )]
 position = Vector2( -2.83405, 204.561 )
+
+[connection signal="body_entered" from="MessageTrigger" to="MessageTrigger" method="_on_MessageTrigger_body_entered"]
+[connection signal="body_entered" from="MessageTrigger2" to="MessageTrigger2" method="_on_MessageTrigger_body_entered"]
+[connection signal="body_entered" from="MessageTrigger3" to="MessageTrigger3" method="_on_MessageTrigger_body_entered"]
+[connection signal="body_entered" from="MessageTrigger4" to="MessageTrigger4" method="_on_MessageTrigger_body_entered"]
