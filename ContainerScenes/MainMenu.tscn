@@ -357,7 +357,6 @@ size_flags_horizontal = 3
 text = "Controls"
 
 [node name="GoBack" type="Button" parent="MarginContainer/SettingsMenu/HBoxContainer"]
-visible = false
 margin_left = 575.0
 margin_right = 1110.0
 margin_bottom = 52.0
