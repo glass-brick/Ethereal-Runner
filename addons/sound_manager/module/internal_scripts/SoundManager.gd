@@ -179,6 +179,8 @@ func get_playing_sounds() -> Array:
 # Sound Properties #
 
 func set_bgm_volume_db(volume_db : float) -> void:
+	for sound in self.sounds_playing:
+		self.set_volume_db(volume_db, sound)
 	self.set_sound_property("BGM", "Volume", volume_db)
 
 

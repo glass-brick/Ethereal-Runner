@@ -25,6 +25,8 @@ var scroll_direction = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SoundManager.play_bgm('MainMenu')
+	SoundManager.set_bgm_volume_db(Globals.bgm_volume)
+	SoundManager.set_se_volume_db(Globals.se_volume)
 	sfx_volume.set_value(SoundManager.get_se_volume_db() + 80)
 	bgm_volume.set_value(SoundManager.get_bgm_volume_db() + 80)
 	open_menu(main_menu)
@@ -109,12 +111,14 @@ func _on_SFXVolume_value_changed(value: float):
 	var vol = get_volume_from_slider(value)
 	Globals.se_volume = vol
 	SoundManager.set_se_volume_db(vol)
+	Globals.save_game()
 
 
 func _on_BGMVolume_value_changed(value: float):
 	var vol = get_volume_from_slider(value)
 	Globals.bgm_volume = vol
 	SoundManager.set_bgm_volume_db(vol)
+	Globals.save_game()
 
 
 func _on_OpenControlRemapping_pressed():
@@ -145,7 +149,6 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 				var name = json[i].get('name', '')
 				var points = json[i].get('points', '')
 				var score_path = "LeaderboardList/Container/Pos{}".format([i], "{}")
-				print(score_path)
 				scores_menu.get_node(score_path).set_entry(int(i) + 1, points, name)
 
 	else:

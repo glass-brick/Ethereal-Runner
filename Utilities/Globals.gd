@@ -14,6 +14,26 @@ var bgm_volume = 0
 var se_volume = 0
 
 
+func serialize_keybindings():
+	var keybindings = {}
+	for action_name in ['fire', 'jump', 'dash', 'shield']:
+		var binding_list = []
+		for key_event in InputMap.get_action_list(action_name):
+			binding_list.append(key_event.scancode)
+		keybindings[action_name] = binding_list
+	return keybindings
+
+
+func apply_serialized_keybindings(keybindings):
+	for action_name in keybindings:
+		var binding_list = keybindings[action_name]
+		InputMap.action_erase_events(action_name)
+		for scancode in binding_list:
+			var key_event = InputEventKey.new()
+			key_event.scancode = scancode
+			InputMap.action_add_event(action_name, key_event)
+
+
 func _ready():
 	load_game()
 
@@ -21,12 +41,7 @@ func _ready():
 func save_score(score, time):
 	if score < high_score:
 		return
-	var saved_score = File.new()
-	saved_score.open("user://savegame.save", File.WRITE)
-	saved_score.store_line(
-		to_json({"highscore": score, "hightime": time, "tutorial_finished": tutorial_finished})
-	)
-	saved_score.close()
+	save_game()
 	high_score = score
 	high_time = time
 
@@ -36,7 +51,14 @@ func save_game():
 	saved_score.open("user://savegame.save", File.WRITE)
 	saved_score.store_line(
 		to_json(
-			{"highscore": high_score, "hightime": high_time, "tutorial_finished": tutorial_finished}
+			{
+				"highscore": high_score,
+				"hightime": high_time,
+				"tutorial_finished": tutorial_finished,
+				"keybindings": serialize_keybindings(),
+				"bgm_volume": bgm_volume,
+				"se_volume": se_volume,
+			}
 		)
 	)
 	saved_score.close()
@@ -50,5 +72,8 @@ func load_game():
 	var data = parse_json(saved_score.get_line())
 	high_score = data["highscore"]
 	high_time = data["hightime"]
+	bgm_volume = data["bgm_volume"] if data.has("bgm_volume") else 0
+	se_volume = data["se_volume"] if data.has("se_volume") else 0
+	apply_serialized_keybindings(data["keybindings"] if data.has("keybindings") else {})
 	if data.has("tutorial_finished"):
 		tutorial_finished = data["tutorial_finished"]
