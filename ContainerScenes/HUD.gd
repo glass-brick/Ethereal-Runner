@@ -47,6 +47,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	message_timer += delta
+	$NotEnoughMana.modulate.a = 1.0 - message_timer / message_fade_time
 	if is_dead:
 		return
 	var paused = get_tree().paused
@@ -62,8 +64,6 @@ func _process(delta):
 			self.pause()
 		else:
 			self.unpause()
-	message_timer += delta
-	$NotEnoughMana.modulate.a = 1.0 - message_timer / message_fade_time
 
 func shield_overloading():
 	$ShieldOverloading.show()

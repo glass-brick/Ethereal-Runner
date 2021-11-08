@@ -35,6 +35,7 @@ func _on_StateMachinePlayer_transited(from, to):
 			death_dissolution = 0.1  # for good measure
 			$AnimatedSprite.play("Attack")
 			$AnimatedSprite.set_material(load("res://Assets/Shader/EnemyDeathMaterial.tres"))
+			$Arm/Sprite.set_material(load("res://Assets/Shader/EnemyDeathMaterial.tres"))
 			yield(get_tree().create_timer(death_time), "timeout")
 			queue_free()
 
