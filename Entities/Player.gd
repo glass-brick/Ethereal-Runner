@@ -120,6 +120,11 @@ var current_state = PlayerStates.ALIVE
 
 var camera_limit = 2000
 
+var achievement_trackers = {
+	"points_while_no_explosions": 0,
+	"max_mana_time": 0,
+}
+
 onready var jump_sounds = ['Jump1', 'Jump2', 'Jump3']
 onready var double_jump_sounds = ['DoubleJump1', 'DoubleJump2']
 onready var damage_sounds = ['Damage1', 'Damage2', 'Damage3']
@@ -140,6 +145,7 @@ func set_health(health):
 func die():
 	if current_state == PlayerStates.DEAD:
 		return
+	AchievementManager.progress_achievement('death', 1)
 	self.health = 0
 	hud.update_health(self.health)
 	self.current_state = PlayerStates.DEAD
@@ -235,6 +241,7 @@ func get_input():
 			explosion.global_position = global_position
 			SceneManager._current_scene.add_child(explosion)
 			mana -= max_mana / mana_steps
+			achievement_trackers['points_while_no_explosions'] = self.get_score()
 			SoundManager.play_se('Explosion')
 		else:
 			hud.show_not_enough_mana()
@@ -432,6 +439,19 @@ func _process(delta):
 		affect_mana(delta)
 		hud.update_health(self.health)
 		hud.update_score(self.get_score())
+	check_achievements(delta)
+
+
+func check_achievements(delta):
+	for key in ["5k_points","10k_points","15k_points"]:
+		if AchievementManager.get_achievement(key)["points_required"] <= self.get_score():
+			AchievementManager.unlock_achievement(key)
+	if self.get_score() - achievement_trackers["points_while_no_explosions"] >= AchievementManager.get_achievement("3k_points_no_explosions")["points_required"]:
+		AchievementManager.unlock_achievement("3k_points_no_explosions")
+
+	achievement_trackers["max_mana_time"] = achievement_trackers["max_mana_time"] + delta if mana >= max_mana else 0
+	if achievement_trackers["max_mana_time"] >= AchievementManager.get_achievement("max_mana_30_secs")["time_required"]:
+		AchievementManager.unlock_achievement("max_mana_30_secs")
 
 
 func _on_hit(damage, damager):

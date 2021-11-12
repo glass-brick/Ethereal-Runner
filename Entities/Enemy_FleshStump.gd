@@ -102,6 +102,7 @@ func _on_DetectionArea_body_exited(body):
 func _on_hit(damage, damager):
 	if damager.has_method("gain_points"):
 		damager.gain_points(self.points)
+		AchievementManager.progress_achievement("50_kills", 1)
 	set_health(health - damage)
 
 

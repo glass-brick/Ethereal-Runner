@@ -8,24 +8,30 @@
   "death": {
     "name": "Eternal suffering",
     "description": "Die 10 times",
+    "goal": 10,
+    "current_progress": 0,
     "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
     "achieved": false
   },
-  "max_mana_10_secs": {
+  "max_mana_30_secs": {
     "name": "Gotta go fast",
-    "description": "Maintain the maximum Magic level for 10 seconds without losing Health",
+    "description": "Maintain the maximum Magic level for 30 seconds without losing Health",
+    "time_required": 30,
     "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
     "achieved": false
   },
-  "1500_points_no_kills": {
+  "3k_points_no_explosions": {
     "name": "Pacifist",
-    "description": "Earn 1500 points without killing any monsters",
+    "description": "Earn 3000 points without using an explosion",
+    "points_required": 3000,
     "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
     "achieved": false
   },
   "50_kills": {
     "name": "Doom Slayer",
     "description": "Kill 50 monsters",
+    "goal": 50,
+    "current_progress": 0,
     "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
     "achieved": false
   },
@@ -38,18 +44,21 @@
   "5k_points": {
     "name": "No end in sight...",
     "description": "Score 5,000 points in a single run",
+    "points_required": 5000,
     "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
     "achieved": false
   },
   "10k_points": {
     "name": "Does this suffering ever end?",
     "description": "Score 10,000 points in a single run",
+    "points_required": 10000,
     "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
     "achieved": false
   },
   "15k_points": {
     "name": "No, it doesn't.",
     "description": "Score 15,000 points in a single run",
+    "points_required": 15000,
     "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
     "achieved": false
   }

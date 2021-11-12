@@ -25,14 +25,10 @@ var starter_names = [
 	'Abominable Human',
 	'Human Garbage',
 	'Hominid Parasite',
-	# "Embodiment of Suffering",
 	"Flesh Automaton",
-	# "Lowest Common Denominator",
 	"Deaf and Dumbstruck",
 	"Rotting Head",
 	"Cauldron of Hate"
-	# "Exhibit A of the Human Condition",
-	# "Perpetrator of Unauthorized Exploitation"
 ]
 
 
@@ -42,7 +38,7 @@ func _ready():
 	$NotEnoughMana.hide()
 	$DeathMenu.hide()
 	$TutorialMessage.hide()
-	$Digestion.value = 0
+	$HPMPControl/ShieldOverload.value = 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,28 +61,34 @@ func _process(delta):
 		else:
 			self.unpause()
 
+
 func shield_overloading():
 	$ShieldOverloading.show()
+
+
 func stop_shield_overloading():
 	$ShieldOverloading.hide()
-			
+
+
 func update_mana(mana):
-	var manaBar = get_node("ManaBars")
-	var bars = manaBar.get_children()
-	var n_bars_complete = floor(mana * 4)
+	var bars = $HPMPControl/ManaBars.get_children()
+	var n_bars_complete = min(3, floor(mana * 4))
+	prints(mana, n_bars_complete)
 	for i in range(n_bars_complete):
-		bars[i].value = 100
-		bars[i].modulate.v = 0.7 + abs(cos(time_passed)) * 10 / 7
+		bars[i].value = bars[i].max_value
+		bars[i].modulate.v = 0.2 + abs(cos(time_passed)) * 8 / 7
+		bars[i].visible = true
 	if n_bars_complete < 4:
+		bars[n_bars_complete].visible = true
 		bars[n_bars_complete].value = (mana - n_bars_complete / 4) * 400
 		bars[n_bars_complete].modulate.v = 0.5
 	for i in range(n_bars_complete + 1, 4):
 		bars[i].value = 0
-		bars[i].modulate.v = 0.5
+		bars[i].visible = false
 
 
 func update_digestion(digestion):
-	$Digestion.value = digestion
+	$HPMPControl/ShieldOverload.value = digestion
 
 
 func show_tutorial_message(message):
@@ -101,16 +103,16 @@ func hide_tutorial_message():
 func update_time(time):
 	var seconds = int(time) % 60
 	var minutes = int((time - seconds) / 60)
-	get_node("TimePanel/Time").text = "%02d:%02d" % [minutes, seconds]
+	$ScoreTimePanel/Time.text = "%02d:%02d" % [minutes, seconds]
 
 
 func update_score(_score):
 	score = _score
-	get_node("ScorePanel/Score").text = "Score\n%d" % score
+	$ScoreTimePanel/Score.text = String(score)
 
 
 func update_health(health):
-	get_node("HealthBar").value = health
+	$HPMPControl/HealthBar.value = health
 
 
 func player_is_dead():
