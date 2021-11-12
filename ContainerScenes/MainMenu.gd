@@ -6,16 +6,24 @@ export (int) var min_volume = -60
 var path = []
 
 var leaderboard_entry = load("res://Utilities/LeaderboardEntry.tscn")
+var achievement_entry = load("res://Utilities/SingleAchievementPanel.tscn")
 onready var cursor = cursor_scene.instance()
 onready var main_menu = $MarginContainer/MainMenu
 onready var main_menu_options = $MarginContainer/MainMenu/Options
 onready var scores_menu = $MarginContainer/MainMenu/Scores
 onready var settings_menu = $MarginContainer/SettingsMenu
 onready var controls_menu = $MarginContainer/ControlsMenu
-onready var menus = [main_menu, settings_menu, controls_menu]
-onready var cursor_align_menus = [main_menu_options]
+onready var achievements_menu = $MarginContainer/AchievementsMenu
+onready var achievements_menu_options = $MarginContainer/AchievementsMenu/GridContainer
+onready var achievements_next_button = $MarginContainer/AchievementsMenu/VBoxContainer/HBoxContainer/NextPage
+onready var achievements_prev_button = $MarginContainer/AchievementsMenu/VBoxContainer/HBoxContainer/PrevPage
+onready var menus = [main_menu, settings_menu, controls_menu, achievements_menu]
+onready var cursor_align_menus = [main_menu_options, achievements_menu_options]
 onready var sfx_volume = $MarginContainer/SettingsMenu/SFXVolume/SFXVolume
 onready var bgm_volume = $MarginContainer/SettingsMenu/BGMVolume/BGMVolume
+
+onready var achievements = AchievementManager.get_all_achievements().values()
+var current_achievement_page = 0
 
 var time_between_scroll = 10
 var scroll_timer = time_between_scroll
@@ -41,16 +49,31 @@ func _ready():
 		"Your high score:\n%d in %02d:%02d"
 		% [Globals.high_score, minutes, seconds]
 	)
-	# if Globals.player_name:
-	# 	$Name/NameInput.text = Globals.player_name
-	# else:
-	# 	randomize()
-	# 	var r = randi()
-	# 	var rand_number = r % len(starter_names)
-	# 	$Name/NameInput.text = starter_names[rand_number]
+	update_achievements_page()
 
 
 var focused_element = null
+
+
+func update_achievements_page():
+	var options_per_page = achievements_menu_options.get_child_count()
+
+	for i in range(0, options_per_page):
+		var array_idx = current_achievement_page * options_per_page + i
+		if achievements.size() > array_idx:
+			achievements_menu_options.get_child(i).set_achievement(
+				achievements[array_idx]
+			)
+			achievements_menu_options.get_child(i).visible = true
+		else:
+			achievements_menu_options.get_child(i).visible = false
+
+	var prev_disabled = current_achievement_page == 0
+	var next_disabled = current_achievement_page == ceil(float(achievements.size()) / options_per_page) - 1
+	achievements_prev_button.disabled = prev_disabled
+	achievements_prev_button.focus_mode = FOCUS_NONE if prev_disabled else FOCUS_ALL
+	achievements_next_button.disabled = next_disabled
+	achievements_next_button.focus_mode = FOCUS_NONE if next_disabled else FOCUS_ALL
 
 
 func _process(delta):
@@ -100,6 +123,10 @@ func _on_StartTutorial_pressed():
 
 func _on_OpenSettings_pressed():
 	open_menu(settings_menu)
+
+
+func _on_Achievements_pressed():
+	open_menu(achievements_menu)
 
 
 func get_volume_from_slider(value: float) -> float:
@@ -181,3 +208,18 @@ func find_focusable_child(node):
 
 func _exit_tree():
 	SoundManager.stop('MainMenu')
+
+
+func _on_NextPage_pressed():
+	current_achievement_page += 1
+	update_achievements_page()
+	if not is_instance_valid(get_focus_owner()):
+		achievements_prev_button.grab_focus()
+
+
+func _on_PrevPage_pressed():
+	current_achievement_page -= 1
+	update_achievements_page()
+	if not is_instance_valid(get_focus_owner()):
+		achievements_next_button.grab_focus()
+

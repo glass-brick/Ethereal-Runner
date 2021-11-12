@@ -1,0 +1,56 @@
+{
+  "four_monsters_one_explosion": {
+    "name": "That's gonna hurt in the morning",
+    "description": "Kill 4 monsters with one explosion",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "death": {
+    "name": "Eternal suffering",
+    "description": "Die 10 times",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "max_mana_10_secs": {
+    "name": "Gotta go fast",
+    "description": "Maintain the maximum Magic level for 10 seconds without losing Health",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "1500_points_no_kills": {
+    "name": "Pacifist",
+    "description": "Earn 1500 points without killing any monsters",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "50_kills": {
+    "name": "Doom Slayer",
+    "description": "Kill 50 monsters",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "damage_on_shield": {
+    "name": "Ethereal Armor",
+    "description": "Absorb X damage on shield",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "5k_points": {
+    "name": "No end in sight...",
+    "description": "Score 5,000 points in a single run",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "10k_points": {
+    "name": "Does this suffering ever end?",
+    "description": "Score 10,000 points in a single run",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  },
+  "15k_points": {
+    "name": "No, it doesn't.",
+    "description": "Score 15,000 points in a single run",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
+    "achieved": false
+  }
+}
