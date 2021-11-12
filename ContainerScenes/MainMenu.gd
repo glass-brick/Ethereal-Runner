@@ -213,6 +213,7 @@ func _exit_tree():
 func _on_NextPage_pressed():
 	current_achievement_page += 1
 	update_achievements_page()
+	# if no focus, it means the pressed button is disabled now, focus the opposite button
 	if not is_instance_valid(get_focus_owner()):
 		achievements_prev_button.grab_focus()
 
@@ -220,6 +221,7 @@ func _on_NextPage_pressed():
 func _on_PrevPage_pressed():
 	current_achievement_page -= 1
 	update_achievements_page()
+	# if no focus, it means the pressed button is disabled now, focus the opposite button
 	if not is_instance_valid(get_focus_owner()):
 		achievements_next_button.grab_focus()
 
