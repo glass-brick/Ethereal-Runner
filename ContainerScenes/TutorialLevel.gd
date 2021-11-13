@@ -7,7 +7,7 @@ var is_tutorial = true
 
 func _ready():
 	randomize()
-	SoundManager.play_bgm('Wind')
+	$Wind.play()
 	yield(SceneManager, 'scene_loaded')
 	SceneManager.get_entity('Player').global_position = Globals.player_respawn_position
 
@@ -61,4 +61,4 @@ func change_background_colors(delta):
 
 
 func _exit_tree():
-	SoundManager.stop('Wind')
+	$Wind.stop()

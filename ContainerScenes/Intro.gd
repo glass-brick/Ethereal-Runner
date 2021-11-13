@@ -8,7 +8,7 @@ extends CanvasLayer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimationPlayer.play('fade')
-	SoundManager.play_bgm('Intro')
+	$Music.play()
 
 
 func _process(_delta):
@@ -21,4 +21,4 @@ func _on_AnimationPlayer_animation_finished(_animation_name):
 
 
 func _exit_tree():
-	SoundManager.stop('Intro')
+	$Music.stop()

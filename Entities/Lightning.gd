@@ -9,7 +9,7 @@ func _ready():
 
 func _on_AnimatedSprite_frame_changed():
 	if $AnimatedSprite.frame == 10:
-		SoundManager.play_se('ThunderCrack')
+		$ThunderSound.play()
 		$CPUParticles2D.restart()
 		var targets = get_overlapping_bodies()
 		for target in targets:
