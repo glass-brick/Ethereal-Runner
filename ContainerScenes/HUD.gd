@@ -128,6 +128,7 @@ func player_is_dead():
 		var rand_number = r % len(starter_names)
 		pre_submit_menu.get_node('NameInput').text = starter_names[rand_number]
 	show_death_menu(pre_submit_menu)
+	$DeathMenu/PreSubmitMenu/HBoxContainer/Submit.grab_focus()
 
 
 func _on_Submit_pressed():
