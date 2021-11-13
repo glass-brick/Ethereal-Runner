@@ -184,6 +184,10 @@ func get_input():
 	var defend = Input.is_action_pressed('shield')
 	var dash = Input.is_action_pressed('dash')
 
+	if is_on_floor():
+		dash_jumped = false
+		can_double_jump = true
+
 	if crouch and is_on_floor():
 		smp.set_trigger('crouch')
 	else:
@@ -327,7 +331,6 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Fall":
 			if is_on_floor():
 				smp.set_trigger('land')
-				can_double_jump = true
 		"Crouch":
 			velocity.x = 0
 		"Dash":
