@@ -38,11 +38,6 @@ _global_script_classes=[ {
 "class": "SceneManagerConstants",
 "language": "GDScript",
 "path": "res://addons/scene_manager/SceneManagerConstants.gd"
-}, {
-"base": "Node",
-"class": "SoundManagerModule",
-"language": "GDScript",
-"path": "res://addons/sound_manager/module/internal_scripts/SoundManager_config.gd"
 } ]
 _global_script_class_icons={
 "Dialogic": "",
@@ -50,8 +45,7 @@ _global_script_class_icons={
 "DialogicDefinitionsUtil": "",
 "DialogicResources": "",
 "DialogicUtil": "",
-"SceneManagerConstants": "",
-"SoundManagerModule": ""
+"SceneManagerConstants": ""
 }
 
 [application]
