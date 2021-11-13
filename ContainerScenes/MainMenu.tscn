@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Sprites/ethereal runner logo.png" type="Texture" id=1]
 [ext_resource path="res://ContainerScenes/MainMenu.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/Sprites/background_menu.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Sprites/light.png" type="Texture" id=8]
 [ext_resource path="res://Utilities/SingleAchievementPanel.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Music/main_menu.wav" type="AudioStream" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "LightFlicker"
@@ -492,6 +493,10 @@ text = "Go back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+bus = "Music"
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/Options/StartGame" to="." method="_on_StartGame_pressed"]

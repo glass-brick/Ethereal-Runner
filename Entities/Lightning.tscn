@@ -115,7 +115,10 @@ color_ramp = SubResource( 18 )
 
 [node name="ThunderSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-max_distance = 8000.0
+volume_db = 3.0
+max_distance = 15000.0
+attenuation = 4.43828
+bus = "SoundEffects"
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]

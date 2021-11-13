@@ -36,9 +36,12 @@ centered = false
 
 [node name="Inferno" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource( 3 )
+bus = "Music"
 
 [node name="Vals" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource( 6 )
+bus = "Music"
 
 [node name="NuevoMundo" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource( 7 )
+bus = "Music"
