@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Assets/Shader/Wobbly.tres" type="Material" id=1]
 [ext_resource path="res://Assets/Sprites/TwitchBone.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" type="Script" id=8]
 [ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=9]
 [ext_resource path="res://Entities/Enemy_TwitchBone.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Sounds/TwitchBoneShoot.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sounds/TwitchBoneDeath.wav" type="AudioStream" id=12]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -209,6 +211,16 @@ rotation = -1.5708
 scale = Vector2( 4, 4 )
 frames = SubResource( 25 )
 animation = "Attack"
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+max_distance = 8000.0
+bus = "SoundEffects"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 12 )
+max_distance = 8000.0
+bus = "SoundEffects"
 
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
 [connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]

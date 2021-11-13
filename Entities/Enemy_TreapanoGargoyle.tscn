@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://Assets/Sprites/TrepanoGargoyle-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Entities/Enemy_TreapanoGargoyle.gd" type="Script" id=7]
 [ext_resource path="res://Assets/Shader/wobblyEffect.shader" type="Shader" id=8]
 [ext_resource path="res://Assets/Normals/glass.jpg" type="Texture" id=9]
+[ext_resource path="res://Assets/Sounds/gargolyteShoot.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 186.083, 128.603 )
@@ -215,6 +216,10 @@ animation = "attack"
 [node name="StateMachinePlayer" type="Node" parent="."]
 script = ExtResource( 5 )
 state_machine = SubResource( 31 )
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+bus = "SoundEffects"
 
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]

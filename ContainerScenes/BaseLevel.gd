@@ -181,7 +181,7 @@ var platforms_rendered = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	change_music("Vals")
+	change_music($Music/Vals)
 
 	while render_paths[0]["position"].x < render_limit[1].x:
 		render_platform(true)
@@ -289,9 +289,9 @@ func _on_platform_stepped(path_id, platform_number):
 		var random_number = randf()
 		if true or random_number < change_music_prob:
 			if Globals.instability_level > 2:
-				change_music("Inferno")
+				change_music($Music/Inferno)
 			else:
-				var poss_songs = ['Vals', 'NuevoMundo']
+				var poss_songs = [$Music/Vals, $Music/NuevoMundo]
 				change_music(poss_songs[randi() % poss_songs.size()])
 
 
@@ -417,47 +417,40 @@ func process_instability_effects():
 export (int) var fade_in_time = 15
 export (int) var fade_out_time = 15
 
-
-func change_music(name):
-	if self.current_music == name:
+func change_music(music):
+	if self.current_music == music:
 		return
 	if self.current_music:
 		fade_out(self.current_music)
-	self.current_music = name
+	self.current_music = music
 	fade_in(self.current_music)
 
-
-func fade_out(name):
+func fade_out(music):
 	var tween = Tween.new()
 	self.add_child(tween)
-	tween.interpolate_property(
-		SoundManager.get_audiostream(name),
-		"volume_db",
-		Globals.bgm_volume,
-		Globals.bgm_volume - 80,
-		fade_out_time,
-		Tween.TRANS_CIRC,
-		Tween.EASE_OUT_IN,
-		0
-	)
+	tween.interpolate_property(music, 
+							   "volume_db", 
+							   Globals.bgm_volume, 
+							   Globals.bgm_volume - 80, 
+							   fade_out_time, 
+							   Tween.TRANS_CIRC, 
+							   Tween.EASE_OUT_IN, 
+							   0)
 	tween.connect("tween_completed", self, "_on_TweenOut_tween_completed")
 	tween.start()
 
-
-func fade_in(name):
+func fade_in(music):
 	var tween = Tween.new()
 	self.add_child(tween)
-	SoundManager.play_bgm(name)
-	tween.interpolate_property(
-		SoundManager.get_audiostream(name),
-		"volume_db",
-		Globals.bgm_volume - 80,
-		Globals.bgm_volume,
-		fade_in_time,
-		Tween.TRANS_EXPO,
-		Tween.EASE_OUT,
-		0
-	)
+	music.play()
+	tween.interpolate_property(music, 
+							   "volume_db", 
+							   Globals.bgm_volume - 80, 
+							   Globals.bgm_volume, 
+							   fade_in_time, 
+							   Tween.TRANS_EXPO, 
+							   Tween.EASE_OUT, 
+							   0)
 	tween.connect("tween_completed", self, "_on_TweenIn_tween_completed")
 	tween.start()
 
@@ -471,4 +464,4 @@ func _on_TweenOut_tween_completed(object, key):
 
 
 func _exit_tree():
-	SoundManager.stop(current_music)
+	current_music.stop()

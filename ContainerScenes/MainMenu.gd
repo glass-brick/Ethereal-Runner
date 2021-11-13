@@ -1,8 +1,8 @@
 extends Control
 
 export (PackedScene) var cursor_scene = null
-export (int) var max_volume = 20
-export (int) var min_volume = -60
+export (int) var max_volume = 0
+export (int) var min_volume = -20
 var path = []
 
 var leaderboard_entry = load("res://Utilities/LeaderboardEntry.tscn")
@@ -32,11 +32,11 @@ var scroll_direction = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	SoundManager.play_bgm('MainMenu')
-	SoundManager.set_bgm_volume_db(Globals.bgm_volume)
-	SoundManager.set_se_volume_db(Globals.se_volume)
-	sfx_volume.set_value(SoundManager.get_se_volume_db() + 80)
-	bgm_volume.set_value(SoundManager.get_bgm_volume_db() + 80)
+	$MainMenuMusic.play()
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('SoundEffects'), Globals.se_volume)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), Globals.bgm_volume)
+	sfx_volume.set_value(Globals.se_volume + 80)
+	bgm_volume.set_value(Globals.bgm_volume + 80)
 	open_menu(main_menu)
 	add_child(cursor)
 	$HTTPRequest.request(
@@ -137,14 +137,14 @@ func get_volume_from_slider(value: float) -> float:
 func _on_SFXVolume_value_changed(value: float):
 	var vol = get_volume_from_slider(value)
 	Globals.se_volume = vol
-	SoundManager.set_se_volume_db(vol)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('SoundEffects'), vol)
 	Globals.save_game()
 
 
 func _on_BGMVolume_value_changed(value: float):
 	var vol = get_volume_from_slider(value)
 	Globals.bgm_volume = vol
-	SoundManager.set_bgm_volume_db(vol)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), vol)
 	Globals.save_game()
 
 
@@ -207,7 +207,7 @@ func find_focusable_child(node):
 
 
 func _exit_tree():
-	SoundManager.stop('MainMenu')
+	$MainMenuMusic.stop()
 
 
 func _on_NextPage_pressed():

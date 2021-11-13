@@ -38,11 +38,6 @@ _global_script_classes=[ {
 "class": "SceneManagerConstants",
 "language": "GDScript",
 "path": "res://addons/scene_manager/SceneManagerConstants.gd"
-}, {
-"base": "Node",
-"class": "SoundManagerModule",
-"language": "GDScript",
-"path": "res://addons/sound_manager/module/internal_scripts/SoundManager_config.gd"
 } ]
 _global_script_class_icons={
 "Dialogic": "",
@@ -50,8 +45,7 @@ _global_script_class_icons={
 "DialogicDefinitionsUtil": "",
 "DialogicResources": "",
 "DialogicUtil": "",
-"SceneManagerConstants": "",
-"SoundManagerModule": ""
+"SceneManagerConstants": ""
 }
 
 [application]
@@ -69,7 +63,6 @@ config/icon="res://icon.png"
 Globals="*res://Utilities/Globals.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 DialogicSingleton="*res://addons/dialogic/Other/DialogicSingleton.gd"
-SoundManager="*res://addons/sound_manager/module/SoundManager.tscn"
 AchievementManager="*res://addons/gd-achievements/scripts/achievement_manager.gd"
 
 [display]
@@ -79,7 +72,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/gd-achievements/plugin.cfg", "res://addons/imjp94.yafsm/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/sound_manager/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/gd-achievements/plugin.cfg", "res://addons/imjp94.yafsm/plugin.cfg", "res://addons/scene_manager/plugin.cfg" )
 
 [importer_defaults]
 

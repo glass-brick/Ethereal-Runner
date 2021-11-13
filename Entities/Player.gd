@@ -125,9 +125,13 @@ var achievement_trackers = {
 	"max_mana_time": 0,
 }
 
-onready var jump_sounds = ['Jump1', 'Jump2', 'Jump3']
-onready var double_jump_sounds = ['DoubleJump1', 'DoubleJump2']
-onready var damage_sounds = ['Damage1', 'Damage2', 'Damage3']
+# load all sounds
+onready var jump_sound_names = [$Sounds/Jump1, $Sounds/Jump2, $Sounds/Jump3]
+onready var double_jump_sound_names = [$Sounds/DoubleJump1, $Sounds/DoubleJump2]
+onready var damage_sound_names = [$Sounds/Damage1, $Sounds/Damage2, $Sounds/Damage3]
+onready var jump_sounds = [$Sounds/Jump1, $Sounds/Jump2, $Sounds/Jump3]
+onready var double_jump_sounds = [$Sounds/DoubleJump1, $Sounds/DoubleJump2]
+onready var damage_sounds = [$Sounds/Damage1, $Sounds/Damage2, $Sounds/Damage3]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -135,6 +139,14 @@ func _ready():
 	hud.update_health(self.health)
 	Globals.max_instability_level = mana_steps
 
+	# # set sounds
+	# for name in jump_sound_names:
+	# 	jump_sounds.append($Sounds.get_node(name))
+	# for name in double_jump_sound_names:
+	# 	double_jump_sounds.append($Sounds.get_node(name))
+	# for name in damage_sound_names:
+	# 	damage_sounds.append($Sounds.get_node(name))
+			
 
 func set_health(health):
 	self.health = max(health, 0)
@@ -246,10 +258,10 @@ func get_input():
 			SceneManager._current_scene.add_child(explosion)
 			mana -= max_mana / mana_steps
 			achievement_trackers['points_while_no_explosions'] = self.get_score()
-			SoundManager.play_se('Explosion')
+			$Sounds/Explosion.play()
 		else:
 			hud.show_not_enough_mana()
-			SoundManager.play_se('CantShoot')
+			$Sounds/CantShoot.play()
 
 	if defend:
 		if not was_shielding:
@@ -276,7 +288,7 @@ func delete_with_shield():
 		if target.has_method('explode'):
 			if not target.explode():  # if it explodes returns nothing
 				self.add_digestion(digestion_for_bullet)
-				SoundManager.play_se('ShieldDeleteProjectile')
+				$Sounds/ShieldDeleteProjectile.play()
 
 
 func add_digestion(dig):
@@ -293,16 +305,16 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.play('Jump')
 			var num = randi() % jump_sounds.size()
 			var sound = jump_sounds[num]
-			# sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
-			SoundManager.play_se(sound)
+			sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
+			sound.play()
 			dash_jumped = false
 		"DoubleJump":
 			$AnimatedSprite.play('Jump')
 			$AnimatedSprite.frame = 0
 			var num = randi() % double_jump_sounds.size()
 			var sound = double_jump_sounds[num]
-			# sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
-			SoundManager.play_se(sound)
+			sound.pitch_scale = 0.8 + randf() * 0.2 * Globals.instability_level
+			sound.play()
 		"Fall":
 			$AnimatedSprite.play('Fall')
 		"Crouch":
@@ -313,7 +325,7 @@ func _on_StateMachinePlayer_transited(from, to):
 			$AnimatedSprite.hide()
 		"Dash":
 			$AnimatedSprite.play('Dash')
-			SoundManager.play_se('Dash')
+			$Sounds/Dash.play()
 			$Trail.emitting = true
 			dash_timer = 0
 
@@ -362,11 +374,11 @@ func _physics_process(delta):
 	last_melee_shielded += delta
 	if was_shielding:
 		self.add_digestion(delta * shield_digestion_add)
-		SoundManager.play_se('Shield')
+		$Sounds/Shield.play()
 	else:
-		SoundManager.stop('Shield')
+		$Sounds/Shield.stop()
 	if not was_on_floor and is_on_floor() and floor_timer > floor_time_sound:
-		SoundManager.play_se('FloorReached')
+		$Sounds/FloorReached.play()
 	floor_timer += delta
 	was_on_floor = is_on_floor()
 
@@ -394,12 +406,12 @@ func mana_digestion(delta):
 		if digestion > digestion_danger_threshold:
 			if not digestion_danger:
 				digestion_danger = true
-				SoundManager.play_se('DigestionDanger')
+				$Sounds/DigestionDanger.play()
 				hud.shield_overloading()
 				# SceneManager.get_entity('Level').change_music_volume(-6)
 		else:
 			digestion_danger = false
-			SoundManager.stop('DigestionDanger')
+			$Sounds/DigestionDanger.stop()
 			hud.stop_shield_overloading()
 			# SceneManager.get_entity('Level').reset_music_volume()
 		if digestion > 100:
@@ -422,7 +434,7 @@ func affect_mana(delta):
 	mana_level = floor(mana / max_mana * mana_steps) + 1
 	Globals.instability_level = mana_level
 	if mana_level_before < mana_level:
-		SoundManager.play_se('InstabilityUp')
+		$Sounds/InstabilityUp.play()
 
 	max_speed = mana_level_stats[mana_level]['max_speed']
 	acceleration = mana_level_stats[mana_level]['acceleration']
@@ -463,13 +475,13 @@ func _on_hit(damage, damager):
 			if last_melee_shielded < time_between_mellee_shielded:
 				self.add_digestion(digestion_for_bullet)
 				last_melee_shielded = 0
-				SoundManager.play_se('ShieldDefenseMelee')
+				$Sounds/ShieldDefenseMelee.play()
 		else:
 			self.set_health(self.health - damage)
 			if self.current_state == PlayerStates.DEAD:
-				SoundManager.play_se('PlayerDeath')
+				$Sounds/PlayerDeath.play()
 			else:
-				SoundManager.play_se(damage_sounds[randi() % damage_sounds.size()])
+				damage_sounds[randi() % damage_sounds.size()].play()
 			self.invincibility = true
 
 
