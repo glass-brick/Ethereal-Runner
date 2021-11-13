@@ -73,7 +73,6 @@ func stop_shield_overloading():
 func update_mana(mana):
 	var bars = $HPMPControl/ManaBars.get_children()
 	var n_bars_complete = min(3, floor(mana * 4))
-	prints(mana, n_bars_complete)
 	for i in range(n_bars_complete):
 		bars[i].value = bars[i].max_value
 		bars[i].modulate.v = 0.2 + abs(cos(time_passed)) * 8 / 7
@@ -129,6 +128,7 @@ func player_is_dead():
 		var rand_number = r % len(starter_names)
 		pre_submit_menu.get_node('NameInput').text = starter_names[rand_number]
 	show_death_menu(pre_submit_menu)
+	$DeathMenu/PreSubmitMenu/HBoxContainer/Submit.grab_focus()
 
 
 func _on_Submit_pressed():
@@ -202,7 +202,13 @@ func _on_Return_pressed():
 
 
 func _on_Quit_pressed():
-	SceneManager.change_scene('res://ContainerScenes/MainMenu.tscn')
+	SceneManager.change_scene(
+		'res://ContainerScenes/MainMenu.tscn',
+		{
+			"pattern_enter": "circle_inverted",
+			"pattern_leave": "circle",
+		}
+	)
 	yield(SceneManager, 'fade_complete')
 	unpause()
 

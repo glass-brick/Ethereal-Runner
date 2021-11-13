@@ -1,0 +1,514 @@
+[gd_scene load_steps=84 format=2]
+
+[ext_resource path="res://Assets/Sprites/enemy_galeotrickster-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://Entities/Enemy_GaleoTrickster.gd" type="Script" id=2]
+[ext_resource path="res://addons/imjp94.yafsm/src/conditions/Condition.gd" type="Script" id=3]
+[ext_resource path="res://addons/imjp94.yafsm/src/StateMachinePlayer.gd" type="Script" id=4]
+[ext_resource path="res://addons/imjp94.yafsm/src/transitions/Transition.gd" type="Script" id=5]
+[ext_resource path="res://addons/imjp94.yafsm/src/states/State.gd" type="Script" id=6]
+[ext_resource path="res://addons/imjp94.yafsm/src/states/StateMachine.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Shader/wobblyEffect.shader" type="Shader" id=8]
+[ext_resource path="res://Assets/Normals/clear_lines.png" type="Texture" id=9]
+
+[sub_resource type="ShaderMaterial" id=113]
+shader = ExtResource( 8 )
+shader_param/strength = 0.004
+shader_param/speed = 6.0
+shader_param/frames = 7
+shader_param/random_value = 0.0
+shader_param/flowMap = ExtResource( 9 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 1 )
+region = Rect2( 124, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 1 )
+region = Rect2( 248, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 1 )
+region = Rect2( 372, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 1 )
+region = Rect2( 496, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 1 )
+region = Rect2( 620, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 1 )
+region = Rect2( 744, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 1 )
+region = Rect2( 868, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 1 )
+region = Rect2( 992, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 1 )
+region = Rect2( 1116, 0, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 1 )
+region = Rect2( 124, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 1 )
+region = Rect2( 248, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=68]
+atlas = ExtResource( 1 )
+region = Rect2( 372, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 1 )
+region = Rect2( 868, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 1 )
+region = Rect2( 992, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 1 )
+region = Rect2( 1116, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 426, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 124, 426, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 1 )
+region = Rect2( 248, 426, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 1 )
+region = Rect2( 372, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 1 )
+region = Rect2( 496, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 1 )
+region = Rect2( 620, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 1 )
+region = Rect2( 744, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 1 )
+region = Rect2( 496, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 1 )
+region = Rect2( 620, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 1 )
+region = Rect2( 744, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 1 )
+region = Rect2( 868, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 1 )
+region = Rect2( 992, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 1 )
+region = Rect2( 1116, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 1 )
+region = Rect2( 124, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 1 )
+region = Rect2( 248, 284, 124, 142 )
+
+[sub_resource type="SpriteFrames" id=34]
+animations = [ {
+"frames": [ SubResource( 47 ), SubResource( 48 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
+"loop": false,
+"name": "jump",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
+"loop": false,
+"name": "attack",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ) ],
+"loop": true,
+"name": "dive",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
+"loop": true,
+"name": "hold_air",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"loop": false,
+"name": "morph",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=35]
+extents = Vector2( 156.022, 100.818 )
+
+[sub_resource type="CapsuleShape2D" id=70]
+radius = 156.035
+height = 170.944
+
+[sub_resource type="CapsuleShape2D" id=69]
+radius = 104.645
+height = 170.791
+
+[sub_resource type="CapsuleShape2D" id=71]
+radius = 156.647
+height = 205.178
+
+[sub_resource type="Resource" id=72]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 128, 0 )
+}
+name = "Entry"
+
+[sub_resource type="Resource" id=73]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 308, -140 )
+}
+name = "Idle"
+
+[sub_resource type="Resource" id=75]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 508, -140 )
+}
+name = "Jump"
+
+[sub_resource type="Resource" id=76]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 725, -140 )
+}
+name = "AirHold"
+
+[sub_resource type="Resource" id=77]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 968, 60 )
+}
+name = "Dive"
+
+[sub_resource type="Resource" id=78]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 968, -140 )
+}
+name = "Attack"
+
+[sub_resource type="Resource" id=80]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 608, 220 )
+}
+name = "Dead"
+
+[sub_resource type="Resource" id=79]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 956.5, 180 )
+}
+name = "Morph"
+
+[sub_resource type="Resource" id=81]
+script = ExtResource( 5 )
+from = "Entry"
+to = "Idle"
+conditions = {
+}
+
+[sub_resource type="Resource" id=84]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=85]
+script = ExtResource( 5 )
+from = "Idle"
+to = "Dead"
+conditions = {
+"death": SubResource( 84 )
+}
+
+[sub_resource type="Resource" id=114]
+script = ExtResource( 3 )
+name = "jump"
+
+[sub_resource type="Resource" id=115]
+script = ExtResource( 5 )
+from = "Idle"
+to = "Jump"
+conditions = {
+"jump": SubResource( 114 )
+}
+
+[sub_resource type="Resource" id=91]
+script = ExtResource( 3 )
+name = "finish_jump"
+
+[sub_resource type="Resource" id=92]
+script = ExtResource( 5 )
+from = "Jump"
+to = "AirHold"
+conditions = {
+"finish_jump": SubResource( 91 )
+}
+
+[sub_resource type="Resource" id=108]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=93]
+script = ExtResource( 5 )
+from = "Jump"
+to = "Dead"
+conditions = {
+"death": SubResource( 108 )
+}
+
+[sub_resource type="Resource" id=109]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=96]
+script = ExtResource( 5 )
+from = "AirHold"
+to = "Dead"
+conditions = {
+"death": SubResource( 109 )
+}
+
+[sub_resource type="Resource" id=94]
+script = ExtResource( 3 )
+name = "morph"
+
+[sub_resource type="Resource" id=95]
+script = ExtResource( 5 )
+from = "AirHold"
+to = "Morph"
+conditions = {
+"morph": SubResource( 94 )
+}
+
+[sub_resource type="Resource" id=97]
+script = ExtResource( 3 )
+name = "start_attack"
+
+[sub_resource type="Resource" id=98]
+script = ExtResource( 5 )
+from = "Dive"
+to = "Attack"
+conditions = {
+"start_attack": SubResource( 97 )
+}
+
+[sub_resource type="Resource" id=110]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=99]
+script = ExtResource( 5 )
+from = "Dive"
+to = "Dead"
+conditions = {
+"death": SubResource( 110 )
+}
+
+[sub_resource type="Resource" id=103]
+script = ExtResource( 3 )
+name = "finish_attack"
+
+[sub_resource type="Resource" id=104]
+script = ExtResource( 5 )
+from = "Attack"
+to = "AirHold"
+conditions = {
+"finish_attack": SubResource( 103 )
+}
+
+[sub_resource type="Resource" id=112]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=105]
+script = ExtResource( 5 )
+from = "Attack"
+to = "Dead"
+conditions = {
+"death": SubResource( 112 )
+}
+
+[sub_resource type="Resource" id=100]
+script = ExtResource( 3 )
+name = "dive"
+
+[sub_resource type="Resource" id=101]
+script = ExtResource( 5 )
+from = "Morph"
+to = "Dive"
+conditions = {
+"dive": SubResource( 100 )
+}
+
+[sub_resource type="Resource" id=111]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=102]
+script = ExtResource( 5 )
+from = "Morph"
+to = "Dead"
+conditions = {
+"death": SubResource( 111 )
+}
+
+[sub_resource type="Resource" id=106]
+script = ExtResource( 7 )
+name = ""
+states = {
+"AirHold": SubResource( 76 ),
+"Attack": SubResource( 78 ),
+"Dead": SubResource( 80 ),
+"Dive": SubResource( 77 ),
+"Entry": SubResource( 72 ),
+"Idle": SubResource( 73 ),
+"Jump": SubResource( 75 ),
+"Morph": SubResource( 79 )
+}
+transitions = {
+"AirHold": {
+"Dead": SubResource( 96 ),
+"Morph": SubResource( 95 )
+},
+"Attack": {
+"AirHold": SubResource( 104 ),
+"Dead": SubResource( 105 )
+},
+"Dive": {
+"Attack": SubResource( 98 ),
+"Dead": SubResource( 99 )
+},
+"Entry": {
+"Idle": SubResource( 81 )
+},
+"Idle": {
+"Dead": SubResource( 85 ),
+"Jump": SubResource( 115 )
+},
+"Jump": {
+"AirHold": SubResource( 92 ),
+"Dead": SubResource( 93 )
+},
+"Morph": {
+"Dead": SubResource( 102 ),
+"Dive": SubResource( 101 )
+}
+}
+
+[sub_resource type="CircleShape2D" id=116]
+radius = 1288.59
+
+[node name="Enemy_GaleoTrickster" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 113 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 34 )
+animation = "attack"
+frame = 2
+
+[node name="GroundHurtbox" type="CollisionShape2D" parent="."]
+position = Vector2( 7.67947, 83.2091 )
+shape = SubResource( 35 )
+
+[node name="DiveHurtbox" type="CollisionShape2D" parent="."]
+position = Vector2( 6.73466, -136.577 )
+rotation = -1.57079
+shape = SubResource( 70 )
+disabled = true
+
+[node name="AirHurtbox" type="CollisionShape2D" parent="."]
+position = Vector2( 36.0854, -83.578 )
+rotation = -1.57079
+shape = SubResource( 69 )
+disabled = true
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2( -19.0207, -127.027 )
+rotation = 1.57079
+shape = SubResource( 71 )
+
+[node name="StateMachinePlayer" type="Node" parent="."]
+script = ExtResource( 4 )
+state_machine = SubResource( 106 )
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+visible = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+position = Vector2( -6.69482, -470.866 )
+rotation = 1.57079
+shape = SubResource( 116 )
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
+[connection signal="transited" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_transited"]
+[connection signal="updated" from="StateMachinePlayer" to="." method="_on_StateMachinePlayer_updated"]
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_PlayerDetectionArea_body_entered"]

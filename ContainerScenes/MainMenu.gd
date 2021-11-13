@@ -111,14 +111,14 @@ func _process(delta):
 #	pass
 func _on_StartGame_pressed():
 	cursor.run_animation()
-	yield(get_tree().create_timer(1.0), "timeout")
-	SceneManager.change_scene('res://ContainerScenes/BaseLevel.tscn')
+	yield(get_tree().create_timer(0.5), "timeout")
+	SceneManager.change_scene('res://ContainerScenes/BaseLevel.tscn', { "pattern": "horizontal" })
 
 
 func _on_StartTutorial_pressed():
 	cursor.run_animation()
-	yield(get_tree().create_timer(1.0), "timeout")
-	SceneManager.change_scene('res://ContainerScenes/TutorialLevel.tscn')
+	yield(get_tree().create_timer(0.5), "timeout")
+	SceneManager.change_scene('res://ContainerScenes/TutorialLevel.tscn', { "pattern": "horizontal" })
 
 
 func _on_OpenSettings_pressed():

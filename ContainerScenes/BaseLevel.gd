@@ -7,6 +7,7 @@ var TilePlatform = preload('res://Entities/TilePlatform.tscn')
 var TwitchBone = preload('res://Entities/Enemy_TwitchBone.tscn')
 var FleshStump = preload('res://Entities/Enemy_FleshStump.tscn')
 var TreapanoGargoyle = preload('res://Entities/Enemy_TreapanoGargoyle.tscn')
+var GaleoTrickster = preload('res://Entities/Enemy_GaleoTrickster.tscn')
 var Lightning = preload('res://Entities/Lightning.tscn')
 onready var camera = $Player/Camera2D
 onready var last_camera_position = camera.get_camera_screen_center()
@@ -26,7 +27,7 @@ var biomes = {
 	"normal":
 	{
 		"color": Color.white,
-		"monsters": [TwitchBone],
+		"monsters": [GaleoTrickster],
 		"spawn_area": [Vector2(900, -50), Vector2(1200, 50)],
 		"platform_params":
 		[
@@ -54,7 +55,7 @@ var biomes = {
 	"falling":
 	{
 		"color": Color.lightpink,
-		"monsters": [FleshStump, TreapanoGargoyle],
+		"monsters": [GaleoTrickster],
 		"spawn_area": [Vector2(1100, 100), Vector2(1400, 200)],
 		"platform_params":
 		[
@@ -82,7 +83,7 @@ var biomes = {
 	"rising":
 	{
 		"color": Color.lightblue,
-		"monsters": [TwitchBone, FleshStump],
+		"monsters": [GaleoTrickster],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
 		"platform_params":
 		[
@@ -110,7 +111,7 @@ var biomes = {
 	"bad_boy":
 	{
 		"color": Color(0.3, 0.3, 0.3, 1),
-		"monsters": [TreapanoGargoyle],
+		"monsters": [GaleoTrickster],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
 		"platform_params":
 		[
@@ -412,6 +413,7 @@ func process_instability_effects():
 					)
 				add_child(lightning)
 
+
 export (int) var fade_in_time = 15
 export (int) var fade_out_time = 15
 
@@ -426,7 +428,14 @@ func change_music(music):
 func fade_out(music):
 	var tween = Tween.new()
 	self.add_child(tween)
-	tween.interpolate_property(music, "volume_db", Globals.bgm_volume, Globals.bgm_volume - 80, fade_out_time, Tween.TRANS_CIRC, Tween.EASE_OUT_IN, 0)
+	tween.interpolate_property(music, 
+							   "volume_db", 
+							   Globals.bgm_volume, 
+							   Globals.bgm_volume - 80, 
+							   fade_out_time, 
+							   Tween.TRANS_CIRC, 
+							   Tween.EASE_OUT_IN, 
+							   0)
 	tween.connect("tween_completed", self, "_on_TweenOut_tween_completed")
 	tween.start()
 
@@ -434,12 +443,21 @@ func fade_in(music):
 	var tween = Tween.new()
 	self.add_child(tween)
 	music.play()
-	tween.interpolate_property(music, "volume_db", Globals.bgm_volume - 80, Globals.bgm_volume, fade_in_time, Tween.TRANS_EXPO, Tween.EASE_OUT, 0)
+	tween.interpolate_property(music, 
+							   "volume_db", 
+							   Globals.bgm_volume - 80, 
+							   Globals.bgm_volume, 
+							   fade_in_time, 
+							   Tween.TRANS_EXPO, 
+							   Tween.EASE_OUT, 
+							   0)
 	tween.connect("tween_completed", self, "_on_TweenIn_tween_completed")
 	tween.start()
 
+
 func _on_TweenIn_tween_completed(object, key):
 	print("tween completed")
+
 
 func _on_TweenOut_tween_completed(object, key):
 	object.stop()
