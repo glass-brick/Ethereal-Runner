@@ -288,7 +288,7 @@ func _on_platform_stepped(path_id, platform_number):
 
 		var random_number = randf()
 		if true or random_number < change_music_prob:
-			if Globals.instability_level > 2:
+			if Globals.instability_level > 3:
 				change_music($Music/Inferno)
 			else:
 				var poss_songs = [$Music/Vals, $Music/NuevoMundo]
