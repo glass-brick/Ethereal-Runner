@@ -175,8 +175,9 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 					continue
 				var name = json[i].get('name', '')
 				var points = json[i].get('points', '')
+				var time = json[i].get('time', '')
 				var score_path = "LeaderboardList/Container/Pos{}".format([i], "{}")
-				scores_menu.get_node(score_path).set_entry(int(i) + 1, points, name)
+				scores_menu.get_node(score_path).set_entry(int(i) + 1, points, name, time)
 
 	else:
 		scores_menu.get_node('ErrorMsg').visible = true

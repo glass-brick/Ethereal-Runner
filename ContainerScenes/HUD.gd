@@ -133,7 +133,11 @@ func player_is_dead():
 
 func _on_Submit_pressed():
 	Globals.player_name = pre_submit_menu.get_node('NameInput').text
-	var body = to_json({"name": Globals.player_name, "points": score})
+	var body = to_json({
+		"name": Globals.player_name,
+		"points": self.score,
+		"time": self.time_passed
+	})
 	var error = $HTTPRequest.request(
 		"{path}/submit_score".format({"path": Globals.leaderboards_server}),
 		["Content-Type: application/json", "User-Agent: EtherealRunner/1.0"],
