@@ -59,10 +59,7 @@ func _on_StateMachinePlayer_transited(_from, to):
 		"Dive":
 			set_hurtbox(dive_hurtbox)
 			$AnimatedSprite.play("dive")
-			var direction_vector = (
-				SceneManager.get_entity('Player').global_position
-				- global_position
-			).normalized()
+			var direction_vector = (SceneManager.get_entity('Player').global_position - global_position).normalized()
 			velocity = direction_vector * 1000
 		"Attack":
 			$AnimatedSprite.play("attack")
@@ -91,10 +88,7 @@ func _on_StateMachinePlayer_updated(state, delta):
 		"Morph":
 			look_at(SceneManager.get_entity('Player').global_position)
 			rotation_degrees += 180
-			var direction_vector = (
-				SceneManager.get_entity('Player').global_position
-				- global_position
-			).normalized()
+			var direction_vector = (SceneManager.get_entity('Player').global_position - global_position).normalized()
 			var should_flip = flipped != (direction_vector.x > 0)
 			if should_flip:
 				flipped = not flipped
@@ -124,6 +118,31 @@ func _on_hit(damage, damager):
 		damager.gain_points(self.points)
 		AchievementManager.progress_achievement("50_kills", 1)
 	set_health(health - damage)
+	add_trauma(5)
+
+
+var trauma = 0
+var trauma_power = 2  # Trauma exponent. Use [2, 3].
+var decay = 0.5  # How quickly the shaking stops [0, 1].
+var max_offset = Vector2(100, 75)  # Maximum hor/ver shake in pixels.
+var max_roll = 0.1  # Maximum rotation in radians (use sparingly).
+
+
+func add_trauma(amount):
+	trauma = min(trauma + amount, 1.0)
+
+
+func _process(delta):
+	if trauma:
+		trauma = max(trauma - decay * delta, 0)
+		shake()
+
+
+func shake():
+	var amount = pow(trauma, trauma_power)
+	$AnimatedSprite.rotation = max_roll * amount * rand_range(-1, 1)
+	$AnimatedSprite.position.x = max_offset.x * amount * rand_range(-1, 1)
+	$AnimatedSprite.position.y = max_offset.y * amount * rand_range(-1, 1)
 
 
 func kill():
