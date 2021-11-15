@@ -10,6 +10,7 @@ func _ready():
 	$Wind.play()
 	yield(SceneManager, 'scene_loaded')
 	SceneManager.get_entity('Player').global_position = Globals.player_respawn_position
+	SceneManager.get_entity('Player').mana_gather_factor = Globals.player_respawn_gather_factor
 
 
 var current_dialog
@@ -35,17 +36,18 @@ func _on_dialogue_end(_timeline_file_name):
 	current_dialog = null
 	get_tree().paused = false
 	if current_timeline == "Objective":
-		Globals.tutorial_finished = true
 		Globals.player_respawn_position = Vector2(0, 0)
 		Globals.save_game()
 		SceneManager.change_scene(
 			'res://ContainerScenes/MainMenu.tscn',
-			{"pattern_enter": "circle_inverted", "pattern_leave": "circle", }
+			{
+				"pattern_enter": "circle_inverted",
+				"pattern_leave": "circle",
+			}
 		)
 	elif current_timeline == "Magic":
 		SceneManager.get_entity("Player").mana_gather_factor = 10
-	elif current_timeline == "Attack":
-		SceneManager.get_entity("Player").mana += 0
+		Globals.player_respawn_gather_factor = 10
 	current_timeline = null
 
 

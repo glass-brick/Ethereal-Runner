@@ -26,6 +26,46 @@ region = Rect2( 0, 0, 124, 142 )
 atlas = ExtResource( 1 )
 region = Rect2( 124, 0, 124, 142 )
 
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 1 )
+region = Rect2( 496, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 1 )
+region = Rect2( 620, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 1 )
+region = Rect2( 744, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 1 )
+region = Rect2( 868, 142, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 1 )
+region = Rect2( 868, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 1 )
+region = Rect2( 992, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 1 )
+region = Rect2( 1116, 284, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 426, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 124, 426, 124, 142 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 1 )
+region = Rect2( 248, 426, 124, 142 )
+
 [sub_resource type="AtlasTexture" id=49]
 atlas = ExtResource( 1 )
 region = Rect2( 248, 0, 124, 142 )
@@ -74,30 +114,6 @@ region = Rect2( 248, 142, 124, 142 )
 atlas = ExtResource( 1 )
 region = Rect2( 372, 142, 124, 142 )
 
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 1 )
-region = Rect2( 868, 284, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 1 )
-region = Rect2( 992, 284, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 1 )
-region = Rect2( 1116, 284, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 426, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 1 )
-region = Rect2( 124, 426, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 1 )
-region = Rect2( 248, 426, 124, 142 )
-
 [sub_resource type="AtlasTexture" id=52]
 atlas = ExtResource( 1 )
 region = Rect2( 372, 284, 124, 142 )
@@ -113,22 +129,6 @@ region = Rect2( 620, 284, 124, 142 )
 [sub_resource type="AtlasTexture" id=55]
 atlas = ExtResource( 1 )
 region = Rect2( 744, 284, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 1 )
-region = Rect2( 496, 142, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 1 )
-region = Rect2( 620, 142, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 1 )
-region = Rect2( 744, 142, 124, 142 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 1 )
-region = Rect2( 868, 142, 124, 142 )
 
 [sub_resource type="AtlasTexture" id=42]
 atlas = ExtResource( 1 )
@@ -157,6 +157,16 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
+"loop": true,
+"name": "air_hold",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
+"loop": false,
+"name": "attack",
+"speed": 10.0
+}, {
 "frames": [ SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
 "loop": true,
 "name": "run",
@@ -167,19 +177,9 @@ animations = [ {
 "name": "jump",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
-"loop": false,
-"name": "attack",
-"speed": 10.0
-}, {
 "frames": [ SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ) ],
 "loop": true,
 "name": "dive",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
-"loop": true,
-"name": "hold_air",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
@@ -203,6 +203,34 @@ height = 170.791
 radius = 156.647
 height = 205.178
 
+[sub_resource type="Resource" id=76]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 725, -140 )
+}
+name = "AirHold"
+
+[sub_resource type="Resource" id=78]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 968, -140 )
+}
+name = "Attack"
+
+[sub_resource type="Resource" id=80]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 608, 220 )
+}
+name = "Dead"
+
+[sub_resource type="Resource" id=77]
+script = ExtResource( 6 )
+__meta__ = {
+"graph_offset": Vector2( 968, 60 )
+}
+name = "Dive"
+
 [sub_resource type="Resource" id=72]
 script = ExtResource( 6 )
 __meta__ = {
@@ -224,40 +252,84 @@ __meta__ = {
 }
 name = "Jump"
 
-[sub_resource type="Resource" id=76]
-script = ExtResource( 6 )
-__meta__ = {
-"graph_offset": Vector2( 725, -140 )
-}
-name = "AirHold"
-
-[sub_resource type="Resource" id=77]
-script = ExtResource( 6 )
-__meta__ = {
-"graph_offset": Vector2( 968, 60 )
-}
-name = "Dive"
-
-[sub_resource type="Resource" id=78]
-script = ExtResource( 6 )
-__meta__ = {
-"graph_offset": Vector2( 968, -140 )
-}
-name = "Attack"
-
-[sub_resource type="Resource" id=80]
-script = ExtResource( 6 )
-__meta__ = {
-"graph_offset": Vector2( 608, 220 )
-}
-name = "Dead"
-
 [sub_resource type="Resource" id=79]
 script = ExtResource( 6 )
 __meta__ = {
 "graph_offset": Vector2( 956.5, 180 )
 }
 name = "Morph"
+
+[sub_resource type="Resource" id=109]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=96]
+script = ExtResource( 5 )
+from = "AirHold"
+to = "Dead"
+conditions = {
+"death": SubResource( 109 )
+}
+
+[sub_resource type="Resource" id=94]
+script = ExtResource( 3 )
+name = "morph"
+
+[sub_resource type="Resource" id=95]
+script = ExtResource( 5 )
+from = "AirHold"
+to = "Morph"
+conditions = {
+"morph": SubResource( 94 )
+}
+
+[sub_resource type="Resource" id=103]
+script = ExtResource( 3 )
+name = "finish_attack"
+
+[sub_resource type="Resource" id=104]
+script = ExtResource( 5 )
+from = "Attack"
+to = "AirHold"
+conditions = {
+"finish_attack": SubResource( 103 )
+}
+
+[sub_resource type="Resource" id=112]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=105]
+script = ExtResource( 5 )
+from = "Attack"
+to = "Dead"
+conditions = {
+"death": SubResource( 112 )
+}
+
+[sub_resource type="Resource" id=97]
+script = ExtResource( 3 )
+name = "start_attack"
+
+[sub_resource type="Resource" id=98]
+script = ExtResource( 5 )
+from = "Dive"
+to = "Attack"
+conditions = {
+"start_attack": SubResource( 97 )
+}
+
+[sub_resource type="Resource" id=110]
+script = ExtResource( 3 )
+name = "death"
+
+[sub_resource type="Resource" id=99]
+script = ExtResource( 5 )
+from = "Dive"
+to = "Dead"
+conditions = {
+"death": SubResource( 110 )
+}
 
 [sub_resource type="Resource" id=81]
 script = ExtResource( 5 )
@@ -314,76 +386,16 @@ conditions = {
 "death": SubResource( 108 )
 }
 
-[sub_resource type="Resource" id=109]
+[sub_resource type="Resource" id=111]
 script = ExtResource( 3 )
 name = "death"
 
-[sub_resource type="Resource" id=96]
+[sub_resource type="Resource" id=102]
 script = ExtResource( 5 )
-from = "AirHold"
+from = "Morph"
 to = "Dead"
 conditions = {
-"death": SubResource( 109 )
-}
-
-[sub_resource type="Resource" id=94]
-script = ExtResource( 3 )
-name = "morph"
-
-[sub_resource type="Resource" id=95]
-script = ExtResource( 5 )
-from = "AirHold"
-to = "Morph"
-conditions = {
-"morph": SubResource( 94 )
-}
-
-[sub_resource type="Resource" id=97]
-script = ExtResource( 3 )
-name = "start_attack"
-
-[sub_resource type="Resource" id=98]
-script = ExtResource( 5 )
-from = "Dive"
-to = "Attack"
-conditions = {
-"start_attack": SubResource( 97 )
-}
-
-[sub_resource type="Resource" id=110]
-script = ExtResource( 3 )
-name = "death"
-
-[sub_resource type="Resource" id=99]
-script = ExtResource( 5 )
-from = "Dive"
-to = "Dead"
-conditions = {
-"death": SubResource( 110 )
-}
-
-[sub_resource type="Resource" id=103]
-script = ExtResource( 3 )
-name = "finish_attack"
-
-[sub_resource type="Resource" id=104]
-script = ExtResource( 5 )
-from = "Attack"
-to = "AirHold"
-conditions = {
-"finish_attack": SubResource( 103 )
-}
-
-[sub_resource type="Resource" id=112]
-script = ExtResource( 3 )
-name = "death"
-
-[sub_resource type="Resource" id=105]
-script = ExtResource( 5 )
-from = "Attack"
-to = "Dead"
-conditions = {
-"death": SubResource( 112 )
+"death": SubResource( 111 )
 }
 
 [sub_resource type="Resource" id=100]
@@ -396,18 +408,6 @@ from = "Morph"
 to = "Dive"
 conditions = {
 "dive": SubResource( 100 )
-}
-
-[sub_resource type="Resource" id=111]
-script = ExtResource( 3 )
-name = "death"
-
-[sub_resource type="Resource" id=102]
-script = ExtResource( 5 )
-from = "Morph"
-to = "Dead"
-conditions = {
-"death": SubResource( 111 )
 }
 
 [sub_resource type="Resource" id=106]
@@ -465,8 +465,7 @@ script = ExtResource( 2 )
 material = SubResource( 113 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 34 )
-animation = "attack"
-frame = 2
+animation = "air_hold"
 
 [node name="GroundHurtbox" type="CollisionShape2D" parent="."]
 position = Vector2( 7.67947, 83.2091 )

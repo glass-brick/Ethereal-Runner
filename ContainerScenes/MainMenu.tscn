@@ -147,7 +147,6 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="HBoxContainer" parent="MarginContainer"]
-visible = false
 margin_left = 85.0
 margin_top = 200.0
 margin_right = 1195.0
@@ -422,6 +421,7 @@ mouse_filter = 2
 text = "Go back"
 
 [node name="AchievementsMenu" type="VBoxContainer" parent="MarginContainer"]
+visible = false
 margin_left = 85.0
 margin_top = 200.0
 margin_right = 1195.0
@@ -496,7 +496,6 @@ __meta__ = {
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
-bus = "Music"
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/Options/StartGame" to="." method="_on_StartGame_pressed"]

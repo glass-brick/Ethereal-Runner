@@ -7,7 +7,7 @@ var max_instability_level = 10
 var high_score = 0
 var high_time = 0
 var player_respawn_position = Vector2(0, 0)
-var tutorial_finished = false
+var player_respawn_gather_factor = 0
 var player_name = ""
 var leaderboards_server = "https://ethereal-runner-server.gggelo.repl.co"
 var bgm_volume = 0
@@ -54,7 +54,6 @@ func save_game():
 			{
 				"highscore": high_score,
 				"hightime": high_time,
-				"tutorial_finished": tutorial_finished,
 				"keybindings": serialize_keybindings(),
 				"bgm_volume": bgm_volume,
 				"se_volume": se_volume,
@@ -75,5 +74,3 @@ func load_game():
 	bgm_volume = data["bgm_volume"] if data.has("bgm_volume") else 0
 	se_volume = data["se_volume"] if data.has("se_volume") else 0
 	apply_serialized_keybindings(data["keybindings"] if data.has("keybindings") else {})
-	if data.has("tutorial_finished"):
-		tutorial_finished = data["tutorial_finished"]
