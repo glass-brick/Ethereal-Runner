@@ -1,8 +1,6 @@
 extends Control
 
 export (PackedScene) var cursor_scene = null
-export (int) var max_volume = 0
-export (int) var min_volume = -20
 var path = []
 
 var leaderboard_entry = load("res://Utilities/LeaderboardEntry.tscn")
@@ -33,10 +31,9 @@ var scroll_direction = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$MainMenuMusic.play()
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('SoundEffects'), Globals.se_volume)
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), Globals.bgm_volume)
-	sfx_volume.set_value(Globals.se_volume + 80)
-	bgm_volume.set_value(Globals.bgm_volume + 80)
+	print(Globals.bgm_volume)
+	setup_volume_slider(sfx_volume, Globals.se_volume)
+	setup_volume_slider(bgm_volume, Globals.bgm_volume)
 	open_menu(main_menu)
 	add_child(cursor)
 	$HTTPRequest.request(
@@ -51,6 +48,11 @@ func _ready():
 	)
 	update_achievements_page()
 
+func setup_volume_slider(slider, initial_volume):
+	slider.min_value = Globals.min_volume
+	slider.max_value = Globals.max_volume
+	slider.step = (slider.max_value - slider.min_value) / 10
+	slider.value = initial_volume
 
 var focused_element = null
 
@@ -129,23 +131,12 @@ func _on_Achievements_pressed():
 	open_menu(achievements_menu)
 
 
-func get_volume_from_slider(value: float) -> float:
-	# this assumes that value goes between 0 and 100
-	return min_volume + value * (max_volume - min_volume) / 100.0
-
-
-func _on_SFXVolume_value_changed(value: float):
-	var vol = get_volume_from_slider(value)
+func _on_SFXVolume_value_changed(vol: float):
 	Globals.se_volume = vol
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('SoundEffects'), vol)
-	Globals.save_game()
 
 
-func _on_BGMVolume_value_changed(value: float):
-	var vol = get_volume_from_slider(value)
+func _on_BGMVolume_value_changed(vol: float):
 	Globals.bgm_volume = vol
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), vol)
-	Globals.save_game()
 
 
 func _on_OpenControlRemapping_pressed():

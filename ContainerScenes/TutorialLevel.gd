@@ -37,7 +37,6 @@ func _on_dialogue_end(_timeline_file_name):
 	get_tree().paused = false
 	if current_timeline == "Objective":
 		Globals.player_respawn_position = Vector2(0, 0)
-		Globals.save_game()
 		SceneManager.change_scene(
 			'res://ContainerScenes/MainMenu.tscn',
 			{
