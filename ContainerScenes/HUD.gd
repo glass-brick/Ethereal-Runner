@@ -133,6 +133,7 @@ func player_is_dead():
 
 func _on_Submit_pressed():
 	Globals.player_name = pre_submit_menu.get_node('NameInput').text
+	Globals.save_settings()
 	var body = to_json({
 		"name": Globals.player_name,
 		"points": self.score,

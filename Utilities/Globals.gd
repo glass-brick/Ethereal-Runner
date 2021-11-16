@@ -69,6 +69,7 @@ func set_bgm_volume(value: float):
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), true)
 	else:
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
+	save_settings()
 
 func set_se_volume(value: float):
 	se_volume = value
@@ -77,6 +78,7 @@ func set_se_volume(value: float):
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("SoundEffects"), true)
 	else:
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("SoundEffects"), false)
+	save_settings()
 
 
 func load_settings():

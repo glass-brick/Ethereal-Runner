@@ -50,6 +50,7 @@ func finish_key_change():
 	else:
 		secondary_key.grab_focus()
 	selected_key_idx = null
+	Globals.save_settings()
 
 
 func _input(event):
