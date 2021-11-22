@@ -217,3 +217,5 @@ func _on_PrevPage_pressed():
 	if not is_instance_valid(get_focus_owner()):
 		achievements_next_button.grab_focus()
 
+func _on_MuteMusic_toggled(button_pressed):
+	Globals.mute_music(button_pressed)

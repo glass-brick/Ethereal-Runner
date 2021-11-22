@@ -15,6 +15,7 @@ var bgm_volume = 0 setget set_bgm_volume
 var se_volume = 0 setget set_se_volume
 var max_volume = 0
 var min_volume = -20
+var music_is_muted = false setget mute_music
 
 
 func serialize_keybindings():
@@ -58,6 +59,7 @@ func save_settings():
 				"bgm_volume": bgm_volume,
 				"se_volume": se_volume,
 				"player_name": player_name,
+				"music_is_muted": music_is_muted
 			}
 		)
 	)
@@ -65,10 +67,6 @@ func save_settings():
 func set_bgm_volume(value: float):
 	bgm_volume = value
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Music'), Globals.bgm_volume)
-	if value <= min_volume:
-		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), true)
-	else:
-		AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
 	save_settings()
 
 func set_se_volume(value: float):
@@ -78,6 +76,11 @@ func set_se_volume(value: float):
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("SoundEffects"), true)
 	else:
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("SoundEffects"), false)
+	save_settings()
+
+func mute_music(value: bool):
+	music_is_muted = value
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), value)
 	save_settings()
 
 
