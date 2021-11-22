@@ -110,7 +110,7 @@ var biomes = {
 	},
 	"bad_boy":
 	{
-		"color": Color(0.3, 0.3, 0.3, 1),
+		"color": Color(0.3, 0.3, 0.6, 1),
 		"monsters": [GaleoTrickster],
 		"spawn_area": [Vector2(800, -100), Vector2(1100, -200)],
 		"platform_params":
