@@ -72,10 +72,11 @@ func stop_shield_overloading():
 
 func update_mana(mana):
 	var bars = $HPMPControl/ManaBars.get_children()
-	var n_bars_complete = min(3, floor(mana * 4))
+	var n_bars_complete = floor(mana * 4)
 	for i in range(n_bars_complete):
 		bars[i].value = bars[i].max_value
-		bars[i].modulate.v = 0.2 + abs(cos(time_passed)) * 8 / 7
+		var modifier = 2 if (n_bars_complete == 4) else 1
+		bars[i].modulate.v = 0.2 + abs(cos(time_passed * modifier)) * 8 / 7
 		bars[i].visible = true
 	if n_bars_complete < 4:
 		bars[n_bars_complete].visible = true
