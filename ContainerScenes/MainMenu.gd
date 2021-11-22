@@ -19,6 +19,7 @@ onready var menus = [main_menu, settings_menu, controls_menu, achievements_menu]
 onready var cursor_align_menus = [main_menu_options, achievements_menu_options]
 onready var sfx_volume = $MarginContainer/SettingsMenu/SFXVolume/SFXVolume
 onready var bgm_volume = $MarginContainer/SettingsMenu/BGMVolume/BGMVolume
+onready var master_volume = $MarginContainer/SettingsMenu/MasterVolume/MasterVolume
 
 onready var achievements = AchievementManager.get_all_achievements().values()
 var current_achievement_page = 0
@@ -34,6 +35,7 @@ func _ready():
 	print(Globals.bgm_volume)
 	setup_volume_slider(sfx_volume, Globals.se_volume)
 	setup_volume_slider(bgm_volume, Globals.bgm_volume)
+	setup_volume_slider(master_volume, Globals.master_volume)
 	open_menu(main_menu)
 	add_child(cursor)
 	$HTTPRequest.request(
@@ -219,3 +221,7 @@ func _on_PrevPage_pressed():
 
 func _on_MuteMusic_toggled(button_pressed):
 	Globals.mute_music(button_pressed)
+
+
+func _on_MasterVolume_value_changed(value:float):
+	Globals.master_volume = value

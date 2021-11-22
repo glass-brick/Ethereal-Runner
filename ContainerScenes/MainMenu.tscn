@@ -312,9 +312,29 @@ margin_right = 1195.0
 margin_bottom = 720.0
 custom_constants/separation = 30
 
-[node name="SFXVolume" type="HSplitContainer" parent="MarginContainer/SettingsMenu"]
+[node name="MasterVolume" type="HSplitContainer" parent="MarginContainer/SettingsMenu"]
 margin_right = 1110.0
 margin_bottom = 52.0
+custom_constants/separation = 50
+
+[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/MasterVolume"]
+margin_right = 273.0
+margin_bottom = 52.0
+text = "Master Volume"
+
+[node name="MasterVolume" type="HSlider" parent="MarginContainer/SettingsMenu/MasterVolume"]
+margin_left = 323.0
+margin_right = 1110.0
+margin_bottom = 52.0
+mouse_filter = 2
+size_flags_vertical = 1
+step = 10.0
+value = 50.0
+
+[node name="SFXVolume" type="HSplitContainer" parent="MarginContainer/SettingsMenu"]
+margin_top = 82.0
+margin_right = 1110.0
+margin_bottom = 134.0
 custom_constants/separation = 50
 
 [node name="Label" type="Label" parent="MarginContainer/SettingsMenu/SFXVolume"]
@@ -332,9 +352,9 @@ step = 10.0
 value = 50.0
 
 [node name="MuteMusic" type="HBoxContainer" parent="MarginContainer/SettingsMenu"]
-margin_top = 82.0
+margin_top = 164.0
 margin_right = 1110.0
-margin_bottom = 134.0
+margin_bottom = 216.0
 custom_constants/separation = 50
 
 [node name="Label" type="Label" parent="MarginContainer/SettingsMenu/MuteMusic"]
@@ -348,9 +368,9 @@ margin_right = 579.0
 margin_bottom = 52.0
 
 [node name="BGMVolume" type="HSplitContainer" parent="MarginContainer/SettingsMenu"]
-margin_top = 164.0
+margin_top = 246.0
 margin_right = 1110.0
-margin_bottom = 216.0
+margin_bottom = 298.0
 custom_constants/separation = 50
 
 [node name="Label" type="Label" parent="MarginContainer/SettingsMenu/BGMVolume"]
@@ -368,9 +388,9 @@ step = 10.0
 value = 50.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SettingsMenu"]
-margin_top = 246.0
+margin_top = 328.0
 margin_right = 1110.0
-margin_bottom = 298.0
+margin_bottom = 380.0
 custom_constants/separation = 40
 
 [node name="OpenControlRemapping" type="Button" parent="MarginContainer/SettingsMenu/HBoxContainer"]
@@ -519,6 +539,7 @@ bus = "Music"
 [connection signal="pressed" from="MarginContainer/MainMenu/Options/StartTutorial" to="." method="_on_StartTutorial_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/Options/OpenSettings" to="." method="_on_OpenSettings_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/Options/Achievements" to="." method="_on_Achievements_pressed"]
+[connection signal="value_changed" from="MarginContainer/SettingsMenu/MasterVolume/MasterVolume" to="." method="_on_MasterVolume_value_changed"]
 [connection signal="value_changed" from="MarginContainer/SettingsMenu/SFXVolume/SFXVolume" to="." method="_on_SFXVolume_value_changed"]
 [connection signal="toggled" from="MarginContainer/SettingsMenu/MuteMusic/MuteMusic2" to="." method="_on_MuteMusic_toggled"]
 [connection signal="value_changed" from="MarginContainer/SettingsMenu/BGMVolume/BGMVolume" to="." method="_on_BGMVolume_value_changed"]

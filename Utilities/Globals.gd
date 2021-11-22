@@ -13,6 +13,7 @@ var leaderboards_server = "https://ethereal-runner-server.gggelo.repl.co"
 
 var bgm_volume = 0 setget set_bgm_volume
 var se_volume = 0 setget set_se_volume
+var master_volume = 0 setget set_master_volume
 var max_volume = 0
 var min_volume = -20
 var music_is_muted = false setget mute_music
@@ -58,6 +59,7 @@ func save_settings():
 				"keybindings": serialize_keybindings(),
 				"bgm_volume": bgm_volume,
 				"se_volume": se_volume,
+				"master_volume": master_volume,
 				"player_name": player_name,
 				"music_is_muted": music_is_muted
 			}
@@ -78,6 +80,17 @@ func set_se_volume(value: float):
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("SoundEffects"), false)
 	save_settings()
 
+func set_master_volume(value: float):
+	master_volume = value
+	print("setting master volume to {}".format(value))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index('Master'), Globals.master_volume)
+	if value <= min_volume:
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), true)
+	else:
+		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), false)
+	save_settings()
+
+
 func mute_music(value: bool):
 	music_is_muted = value
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), value)
@@ -92,6 +105,8 @@ func load_settings():
 	var data = parse_json(file.get_line())
 	set_bgm_volume(data["bgm_volume"] if data.has("bgm_volume") else 0)
 	set_se_volume(data["se_volume"] if data.has("se_volume") else 0)
+	mute_music(data["music_is_muted"] if data.has("music_is_muted") else false)
+	set_master_volume(data["master_volume"] if data.has("master_volume") else 0)
 	apply_serialized_keybindings(data["keybindings"] if data.has("keybindings") else {})
 	player_name = data["player_name"] if data.has("player_name") else ""
 
