@@ -2,64 +2,131 @@
   "four_monsters_one_explosion": {
     "name": "That's gonna hurt in the morning",
     "description": "Kill 4 monsters with one explosion",
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   },
   "death": {
     "name": "Eternal suffering",
     "description": "Die 10 times",
     "goal": 10,
-    "current_progress": 0,
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   },
   "max_mana_30_secs": {
     "name": "Gotta go fast",
     "description": "Maintain the maximum Magic level for 30 seconds without losing Health",
     "time_required": 30,
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   },
   "3k_points_no_explosions": {
     "name": "Pacifist",
     "description": "Earn 3000 points without using an explosion",
     "points_required": 3000,
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   },
   "50_kills": {
     "name": "Doom Slayer",
     "description": "Kill 50 monsters",
     "goal": 50,
-    "current_progress": 0,
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   },
   "damage_on_shield": {
     "name": "Ethereal Armor",
     "description": "Absorb X damage on shield",
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   },
   "5k_points": {
     "name": "No end in sight...",
     "description": "Score 5,000 points in a single run",
     "points_required": 5000,
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   },
   "10k_points": {
     "name": "Does this suffering ever end?",
     "description": "Score 10,000 points in a single run",
     "points_required": 10000,
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   },
   "15k_points": {
     "name": "No, it doesn't.",
     "description": "Score 15,000 points in a single run",
     "points_required": 15000,
-    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png",
-    "achieved": false
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "5_lightnings": {
+    "name": "1/50th Powerball winner",
+    "description": "Get struck by lightning 5 times in a single game",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "50_platforms_in_a_row": {
+    "name": "No rock left unturned!",
+    "description": "Touch 50 platforms in a row without skipping",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "galeonado": {
+    "name": "Galeonado",
+    "description": "Get 5 GaleoTricksters to chase you at the same time",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "69_kills": {
+    "name": "nice",
+    "description": "Kill 69 monsters",
+    "goal": 69,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "420_kills": {
+    "name": "Blaze 'em",
+    "description": "Kill 420 monsters",
+    "goal": 420,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "666_kills": {
+    "name": "The Killer of the Beast",
+    "description": "Kill 666 monsters",
+    "goal": 666,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "shield_overload": {
+    "name": "You go boom",
+    "description": "Get your shield overload bar to the max!",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "skip_5_platforms": {
+    "name": "I have to find the whales",
+    "description": "Skip 5 platforms in a row",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "100_deaths": {
+    "name": "Hammer-smashed face",
+    "description": "Die 100 times",
+    "goal": 100,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "finish_tutorial": {
+    "name": "Mandatory suicide",
+    "description": "Finish the tutorial",
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "3k_points_no_shield": {
+    "name": "A lesson in violence",
+    "description": "Earn 3000 points without using the shield",
+    "points_required": 3000,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "5k_points_no_dash": {
+    "name": "Ethereal walker",
+    "description": "Earn 5,000 points without using the dash",
+    "points_required": 5000,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "5k_points_no_max_magic": {
+    "name": "Doomy and Steady",
+    "description": "Earn 5,000 points without getting to the maximum magic level",
+    "points_required": 5000,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
+  },
+  "fleshstump_5_fall": {
+    "name": "So long, crab rave...",
+    "description": "Get 5 Fleshstumps to throw themselves off a platform",
+    "goal": 5,
+    "icon_path": "res://addons/gd-achievements/resources/icons/achievement_test.png"
   }
 }

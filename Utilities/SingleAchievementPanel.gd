@@ -7,6 +7,7 @@ onready var focus_theme = get('custom_styles/panel').duplicate()
 
 func _ready():
 	focus_theme.bg_color = focus_color
+	_on_focus_exited()
 
 
 func set_achievement(achievement):
@@ -15,17 +16,20 @@ func set_achievement(achievement):
 		if achievement["achieved"]
 		else null
 	)
-	$HBoxContainer/VBoxContainer/Title.text = (
+	$HBoxContainer/VBoxContainer/ScrollContainer/Title.text = (
 		achievement["name"]
 		if achievement["achieved"]
 		else "?????"
 	)
-	$HBoxContainer/VBoxContainer/Description.text = achievement["description"]
+	$HBoxContainer/VBoxContainer/ScrollContainer2/Description.text = achievement["description"]
 
 
 func _on_focus_exited():
+	$HBoxContainer/VBoxContainer.autoscroll_active = false
+	$HBoxContainer/VBoxContainer.reset_scroll()
 	set('custom_styles/panel', default_theme)
 
 
 func _on_focus_entered():
+	$HBoxContainer/VBoxContainer.autoscroll_active = true
 	set('custom_styles/panel', focus_theme)

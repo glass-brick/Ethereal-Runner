@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://Utilities/AutoscrollContainer.gd" type="Script" id=1]
 [ext_resource path="res://Assets/fonts/cmu-typewriter/Typewriter/cmuntt.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/theme.tres" type="Theme" id=3]
 [ext_resource path="res://Utilities/SingleAchievementPanel.gd" type="Script" id=4]
 
 [sub_resource type="StyleBoxFlat" id=5]
@@ -27,6 +29,7 @@ margin_right = 545.0
 margin_bottom = 150.0
 focus_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource( 3 )
 custom_styles/panel = SubResource( 5 )
 script = ExtResource( 4 )
 __meta__ = {
@@ -51,29 +54,56 @@ size_flags_vertical = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 120.0
-margin_top = 13.0
+margin_top = 3.0
 margin_right = 505.0
-margin_bottom = 97.0
+margin_bottom = 107.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+autoscroll_active = true
+scroll_speed = 0.3
+hold_time = 100
 
-[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
 margin_right = 385.0
-margin_bottom = 46.0
-custom_fonts/font = SubResource( 2 )
-text = "Achievement writer"
-autowrap = true
+margin_bottom = 50.0
+rect_min_size = Vector2( 380, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_vertical_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_top = 50.0
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer"]
+margin_right = 551.0
+margin_bottom = 46.0
+custom_fonts/font = SubResource( 2 )
+text = "Achievement writer long title"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 54.0
 margin_right = 385.0
-margin_bottom = 84.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 380, 50 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/ScrollContainer2"]
+margin_right = 742.0
+margin_bottom = 34.0
 custom_fonts/font = SubResource( 3 )
-text = "Write ten achievements"
-autowrap = true
+text = "Write ten achievements with a really long description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
